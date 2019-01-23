@@ -1,10 +1,15 @@
 package fr.mb.volontario.dao.impl;
 
+import fr.mb.volontario.dao.contract.MissionCustomDao;
 import fr.mb.volontario.dao.contract.MissionDAO;
 import fr.mb.volontario.model.bean.Mission;
+import org.springframework.stereotype.Repository;
 
-public class MissionDaoImpl extends AbstractDaoImpl<Mission> implements MissionDAO {
-    public MissionDaoImpl(Class<Mission> entityClass) {
-        super(entityClass);
-    }
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@Repository
+public class MissionDaoImpl implements MissionCustomDao {
+    @PersistenceContext
+    EntityManager entityManager;
 }

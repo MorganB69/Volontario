@@ -1,11 +1,22 @@
 package fr.mb.volontario.dao.impl;
 
-import fr.mb.volontario.dao.contract.AssociationDAO;
+import fr.mb.volontario.dao.contract.AssociationCustomDAO;
 import fr.mb.volontario.model.bean.Association;
 
-public class AssociationDaoImpl extends AbstractDaoImpl<Association> implements AssociationDAO {
+import org.springframework.stereotype.Repository;
 
-    public AssociationDaoImpl(Class<Association> entityClass) {
-        super(entityClass);
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+@Repository
+public class AssociationDaoImpl implements AssociationCustomDAO {
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Override
+    public Association rechercheAssociation() {
+        return null;
     }
 }
