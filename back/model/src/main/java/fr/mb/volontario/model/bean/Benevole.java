@@ -1,6 +1,7 @@
 package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name="benevole")
 
-public class Benevole {
+public class Benevole implements Serializable {
     private Integer idBenevole;
     private String identifiant;
     private String nom;

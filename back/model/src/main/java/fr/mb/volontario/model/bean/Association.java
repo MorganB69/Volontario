@@ -1,12 +1,13 @@
 package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "association")
-public class Association {
+public class Association implements Serializable {
     private Integer idAssociation;
     private String nom;
     private String mail;

@@ -1,13 +1,14 @@
 package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name="inscription")
-public class Inscription {
+public class Inscription implements Serializable {
     private Integer idInscription;
     private Integer nbplaces;
     private Timestamp debut;

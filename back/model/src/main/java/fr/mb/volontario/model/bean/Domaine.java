@@ -1,12 +1,13 @@
 package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "domaine")
-public class Domaine {
+public class Domaine implements Serializable {
     private Integer idDomaine;
     private String nom;
     private String description;
