@@ -3,17 +3,24 @@ package fr.mb.volontario.model.bean;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name="inscription")
 public class Inscription {
     private Integer idInscription;
     private Integer nbplaces;
     private Timestamp debut;
     private Timestamp fin;
     private Mission mission;
+    private Set<Benevole> benevoles;
+
+    public Inscription() {
+    }
 
     @Id
-    @Column(name = "id_inscription", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_inscription", nullable = false, unique=true)
     public Integer getIdInscription() {
         return idInscription;
     }
@@ -76,5 +83,18 @@ public class Inscription {
 
     public void setMission(Mission mission) {
         this.mission = mission;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "benevole_inscription", joinColumns = {
+            @JoinColumn(name = "id_inscription", nullable = false, updatable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "id_benevole", nullable = false, updatable = false)
+    })
+    public Set<Benevole> getBenevoles() {
+        return benevoles;
+    }
+
+    public void setBenevoles(Set<Benevole> benevoles) {
+        this.benevoles = benevoles;
     }
 }

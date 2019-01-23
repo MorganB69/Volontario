@@ -3,8 +3,11 @@ package fr.mb.volontario.model.bean;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name="benevole")
+
 public class Benevole {
     private Integer idBenevole;
     private String identifiant;
@@ -14,9 +17,14 @@ public class Benevole {
     private String mail;
     private Date dateNaissance;
     private Adresse adresse;
+    private Set<Inscription> inscriptions;
+
+    public Benevole() {
+    }
 
     @Id
-    @Column(name = "id_benevole", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_benevole", nullable = false, unique= true)
     public Integer getIdBenevole() {
         return idBenevole;
     }
@@ -112,5 +120,13 @@ public class Benevole {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+    @ManyToMany(mappedBy = "benevoles")
+    public Set<Inscription> getInscriptions() {
+        return inscriptions;
+    }
+
+    public void setInscriptions(Set<Inscription> inscriptions) {
+        this.inscriptions = inscriptions;
     }
 }

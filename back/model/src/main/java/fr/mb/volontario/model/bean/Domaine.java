@@ -5,14 +5,20 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "domaine")
 public class Domaine {
     private Integer idDomaine;
     private String nom;
     private String description;
     private Set<Mission> missions;
+    private Set<Association>associations;
+
+    public Domaine() {
+    }
 
     @Id
-    @Column(name = "id_domaine", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_domaine", nullable = false, unique = true)
     public Integer getIdDomaine() {
         return idDomaine;
     }
@@ -63,5 +69,14 @@ public class Domaine {
 
     public void setMissions(Set<Mission> missions) {
         this.missions = missions;
+    }
+
+    @ManyToMany(mappedBy = "domaines")
+    public Set<Association> getAssociations() {
+        return associations;
+    }
+
+    public void setAssociations(Set<Association> associations) {
+        this.associations = associations;
     }
 }

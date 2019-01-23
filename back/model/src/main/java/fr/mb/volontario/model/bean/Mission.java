@@ -5,7 +5,9 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "mission")
 public class Mission {
+    private Integer idMission;
     private String nom;
     private String description;
     private String complement;
@@ -15,6 +17,19 @@ public class Mission {
     private Adresse adresse;
     private Domaine domaine;
 
+    public Mission() {
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_mission", nullable = false, unique = true)
+    public Integer getIdMission() {
+        return idMission;
+    }
+
+    public void setIdMission(Integer idMission) {
+        this.idMission = idMission;
+    }
     @Basic
     @Column(name = "nom", nullable = false, length = -1)
     public String getNom() {
@@ -109,4 +124,8 @@ public class Mission {
     public void setDomaine(Domaine domaine) {
         this.domaine = domaine;
     }
+
+
+
+
 }

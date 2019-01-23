@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "association")
 public class Association {
     private Integer idAssociation;
     private String nom;
@@ -17,9 +18,14 @@ public class Association {
     private String photo;
     private Adresse adresse;
     private Set<Mission> missions;
+    private Set<Domaine> domaines;
+
+    public Association() {
+    }
 
     @Id
-    @Column(name = "id_association", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_association", nullable = false, unique=true)
     public Integer getIdAssociation() {
         return idAssociation;
     }
@@ -146,5 +152,17 @@ public class Association {
 
     public void setMissions(Set<Mission> missions) {
         this.missions = missions;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "asso_domaine", joinColumns = {
+            @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})
+    public Set<Domaine> getDomaines() {
+        return domaines;
+    }
+
+    public void setDomaines(Set<Domaine> domaines) {
+        this.domaines = domaines;
     }
 }

@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "adresse")
 public class Adresse {
     private Integer idAdresse;
     private String voie;
@@ -16,8 +17,12 @@ public class Adresse {
     private Set<Benevole> benevoles;
     private Set<Mission> missions;
 
+    public Adresse() {
+    }
+
     @Id
-    @Column(name = "id_adresse", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_adresse", nullable = false, unique = true)
     public Integer getIdAdresse() {
         return idAdresse;
     }
