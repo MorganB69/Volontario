@@ -2,6 +2,7 @@ package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,10 +19,22 @@ public class Association implements Serializable {
     private String description;
     private String photo;
     private Adresse adresse;
-    private Set<Mission> missions;
-    private Set<Domaine> domaines;
+    private Set<Mission> missions= new HashSet<>();
+    private Set<Domaine> domaines= new HashSet<>();
 
     public Association() {
+    }
+
+    public Association(Integer idAssociation, String nom, String mail, String web, String identifiant, String mdp, String siret, String description, String photo) {
+        this.idAssociation = idAssociation;
+        this.nom = nom;
+        this.mail = mail;
+        this.web = web;
+        this.identifiant = identifiant;
+        this.mdp = mdp;
+        this.siret = siret;
+        this.description = description;
+        this.photo = photo;
     }
 
     @Id
@@ -136,7 +149,7 @@ public class Association implements Serializable {
         return Objects.hash(idAssociation, nom, mail, web, identifiant, mdp, siret, description, photo);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -155,7 +168,7 @@ public class Association implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "asso_domaine", joinColumns = {
             @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})

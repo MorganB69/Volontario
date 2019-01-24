@@ -2,6 +2,7 @@ package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,8 +12,8 @@ public class Domaine implements Serializable {
     private Integer idDomaine;
     private String nom;
     private String description;
-    private Set<Mission> missions;
-    private Set<Association>associations;
+    private Set<Mission> missions=new HashSet<>();
+    private Set<Association>associations=new HashSet<>();
 
     public Domaine() {
     }

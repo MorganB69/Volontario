@@ -3,6 +3,7 @@ package fr.mb.volontario.model.bean;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class Inscription implements Serializable {
     private Timestamp debut;
     private Timestamp fin;
     private Mission mission;
-    private Set<Benevole> benevoles;
+    private Set<Benevole> benevoles=new HashSet<>();
 
     public Inscription() {
     }

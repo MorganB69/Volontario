@@ -2,6 +2,7 @@ package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Mission implements Serializable {
     private String description;
     private String complement;
     private String competence;
-    private Set<Inscription> inscriptions;
+    private Set<Inscription> inscriptions=new HashSet<>();
     private Association association;
     private Adresse adresse;
     private Domaine domaine;
@@ -87,7 +88,7 @@ public class Mission implements Serializable {
         return Objects.hash(nom, description, complement, competence);
     }
 
-    @OneToMany(mappedBy = "mission")
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     public Set<Inscription> getInscriptions() {
         return inscriptions;
     }
@@ -106,7 +107,7 @@ public class Mission implements Serializable {
         this.association = association;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;

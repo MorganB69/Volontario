@@ -3,6 +3,8 @@ package fr.mb.volontario.model.bean;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,11 +18,21 @@ public class Benevole implements Serializable {
     private String prenom;
     private String mdp;
     private String mail;
-    private Date dateNaissance;
+    private LocalDate dateNaissance;
     private Adresse adresse;
-    private Set<Inscription> inscriptions;
+    private Set<Inscription> inscriptions=new HashSet<>();
 
     public Benevole() {
+    }
+
+    public Benevole(Integer idBenevole, String identifiant, String nom, String prenom, String mdp, String mail, LocalDate dateNaissance) {
+        this.idBenevole = idBenevole;
+        this.identifiant = identifiant;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mdp = mdp;
+        this.mail = mail;
+        this.dateNaissance = dateNaissance;
     }
 
     @Id
@@ -86,11 +98,11 @@ public class Benevole implements Serializable {
 
     @Basic
     @Column(name = "date_naissance", nullable = false)
-    public Date getDateNaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -113,7 +125,7 @@ public class Benevole implements Serializable {
         return Objects.hash(idBenevole, identifiant, nom, prenom, mdp, mail, dateNaissance);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -122,7 +134,7 @@ public class Benevole implements Serializable {
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
-    @ManyToMany(mappedBy = "benevoles")
+    @ManyToMany(mappedBy = "benevoles", cascade = CascadeType.REFRESH)
     public Set<Inscription> getInscriptions() {
         return inscriptions;
     }
