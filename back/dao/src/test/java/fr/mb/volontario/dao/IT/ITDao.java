@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -13,11 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.logging.LogManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"/ApplicationContextTestDao.xml"})
 @Transactional
 public class ITDao {
+    Logger logger = LoggerFactory.getLogger(ITDao.class);
 
     @Autowired
     EntityManager entityManager;
@@ -49,7 +54,6 @@ public class ITDao {
         adresse.setRegion("Rhônes-Alpes");
 
         //Benevole set up
-
         LocalDate date = LocalDate.now();
         benevole.setDateNaissance(date);
         benevole.setIdentifiant("Momo");
@@ -68,8 +72,21 @@ public class ITDao {
     }
 
     @Test
-    public void persistBenevole(){
-       benevoleDAO.save(benevole);
+    public void persistBenevoleWithAdress(){
+       //Persist benevole with adresse
+        benevoleDAO.save(benevole);
+       //Get benevole and adress entries
+        Optional<Adresse> adresseData=adresseDAO.findById(1);
+        Optional<Benevole> benevoleData=benevoleDAO.findById(1);
+        adresse= adresseData.orElse(null);
+        benevole= benevoleData.orElse(null);
+
+        //TEST
+        Assert.assertNotNull(adresse);
+        Assert.assertNotNull(benevole);
+        Assert.assertNotNull(benevole.getAdresse());
+        
+
 
     }
 }
