@@ -32,7 +32,7 @@ public class Mission implements Serializable {
         this.idMission = idMission;
     }
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -42,7 +42,7 @@ public class Mission implements Serializable {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = -1)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -52,7 +52,7 @@ public class Mission implements Serializable {
     }
 
     @Basic
-    @Column(name = "complement", nullable = true, length = -1)
+    @Column(name = "complement", nullable = true)
     public String getComplement() {
         return complement;
     }
@@ -62,7 +62,7 @@ public class Mission implements Serializable {
     }
 
     @Basic
-    @Column(name = "competence", nullable = false, length = -1)
+    @Column(name = "competence", nullable = false)
     public String getCompetence() {
         return competence;
     }

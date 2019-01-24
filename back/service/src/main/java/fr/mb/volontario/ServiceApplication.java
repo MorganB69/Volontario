@@ -1,4 +1,4 @@
-package fr.mb.volontario.service;
+package fr.mb.volontario;
 
 
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"fr.mb.volontario"})
+@ComponentScan({"fr.mb.volontario.model","fr.mb.volontario.dao","fr.mb.volontario.service","fr.mb.volontario.business"})
 public class ServiceApplication {
 
 

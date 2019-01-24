@@ -1,15 +1,15 @@
 package fr.mb.volontario.dao.impl;
 
-import fr.mb.volontario.dao.contract.BenevoleCustomDAO;
-import fr.mb.volontario.dao.contract.BenevoleDAO;
-import fr.mb.volontario.model.bean.Benevole;
+import fr.mb.volontario.dao.contract.MissionCustomDao;
+import fr.mb.volontario.dao.contract.MissionDAO;
+import fr.mb.volontario.model.bean.Mission;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
-public class BenevoleDaoImpl implements BenevoleCustomDAO {
+public class MissionDAOImpl implements MissionCustomDao {
     @PersistenceContext
     EntityManager entityManager;
 }

@@ -29,7 +29,7 @@ public class Domaine implements Serializable {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -39,7 +39,7 @@ public class Domaine implements Serializable {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = -1)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }

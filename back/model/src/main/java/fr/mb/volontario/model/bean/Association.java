@@ -36,7 +36,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -46,7 +46,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "mail", nullable = false, length = -1)
+    @Column(name = "mail", nullable = false)
     public String getMail() {
         return mail;
     }
@@ -56,7 +56,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "web", nullable = true, length = -1)
+    @Column(name = "web", nullable = true)
     public String getWeb() {
         return web;
     }
@@ -66,7 +66,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "identifiant", nullable = false, length = -1)
+    @Column(name = "identifiant", nullable = false)
     public String getIdentifiant() {
         return identifiant;
     }
@@ -76,7 +76,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "mdp", nullable = false, length = -1)
+    @Column(name = "mdp", nullable = false)
     public String getMdp() {
         return mdp;
     }
@@ -86,7 +86,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "siret", nullable = false, length = -1)
+    @Column(name = "siret", nullable = false)
     public String getSiret() {
         return siret;
     }
@@ -96,7 +96,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = -1)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -106,7 +106,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "photo", nullable = false, length = -1)
+    @Column(name = "photo", nullable = false)
     public String getPhoto() {
         return photo;
     }

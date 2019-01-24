@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Repository
-public class AssociationDaoImpl implements AssociationCustomDAO {
+public class AssociationDAOImpl implements AssociationCustomDAO {
 
     @PersistenceContext
     EntityManager entityManager;

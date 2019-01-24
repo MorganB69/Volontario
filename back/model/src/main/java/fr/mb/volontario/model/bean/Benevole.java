@@ -35,7 +35,7 @@ public class Benevole implements Serializable {
     }
 
     @Basic
-    @Column(name = "identifiant", nullable = false, length = -1)
+    @Column(name = "identifiant", nullable = false)
     public String getIdentifiant() {
         return identifiant;
     }
@@ -45,7 +45,7 @@ public class Benevole implements Serializable {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -55,7 +55,7 @@ public class Benevole implements Serializable {
     }
 
     @Basic
-    @Column(name = "prenom", nullable = false, length = -1)
+    @Column(name = "prenom", nullable = false)
     public String getPrenom() {
         return prenom;
     }
@@ -65,7 +65,7 @@ public class Benevole implements Serializable {
     }
 
     @Basic
-    @Column(name = "mdp", nullable = false, length = -1)
+    @Column(name = "mdp", nullable = false)
     public String getMdp() {
         return mdp;
     }
@@ -75,7 +75,7 @@ public class Benevole implements Serializable {
     }
 
     @Basic
-    @Column(name = "mail", nullable = false, length = -1)
+    @Column(name = "mail", nullable = false)
     public String getMail() {
         return mail;
     }
