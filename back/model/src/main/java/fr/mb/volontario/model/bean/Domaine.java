@@ -73,7 +73,7 @@ public class Domaine implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany(mappedBy = "domaines")
+    @ManyToMany(mappedBy = "domaines", fetch = FetchType.LAZY)
     public Set<Association> getAssociations() {
         return associations;
     }

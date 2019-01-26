@@ -125,7 +125,7 @@ public class Benevole implements Serializable {
         return Objects.hash(idBenevole, identifiant, nom, prenom, mdp, mail, dateNaissance);
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -134,7 +134,7 @@ public class Benevole implements Serializable {
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
-    @ManyToMany(mappedBy = "benevoles", cascade = CascadeType.REFRESH)
+    @ManyToMany(mappedBy = "benevoles", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     public Set<Inscription> getInscriptions() {
         return inscriptions;
     }

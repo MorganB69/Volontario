@@ -2,9 +2,9 @@ package fr.mb.volontario.dao.IT;
 
 import fr.mb.volontario.dao.contract.*;
 import fr.mb.volontario.model.bean.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.hibernate.LazyInitializationException;
+import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +20,11 @@ import java.util.logging.LogManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"/ApplicationContextTestDao.xml"})
-@Transactional
 public class ITDao {
     Logger logger = LoggerFactory.getLogger(ITDao.class);
+
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
 
     @Autowired
     EntityManager entityManager;
@@ -66,27 +68,31 @@ public class ITDao {
         adresse.getBenevoles().add(benevole);
 
 
+
     }
     @Test
     public void initContext(){
     }
 
+
     @Test
-    public void persistBenevoleWithAdress(){
-       //Persist benevole with adresse
+    public void persistBenevole(){
+
         benevoleDAO.save(benevole);
-       //Get benevole and adress entries
+        //Get benevole and adress entries
         Optional<Adresse> adresseData=adresseDAO.findById(1);
-        Optional<Benevole> benevoleData=benevoleDAO.findById(1);
         adresse= adresseData.orElse(null);
-        benevole= benevoleData.orElse(null);
-
         //TEST
-        Assert.assertNotNull(adresse);
-        Assert.assertNotNull(benevole);
-        Assert.assertNotNull(benevole.getAdresse());
-        
+        Assert.assertNotNull("vérification que l'adresse est enregistrée en cascade en db", adresse);
 
+
+        Optional<Benevole> benevoleData=benevoleDAO.findById(1);
+        benevole= benevoleData.orElse(null);
+        Assert.assertNotNull("vérification que le bénévole est enregistré en db",benevole);
+
+        String rue="";
+        exception.expect(LazyInitializationException.class);
+        rue=benevole.getAdresse().getVoie();
 
     }
 }

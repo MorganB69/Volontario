@@ -97,7 +97,7 @@ public class Mission implements Serializable {
         this.inscriptions = inscriptions;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_association", referencedColumnName = "id_association", nullable = false)
     public Association getAssociation() {
         return association;
@@ -107,7 +107,7 @@ public class Mission implements Serializable {
         this.association = association;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -117,7 +117,7 @@ public class Mission implements Serializable {
         this.adresse = adresse;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_domaine", referencedColumnName = "id_domaine", nullable = false)
     public Domaine getDomaine() {
         return domaine;

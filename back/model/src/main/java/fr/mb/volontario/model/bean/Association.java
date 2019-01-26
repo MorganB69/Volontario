@@ -149,7 +149,7 @@ public class Association implements Serializable {
         return Objects.hash(idAssociation, nom, mail, web, identifiant, mdp, siret, description, photo);
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -168,7 +168,7 @@ public class Association implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "asso_domaine", joinColumns = {
             @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})

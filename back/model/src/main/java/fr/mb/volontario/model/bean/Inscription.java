@@ -77,7 +77,7 @@ public class Inscription implements Serializable {
         return Objects.hash(idInscription, nbplaces, debut, fin);
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_mission", referencedColumnName = "id_mission", nullable = false)
     public Mission getMission() {
         return mission;
@@ -87,7 +87,7 @@ public class Inscription implements Serializable {
         this.mission = mission;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "benevole_inscription", joinColumns = {
             @JoinColumn(name = "id_inscription", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_benevole", nullable = false, updatable = false)
