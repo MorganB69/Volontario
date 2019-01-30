@@ -2,6 +2,7 @@ package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,11 +15,20 @@ public class Adresse implements Serializable {
     private String commune;
     private String region;
     private String departement;
-    private Set<Association> associations;
-    private Set<Benevole> benevoles;
-    private Set<Mission> missions;
+    private Set<Association> associations = new HashSet<>();
+    private Set<Benevole> benevoles= new HashSet<>();
+    private Set<Mission> missions= new HashSet<>();
 
     public Adresse() {
+    }
+
+    public Adresse(Integer idAdresse, String voie, String code, String commune, String region, String departement) {
+        this.idAdresse = idAdresse;
+        this.voie = voie;
+        this.code = code;
+        this.commune = commune;
+        this.region = region;
+        this.departement = departement;
     }
 
     @Id
@@ -33,7 +43,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "voie", nullable = false, length = -1)
+    @Column(name = "voie", nullable = false)
     public String getVoie() {
         return voie;
     }
@@ -43,7 +53,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "code", nullable = false, length = -1)
+    @Column(name = "code", nullable = false)
     public String getCode() {
         return code;
     }
@@ -53,7 +63,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "commune", nullable = false, length = -1)
+    @Column(name = "commune", nullable = false)
     public String getCommune() {
         return commune;
     }
@@ -63,7 +73,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "region", nullable = false, length = -1)
+    @Column(name = "region", nullable = false)
     public String getRegion() {
         return region;
     }
@@ -73,7 +83,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "departement", nullable = false, length = -1)
+    @Column(name = "departement", nullable = false)
     public String getDepartement() {
         return departement;
     }
@@ -100,7 +110,7 @@ public class Adresse implements Serializable {
         return Objects.hash(idAdresse, voie, code, commune, region, departement);
     }
 
-    @OneToMany(mappedBy = "adresse")
+    @OneToMany(mappedBy = "adresse", cascade = CascadeType.REFRESH)
     public Set<Association> getAssociations() {
         return associations;
     }

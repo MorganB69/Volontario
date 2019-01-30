@@ -2,6 +2,7 @@ package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Mission implements Serializable {
     private String description;
     private String complement;
     private String competence;
-    private Set<Inscription> inscriptions;
+    private Set<Inscription> inscriptions=new HashSet<>();
     private Association association;
     private Adresse adresse;
     private Domaine domaine;
@@ -32,7 +33,7 @@ public class Mission implements Serializable {
         this.idMission = idMission;
     }
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -42,7 +43,7 @@ public class Mission implements Serializable {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = -1)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -52,7 +53,7 @@ public class Mission implements Serializable {
     }
 
     @Basic
-    @Column(name = "complement", nullable = true, length = -1)
+    @Column(name = "complement", nullable = true)
     public String getComplement() {
         return complement;
     }
@@ -62,7 +63,7 @@ public class Mission implements Serializable {
     }
 
     @Basic
-    @Column(name = "competence", nullable = false, length = -1)
+    @Column(name = "competence", nullable = false)
     public String getCompetence() {
         return competence;
     }
@@ -87,7 +88,7 @@ public class Mission implements Serializable {
         return Objects.hash(nom, description, complement, competence);
     }
 
-    @OneToMany(mappedBy = "mission")
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     public Set<Inscription> getInscriptions() {
         return inscriptions;
     }
@@ -96,7 +97,7 @@ public class Mission implements Serializable {
         this.inscriptions = inscriptions;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_association", referencedColumnName = "id_association", nullable = false)
     public Association getAssociation() {
         return association;
@@ -106,7 +107,7 @@ public class Mission implements Serializable {
         this.association = association;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -116,7 +117,7 @@ public class Mission implements Serializable {
         this.adresse = adresse;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_domaine", referencedColumnName = "id_domaine", nullable = false)
     public Domaine getDomaine() {
         return domaine;

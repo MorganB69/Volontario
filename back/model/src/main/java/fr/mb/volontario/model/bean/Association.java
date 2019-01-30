@@ -2,6 +2,7 @@ package fr.mb.volontario.model.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,10 +19,22 @@ public class Association implements Serializable {
     private String description;
     private String photo;
     private Adresse adresse;
-    private Set<Mission> missions;
-    private Set<Domaine> domaines;
+    private Set<Mission> missions= new HashSet<>();
+    private Set<Domaine> domaines= new HashSet<>();
 
     public Association() {
+    }
+
+    public Association(Integer idAssociation, String nom, String mail, String web, String identifiant, String mdp, String siret, String description, String photo) {
+        this.idAssociation = idAssociation;
+        this.nom = nom;
+        this.mail = mail;
+        this.web = web;
+        this.identifiant = identifiant;
+        this.mdp = mdp;
+        this.siret = siret;
+        this.description = description;
+        this.photo = photo;
     }
 
     @Id
@@ -36,7 +49,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -46,7 +59,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "mail", nullable = false, length = -1)
+    @Column(name = "mail", nullable = false)
     public String getMail() {
         return mail;
     }
@@ -56,7 +69,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "web", nullable = true, length = -1)
+    @Column(name = "web", nullable = true)
     public String getWeb() {
         return web;
     }
@@ -66,7 +79,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "identifiant", nullable = false, length = -1)
+    @Column(name = "identifiant", nullable = false)
     public String getIdentifiant() {
         return identifiant;
     }
@@ -76,7 +89,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "mdp", nullable = false, length = -1)
+    @Column(name = "mdp", nullable = false)
     public String getMdp() {
         return mdp;
     }
@@ -86,7 +99,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "siret", nullable = false, length = -1)
+    @Column(name = "siret", nullable = false)
     public String getSiret() {
         return siret;
     }
@@ -96,7 +109,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = -1)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -106,7 +119,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "photo", nullable = false, length = -1)
+    @Column(name = "photo", nullable = false)
     public String getPhoto() {
         return photo;
     }
@@ -136,7 +149,7 @@ public class Association implements Serializable {
         return Objects.hash(idAssociation, nom, mail, web, identifiant, mdp, siret, description, photo);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -155,7 +168,7 @@ public class Association implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "asso_domaine", joinColumns = {
             @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})
