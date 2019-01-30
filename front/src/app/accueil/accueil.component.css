@@ -1,0 +1,110 @@
+/* Banner */
+#banner {
+  background-image: url("img/overlay.png"), linear-gradient(45deg, #4A4771 0%, #7C3875 100%);
+  background-size: 100px 100px, cover;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 5em 2em 5em;
+}
+
+#banner h1 {
+  font-size: 5em;
+  line-height: 1.4;
+  margin-bottom: 0;
+  color: #fff;
+  font-family: 'Abril Fatface', cursive;
+}
+
+#banner i {
+  font-size: 1em;
+  color: #00d69d;
+}
+#banner p {
+  font-size: 1em;
+  color: #fff;
+}
+
+@media screen and (max-width: 1366px) {
+  #banner h1 {
+    font-size: 6em;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  #banner h1 {
+    font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  #banner h1 {
+    font-size: 3.50em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #banner h1 {
+    font-size: 2.25em;
+  }
+}
+
+/* Index */
+
+#Index {
+  background-color: #fafafa;
+  color: #666;
+}
+
+#Index p {
+  margin : 0 0 2em 0;
+}
+#Index ul.checklist li{
+  margin-bottom: 1.5em;
+}
+@media screen and (max-width: 1366px) {
+
+  #Index  {
+    padding: 4em 2.5em 2em 2.5em;
+  }
+
+}
+
+@media screen and (max-width: 980px) {
+
+  #Index  {
+    padding: 4em 2em 2em 2em;
+  }
+
+}
+
+@media screen and (max-width: 736px) {
+
+  #Index  {
+    padding: 3em 2em 1em 2em;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+
+  #Index {
+    padding: 3em 2em 1em 2em;
+  }
+
+}
+
+#btn-special {
+  background-color: #00BC8A;
+  color: white;
+  border-radius:100px;
+  border-color:#00BC8A ;
+}
+
+#btn-special:hover {
+  background-color: #00d69d;
+}
+
+#btn-special:active {
+  background-color: #00a377;
+}
+
+
