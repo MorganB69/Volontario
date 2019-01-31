@@ -7,4 +7,51 @@
   border-radius:100px;
 }
 
+/* Banner */
+#banner {
+  background-image: url("img/overlay.png"), linear-gradient(45deg, #1e6d71 0%, #51597c 100%);
+  background-size: 100px 100px, cover;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 3em 2em 3em;
+}
 
+#banner h1 {
+  font-size: 5em;
+  line-height: 1.4;
+  margin-bottom: 0;
+  color: #fff;
+  font-family: 'Abril Fatface', cursive;
+}
+
+#banner i {
+  font-size: 1em;
+  color: #00d69d;
+}
+#banner p {
+  font-size: 1em;
+  color: #fff;
+}
+
+@media screen and (max-width: 1366px) {
+  #banner h1 {
+    font-size: 6em;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  #banner h1 {
+    font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  #banner h1 {
+    font-size: 3.50em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #banner h1 {
+    font-size: 2.25em;
+  }
+}

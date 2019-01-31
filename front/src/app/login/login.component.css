@@ -5,16 +5,31 @@
 }
 
 .h2 {
-  font-size: 2em;
+  font-size: 3em;
 }
 .form {
-  margin: 0 0 2em 0;
+
+  background-color: #C9F0FF ;
+  padding: 2.25em 2.25em 2.25em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #00BC8A ;
+
+  border-radius:30px;
+}
+.btn{
+  border-radius: 100px;
+  padding-left: 2.25em;
+  padding-right: 2.25em;
 }
 .btn-special {
   background-color: #00BC8A;
   color: white;
   border-radius:100px;
   border-color:#00BC8A ;
+  padding-left: 3.25em;
+  padding-right: 3.25em;
+
 }
 
 .btn-special:hover {
