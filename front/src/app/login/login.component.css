@@ -1,0 +1,27 @@
+.form-control{
+  border-radius:100px;
+  margin: 1em;
+
+}
+
+.h2 {
+  font-size: 2em;
+}
+.form {
+  margin: 0 0 2em 0;
+}
+.btn-special {
+  background-color: #00BC8A;
+  color: white;
+  border-radius:100px;
+  border-color:#00BC8A ;
+}
+
+.btn-special:hover {
+  background-color: #00d69d;
+}
+
+.btn-special:active {
+  background-color: #00a377;
+}
+
