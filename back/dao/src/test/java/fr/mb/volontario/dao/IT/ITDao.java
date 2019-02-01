@@ -48,12 +48,16 @@ public class ITDao {
 
     @Before
     public void setUp(){
+
+
+
         //adresse set up
         adresse.setCode("69009");
         adresse.setCommune("Lyon");
         adresse.setVoie("rue test");
         adresse.setDepartement("Rhônes");
         adresse.setRegion("Rhônes-Alpes");
+
 
         //Benevole set up
         LocalDate date = LocalDate.now();
@@ -66,6 +70,8 @@ public class ITDao {
 
         benevole.setAdresse(adresse);
         adresse.getBenevoles().add(benevole);
+
+
 
 
 
@@ -95,4 +101,6 @@ public class ITDao {
         rue=benevole.getAdresse().getVoie();
 
     }
+
+
 }
