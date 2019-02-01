@@ -1,0 +1,20 @@
+html, body {
+  font-family: 'Cantarell', sans-serif;
+  background-color: whitesmoke;
+  color: #666;
+  height: 80%;
+
+}
+
+#containerAccueil{
+  height:80%;
+  width:100%;
+  display: table;
+  background-color: whitesmoke;
+
+
+}
+
+
+
+

@@ -1,0 +1,42 @@
+.form-control{
+  border-radius:100px;
+  margin: 1em;
+
+}
+
+.h2 {
+  font-size: 3em;
+}
+.form {
+
+  background-color: #C9F0FF ;
+  padding: 2.25em 2.25em 2.25em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #00BC8A ;
+
+  border-radius:30px;
+}
+.btn{
+  border-radius: 100px;
+  padding-left: 2.25em;
+  padding-right: 2.25em;
+}
+.btn-special {
+  background-color: #00BC8A;
+  color: white;
+  border-radius:100px;
+  border-color:#00BC8A ;
+  padding-left: 3.25em;
+  padding-right: 3.25em;
+
+}
+
+.btn-special:hover {
+  background-color: #00d69d;
+}
+
+.btn-special:active {
+  background-color: #00a377;
+}
+
