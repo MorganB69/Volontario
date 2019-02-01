@@ -20,7 +20,8 @@ public class MissionManagerImpl implements MissionManager {
     @Override
     public List<Mission> rechercheMission(RechercheMission recherche) {
 
+        List<Mission>listReturn= missionDAO.rechercheMission(recherche);
 
-        return null;
+        return listReturn;
     }
 }
