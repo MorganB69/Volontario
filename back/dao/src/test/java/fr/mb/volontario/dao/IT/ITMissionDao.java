@@ -34,14 +34,16 @@ public class ITMissionDao {
     @Test
     public void rechercheMissionTest(){
         RechercheMission recherche = new RechercheMission();
-        recherche.setDomaine(1);
+        recherche.getDomaine().add(1);
         recherche.getDisponibilite().add(1);
         listTest = missionDAO.rechercheMission(recherche);
 
         Assert.assertTrue("liste non vide",!listTest.isEmpty());
         Assert.assertTrue("Test avec un domaine 1 et dispo 1", listTest.stream().anyMatch(o -> o.getIdMission()==(1)));
 
-        recherche.setDomaine(1);
+        recherche.getDomaine().clear();
+        recherche.getDomaine().add(1);
+        recherche.getDomaine().add(2);
         recherche.getDisponibilite().clear();
         recherche.getDisponibilite().add(1);
         recherche.getDisponibilite().add(3);

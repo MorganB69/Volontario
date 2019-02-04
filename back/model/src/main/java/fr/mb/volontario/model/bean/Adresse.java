@@ -1,5 +1,8 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -8,6 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "adresse")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Adresse implements Serializable {
     private Integer idAdresse;
     private String voie;
@@ -111,6 +115,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse", cascade = CascadeType.REFRESH)
+    @JsonBackReference
     public Set<Association> getAssociations() {
         return associations;
     }
@@ -120,6 +125,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse")
+    @JsonBackReference
     public Set<Benevole> getBenevoles() {
         return benevoles;
     }
@@ -129,6 +135,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse")
+    @JsonBackReference
     public Set<Mission> getMissions() {
         return missions;
     }

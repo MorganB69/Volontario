@@ -1,5 +1,9 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -8,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "mission")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Mission implements Serializable {
     private Integer idMission;
     private String nom;
@@ -88,7 +93,8 @@ public class Mission implements Serializable {
         return Objects.hash(nom, description, complement, competence);
     }
 
-    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     public Set<Inscription> getInscriptions() {
         return inscriptions;
     }
@@ -99,6 +105,7 @@ public class Mission implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_association", referencedColumnName = "id_association", nullable = false)
+    @JsonBackReference
     public Association getAssociation() {
         return association;
     }
@@ -108,6 +115,7 @@ public class Mission implements Serializable {
     }
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -119,6 +127,7 @@ public class Mission implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_domaine", referencedColumnName = "id_domaine", nullable = false)
+    @JsonManagedReference
     public Domaine getDomaine() {
         return domaine;
     }

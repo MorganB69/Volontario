@@ -1,3 +1,52 @@
-<p>
-  missions works!
-</p>
+<div class="row">
+<div class="col-md-3" id="left-col-rech">
+  <h2 class="m-2">Formulaire</h2>
+
+  <form  (ngSubmit)="refresh()" class="m-2">
+    <div class="form-group">
+    <label class="row m-2" for="domaine">Domaine associatif</label>
+    <select multiple [ngModel]="domaineId" name="domaineId" class="row m-2 form-control"  id="domaine">
+
+      <option *ngFor="let domaine of domaines" [ngValue]="domaine">{{domaine.nom}}</option>
+    </select>
+    </div>
+
+    <div class="form-group">
+    <label class="row m-2">Disponibilités</label>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo1" [defaultChecked]="true">
+        <label class="form-check-label" for="dispo1">Matin</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo2"  [defaultChecked]="true">
+        <label class="form-check-label" for="dispo2">Midi</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo3"  [defaultChecked]="true">
+        <label class="form-check-label" for="dispo3">Après-midi</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo4"  [defaultChecked]="true">
+        <label class="form-check-label" for="dispo4">Soir</label>
+      </div>
+    </div>
+    <button type="submit" (click)="refresh()" class="btn btn-primary">Recherche</button>
+  </form>
+
+
+</div>
+
+<div class="col-md-9" id="right-col-rech">
+  <h2>Recherche de missions</h2>
+  <ul>
+    <li *ngFor="let mission of missions">
+      Description : {{mission.description}}
+
+    </li>
+  </ul>
+
+
+
+
+</div>
+</div>

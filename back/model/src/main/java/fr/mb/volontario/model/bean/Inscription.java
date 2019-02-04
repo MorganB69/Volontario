@@ -1,5 +1,8 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -9,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="inscription")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Inscription implements Serializable {
     private Integer idInscription;
     private Integer nbplaces;
@@ -79,6 +83,7 @@ public class Inscription implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_mission", referencedColumnName = "id_mission", nullable = false)
+    @JsonBackReference
     public Mission getMission() {
         return mission;
     }
@@ -92,6 +97,7 @@ public class Inscription implements Serializable {
             @JoinColumn(name = "id_inscription", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_benevole", nullable = false, updatable = false)
     })
+    @JsonBackReference
     public Set<Benevole> getBenevoles() {
         return benevoles;
     }

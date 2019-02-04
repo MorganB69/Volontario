@@ -27,50 +27,61 @@ public class MissionDAOImpl implements MissionCustomDao {
         String SQL = "";
         List listReturn;
 
-        //SELECTION DES MISSIONS
-        SQL +=  " SELECT mission FROM Mission as mission ";
 
-        //JOINTURES DES DOMAINES
-        SQL += " JOIN mission.domaine as domaine ";
+            //SELECTION DES MISSIONS
+            SQL += " SELECT mission FROM Mission as mission ";
 
-        //JOINTURES DES INSCRIPTIONS
-        if(!recherche.getDisponibilite().isEmpty()) SQL+= " JOIN mission.inscriptions as inscription ";
+            //JOINTURES DES DOMAINES
+            if(!recherche.getDomaine().isEmpty()) SQL += " JOIN mission.domaine as domaine ";
 
-        // CRITERE DU DOMAINE
-        SQL += " WHERE ( domaine.idDomaine=(:domaine)) ";
+            //JOINTURES DES INSCRIPTIONS
+            if (!recherche.getDisponibilite().isEmpty()) SQL += " JOIN mission.inscriptions as inscription ";
 
-        if(!recherche.getDisponibilite().isEmpty()){
-            SQL += " AND ( ";
+            // CRITERE DU DOMAINE
+            if (!recherche.getDomaine().isEmpty()||!recherche.getDisponibilite().isEmpty()){
+            SQL +=  " WHERE ";
+
+                if(!recherche.getDomaine().isEmpty()){
+                    SQL += " ( domaine.idDomaine IN (:domaine)) ";
+                }
 
 
-                if (recherche.getDisponibilite().contains(1)){
+            }
+
+
+            if (!recherche.getDisponibilite().isEmpty()) {
+                SQL += " AND ( ";
+
+
+                if (recherche.getDisponibilite().contains(1)) {
                     SQL += " ( EXTRACT (hour FROM inscription.debut) between 6 and 12 ) ";
-                    or=true;
+                    or = true;
                 }
 
-                if (recherche.getDisponibilite().contains(2)){
-                    if (or==true) SQL += " OR ";
+                if (recherche.getDisponibilite().contains(2)) {
+                    if (or == true) SQL += " OR ";
                     SQL += " ( EXTRACT (hour FROM inscription.debut) between 12 and 14 ) ";
-                    or=true;
+                    or = true;
                 }
 
-                if (recherche.getDisponibilite().contains(3)){
-                    if (or==true) SQL += " OR ";
+                if (recherche.getDisponibilite().contains(3)) {
+                    if (or == true) SQL += " OR ";
                     SQL += " ( EXTRACT (hour FROM inscription.debut) between 14 and 18 ) ";
-                    or=true;
+                    or = true;
                 }
 
-                if (recherche.getDisponibilite().contains(4)){
-                    if (or==true) SQL += " OR ";
+                if (recherche.getDisponibilite().contains(4)) {
+                    if (or == true) SQL += " OR ";
                     SQL += " ( EXTRACT (hour FROM inscription.debut) between 18 and 23 ) ";
                 }
 
-            SQL += " ) ";
-        }
+                SQL += " ) ";
+            }
+
 
 
         Query query = entityManager.createQuery(SQL);
-        query.setParameter("domaine",recherche.getDomaine());
+        if(!recherche.getDomaine().isEmpty()) query.setParameter("domaine",recherche.getDomaine());
         listReturn= query.getResultList();
 
 

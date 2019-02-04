@@ -1,5 +1,8 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -8,6 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "association")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Association implements Serializable {
     private Integer idAssociation;
     private String nom;
@@ -151,6 +155,7 @@ public class Association implements Serializable {
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
+    @JsonManagedReference
     public Adresse getAdresse() {
         return adresse;
     }
@@ -160,6 +165,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association")
+    @JsonManagedReference
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -169,6 +175,7 @@ public class Association implements Serializable {
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonManagedReference
     @JoinTable(name = "asso_domaine", joinColumns = {
             @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})

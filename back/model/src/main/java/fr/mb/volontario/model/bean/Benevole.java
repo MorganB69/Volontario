@@ -1,5 +1,8 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="benevole")
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Benevole implements Serializable {
     private Integer idBenevole;
     private String identifiant;
@@ -127,6 +130,7 @@ public class Benevole implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
+    @JsonManagedReference
     public Adresse getAdresse() {
         return adresse;
     }
@@ -135,6 +139,7 @@ public class Benevole implements Serializable {
         this.adresse = adresse;
     }
     @ManyToMany(mappedBy = "benevoles", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JsonManagedReference
     public Set<Inscription> getInscriptions() {
         return inscriptions;
     }

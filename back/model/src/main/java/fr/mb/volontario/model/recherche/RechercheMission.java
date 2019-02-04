@@ -3,18 +3,18 @@ package fr.mb.volontario.model.recherche;
 import java.util.ArrayList;
 
 public class RechercheMission {
-    private Integer domaine;
+    private ArrayList<Integer> domaine= new ArrayList<>();
     private ArrayList<Integer> disponibilite=new ArrayList<>();
 
 
     public RechercheMission() {
     }
 
-    public Integer getDomaine() {
+    public ArrayList<Integer> getDomaine() {
         return domaine;
     }
 
-    public void setDomaine(Integer domaine) {
+    public void setDomaine(ArrayList<Integer> domaine) {
         this.domaine = domaine;
     }
 

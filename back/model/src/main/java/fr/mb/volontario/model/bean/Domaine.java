@@ -1,5 +1,9 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -8,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "domaine")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Domaine implements Serializable {
     private Integer idDomaine;
     private String nom;
@@ -64,7 +69,8 @@ public class Domaine implements Serializable {
         return Objects.hash(idDomaine, nom, description);
     }
 
-    @OneToMany(mappedBy = "domaine")
+    @OneToMany(mappedBy = "domaine", fetch = FetchType.LAZY)
+    @JsonBackReference
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -74,6 +80,7 @@ public class Domaine implements Serializable {
     }
 
     @ManyToMany(mappedBy = "domaines", fetch = FetchType.LAZY)
+    @JsonBackReference
     public Set<Association> getAssociations() {
         return associations;
     }
