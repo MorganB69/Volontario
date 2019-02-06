@@ -2,7 +2,7 @@ import {Association} from './Association';
 import {Mission} from './Mission';
 
 export class Domaine {
-  private _id: number;
+  private _idDomaine: number;
   private _nom: string;
   private _description: string;
   private _associations: Array<Association>;
@@ -12,12 +12,12 @@ export class Domaine {
   constructor() {
   }
 
-  get id(): number {
-    return this._id;
+  get idDomaine(): number {
+    return this._idDomaine;
   }
 
-  set id(value: number) {
-    this._id = value;
+  set idDomaine(value: number) {
+    this._idDomaine = value;
   }
 
   get nom(): string {

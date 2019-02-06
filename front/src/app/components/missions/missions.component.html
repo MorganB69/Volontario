@@ -2,14 +2,14 @@
 <div class="col-md-3" id="left-col-rech">
   <h2 class="m-2">Formulaire</h2>
 
-  <form  (ngSubmit)="refresh()" class="m-2">
+  <form  #f="ngForm" (ngSubmit)="refresh(f)" class="m-2">
     <div class="form-group">
     <label class="row m-2" for="domaine">Domaine associatif</label>
-    <select multiple [ngModel]="domaineId" name="domaineId" class="row m-2 form-control"  id="domaine">
+    <select multiple [(ngModel)]="domaineId" name="domaineId" class="row m-2 form-control"  id="domaine">
 
-      <option *ngFor="let domaine of domaines" [ngValue]="domaine">{{domaine.nom}}</option>
+      <option *ngFor="let domaine of domaines" [(ngValue)]="domaine.idDomaine">{{domaine.nom}}</option>
     </select>
-    </div>
+  </div>
 
     <div class="form-group">
     <label class="row m-2">Disponibilités</label>
@@ -30,7 +30,7 @@
         <label class="form-check-label" for="dispo4">Soir</label>
       </div>
     </div>
-    <button type="submit" (click)="refresh()" class="btn btn-primary">Recherche</button>
+    <button type="submit" class="btn btn-primary">Recherche</button>
   </form>
 
 
@@ -40,7 +40,7 @@
   <h2>Recherche de missions</h2>
   <ul>
     <li *ngFor="let mission of missions">
-      Description : {{mission.description}}
+      Description : {{mission.idMission}}
 
     </li>
   </ul>

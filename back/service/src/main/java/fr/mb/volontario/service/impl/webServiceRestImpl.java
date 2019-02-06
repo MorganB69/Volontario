@@ -17,7 +17,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins =  "*", maxAge = 3600)
 @RequestMapping(value = "/mission")
 public class webServiceRestImpl implements webServiceRest {
 
@@ -28,9 +28,11 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @PostMapping(value="/recherche")
-    public List<Mission> rechercheMission(RechercheMission recherche) {
+    public List<Mission> rechercheMission(@RequestBody RechercheMission recherche) {
         List<Mission> listMission = missionManager.rechercheMission(recherche);
         if (listMission.isEmpty()) logger.info("liste vide");
+        if(!recherche.getDomaine().isEmpty()) logger.info("domaine"+ String.valueOf(recherche.getDomaine().size()));
+        if(!listMission.isEmpty()) logger.info("missions"+ String.valueOf(listMission.size()));
 
 
 

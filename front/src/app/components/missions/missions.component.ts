@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {RestService} from '../../services/rest/rest.service';
 import {Domaine} from '../../model/Domaine';
 import {MissionService} from '../../services/mission/mission.service';
 import {Recherche} from '../../model/Recherche';
 import {Mission} from '../../model/Mission';
-import {forEach} from '@angular/router/src/utils/collection';
-import {logger} from 'codelyzer/util/logger';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-missions',
@@ -14,10 +12,10 @@ import {logger} from 'codelyzer/util/logger';
 })
 export class MissionsComponent implements OnInit {
 
-  domaines: Array<Domaine>;
-  missions: Array<Mission>;
+  domaines: Array<Domaine> = new Array<Domaine>();
+  missions: Array<Mission> = new Array<Mission>();
 
-  recherche: Recherche;
+  recherche: Recherche = new Recherche();
   domaineId: Array<number> = new Array<number>();
 
 
@@ -44,11 +42,10 @@ export class MissionsComponent implements OnInit {
     return this.missions;
   }
 
-  refresh() {
-    for (const id of this.domaineId) {
-      console.log(this.domaineId);
-      this.recherche.domaine.push(id);
-    }
+  refresh(form: NgForm) {
+    console.log(form);
+    this.recherche.domaine = this.domaineId;
+    this.getMissions();
   }
 
 

@@ -40,7 +40,7 @@ public class ITMissionDao {
 
         Assert.assertTrue("liste non vide",!listTest.isEmpty());
         Assert.assertTrue("Test avec un domaine 1 et dispo 1", listTest.stream().anyMatch(o -> o.getIdMission()==(1)));
-
+        Assert.assertFalse("Domaine 2 non présent", listTest.stream().anyMatch(o -> o.getIdMission()==(2)) );
         recherche.getDomaine().clear();
         recherche.getDomaine().add(1);
         recherche.getDomaine().add(2);

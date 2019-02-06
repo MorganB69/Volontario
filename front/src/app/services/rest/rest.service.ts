@@ -23,12 +23,14 @@ export class RestService {
 
 
 
-getDomaines() {
+getDomaines(): Observable<Array<Domaine>> {
   return this.http.get<Domaine[]>(this.baseUrl + 'mission/domaines');
 }
 
 recherche(recherche: Recherche) {
-    return this.http.post<Mission[]>(this.baseUrl + 'mission/recherche', recherche);
+    console.log(recherche);
+    return this.http.post<Mission[]>(this.baseUrl + 'mission/recherche', recherche, httpOptions );
+
 }
 
 }
