@@ -10,8 +10,11 @@ import { MissionsComponent } from './components/missions/missions.component';
 import { MissionDetailComponent } from './components/mission-detail/mission-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -28,8 +31,15 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
+
+
   providers: [],
   bootstrap: [AppComponent]
 })
