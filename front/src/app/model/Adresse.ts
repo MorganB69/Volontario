@@ -4,6 +4,7 @@ import {Association} from './Association';
 
 export class Adresse {
   private _id: number;
+  private _numero: string;
   private _voie: string;
   private _code: string;
   private _commune: string;
@@ -22,6 +23,15 @@ export class Adresse {
 
   set id(value: number) {
     this._id = value;
+  }
+
+
+  get numero(): string {
+    return this._numero;
+  }
+
+  set numero(value: string) {
+    this._numero = value;
   }
 
   get voie(): string {
@@ -87,5 +97,14 @@ export class Adresse {
 
   set missions(value: Array<Mission>) {
     this._missions = value;
+  }
+
+    jsonToAdresse(featureJson: Feature) {
+    this._numero = featureJson.properties.housenumber;
+    this._voie = featureJson.properties.name;
+    this._code = featureJson.properties.postcode;
+    this._commune = featureJson.properties.city;
+    this._departement = featureJson.properties.context;
+
   }
 }

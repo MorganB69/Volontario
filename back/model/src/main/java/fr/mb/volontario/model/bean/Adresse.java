@@ -14,6 +14,7 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Adresse implements Serializable {
     private Integer idAdresse;
+    private String numero;
     private String voie;
     private String code;
     private String commune;
@@ -26,8 +27,9 @@ public class Adresse implements Serializable {
     public Adresse() {
     }
 
-    public Adresse(Integer idAdresse, String voie, String code, String commune, String region, String departement) {
+    public Adresse(Integer idAdresse, String numero, String voie, String code, String commune, String region, String departement) {
         this.idAdresse = idAdresse;
+        this.numero = numero;
         this.voie = voie;
         this.code = code;
         this.commune = commune;
@@ -44,6 +46,16 @@ public class Adresse implements Serializable {
 
     public void setIdAdresse(Integer idAdresse) {
         this.idAdresse = idAdresse;
+    }
+
+    @Basic
+    @Column(name= "numero", nullable = true)
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     @Basic
@@ -77,7 +89,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "region", nullable = false)
+    @Column(name = "region", nullable = true)
     public String getRegion() {
         return region;
     }
