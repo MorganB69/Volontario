@@ -1,5 +1,5 @@
 export class Recherche {
-   domaine: Array<number>;
-   disponibilite: Array<number>;
+   domaine: Array<number> = new Array<number>();
+   disponibilite: Array<number> = new Array<number>();
 
 }

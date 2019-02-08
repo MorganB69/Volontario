@@ -29,7 +29,7 @@ public class MissionDAOImpl implements MissionCustomDao {
 
 
             //SELECTION DES MISSIONS
-            SQL += " SELECT mission FROM Mission as mission ";
+            SQL += " SELECT DISTINCT mission FROM Mission as mission ";
 
             //JOINTURES DES DOMAINES
             if(!recherche.getDomaine().isEmpty()) SQL += " JOIN mission.domaine as domaine ";
@@ -77,6 +77,7 @@ public class MissionDAOImpl implements MissionCustomDao {
 
                 SQL += " ) ";
             }
+            SQL += " ORDER By mission.idMission ";
 
 
 

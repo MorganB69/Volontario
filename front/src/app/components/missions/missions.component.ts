@@ -14,6 +14,10 @@ export class MissionsComponent implements OnInit {
 
   domaines: Array<Domaine> = new Array<Domaine>();
   missions: Array<Mission> = new Array<Mission>();
+  dispo1 = true;
+  dispo2 = true;
+  dispo3 = true;
+  dispo4 = true;
 
   recherche: Recherche = new Recherche();
   domaineId: Array<number> = new Array<number>();
@@ -44,6 +48,11 @@ export class MissionsComponent implements OnInit {
 
   refresh(form: NgForm) {
     console.log(form);
+    this.recherche.disponibilite = [];
+    if (this.dispo1 === true) { this.recherche.disponibilite.push(1); }
+    if (this.dispo2 === true) { this.recherche.disponibilite.push(2); }
+    if (this.dispo3 === true) { this.recherche.disponibilite.push(3); }
+    if (this.dispo4 === true) { this.recherche.disponibilite.push(4); }
     this.recherche.domaine = this.domaineId;
     this.getMissions();
   }
