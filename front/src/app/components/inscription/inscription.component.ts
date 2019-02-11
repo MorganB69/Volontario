@@ -46,6 +46,7 @@ export class InscriptionComponent implements OnInit {
 
   onSubmit() {
     this.adresse.jsonToAdresse(this.featureAdresse);
+    console.log(this.adresse);
   }
   onSelectionChanged(feature: Feature) {
     this.featureAdresse = feature;

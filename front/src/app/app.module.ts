@@ -14,6 +14,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import { InscriptionBenevoleComponent } from './components/inscription-benevole/inscription-benevole.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angula
     MissionDetailComponent,
     LoginComponent,
     InscriptionComponent,
-    FooterComponent
+    FooterComponent,
+    InscriptionBenevoleComponent
   ],
   imports: [
     BrowserModule,
