@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8080/',
-  credential: 'MnRaM0dLZlQ4UUJaQmY2ZHhHX01udFF0V2hRYTpUVXFSWm1oWXhBRjlvcmZYQmtfeHRVbE9jREFh'
+
 };
 
 /*

@@ -2,25 +2,21 @@
 
   <h3 class="row justify-content-center m-3"> Formulaire d'inscription</h3>
     <div class="row justify-content-center">
-    <form #f="ngForm" (ngSubmit)="onSubmit(feature)" class="form col-6 m-3">
-      <label>Adresse</label>
+    <form #f="ngForm" (ngSubmit)="refresh(searchBox.value)" class="form col-6 m-3">
+      <label>Numéro Siret</label>
 
         <input
                class="form-control"
-                matInput placeholder="saisir l'adresse"
+               matInput placeholder="saisir le numéro siret"
                #searchBox id="searchBox"
-               aria-label="Adresse"
-               [matAutocomplete]="auto"
-               (input)="search(searchBox.value)"
+               aria-label="Siret"
               >
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let feature of adressResults"  [(value)]="feature.properties.label" (onSelectionChange)="onSelectionChanged(feature)">
-            {{feature.properties.label}}
-          </mat-option>
+        <div class="row justify-content-center">
+        <button type="submit" class="btn btn-primary">Actualiser</button></div>
+      <label>Dénomination</label>
+        <input class="form-control" placeholder="dénomination sociale" [(ngModel)]="denomination" aria-label="Denomination" name="denomination">
 
-        </mat-autocomplete>
 
-        <button type="submit" class="btn btn-special">Inscription</button>
 </form>
 
 </div>

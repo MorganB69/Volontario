@@ -17,7 +17,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@CrossOrigin(origins =  "*", maxAge = 3600)
+@CrossOrigin(origins =  "*")
 @RequestMapping(value = "/mission")
 public class webServiceRestImpl implements webServiceRest {
 

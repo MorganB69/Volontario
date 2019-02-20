@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AdresseApiService} from '../../services/api/adresse-api.service';
 import {FormControl} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
-import {State} from '../../model/State';
 import {debounceTime, distinctUntilChanged, filter, map, startWith, switchMap} from 'rxjs/operators';
 import {Adresse} from '../../model/Adresse';
+import {SiretService} from '../../services/api/siret.service';
 
 
 @Component({
@@ -17,40 +17,34 @@ export class InscriptionComponent implements OnInit {
   private searchTerms = new Subject<string>();
   private adressResults: Array<Feature>;
   private featureAdresse: Feature;
+
+  @Input()
+  private denomination: String;
   private adresse: Adresse = new Adresse();
 
 
-  constructor(private adresseService: AdresseApiService) {
+  constructor(private siretService: SiretService) {
   }
 
 
 
   ngOnInit(): void {
-    this.getAdresses();
   }
 
   search(term: string): void {
     this.searchTerms.next(term);
   }
 
-  getAdresses() {
-    this.searchTerms.pipe(
-      filter(term => term != null && term !== ''),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      switchMap((term: string) => this.adresseService.adresseSearch(term)),
-    ).subscribe((res) => this.adressResults = res.features);
+  getInfos() {
+
 
 
   }
 
-  onSubmit() {
-    this.adresse.jsonToAdresse(this.featureAdresse);
-    console.log(this.adresse);
+  refresh(term: string) {
+    this.siretService.getInfos(term).subscribe((res) => this.denomination = res.records[0].fields.l1_normalisee);
   }
-  onSelectionChanged(feature: Feature) {
-    this.featureAdresse = feature;
-  }
+
 
 
 }
