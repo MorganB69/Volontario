@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin(origins =  "*")
 public class StorageControlerImpl implements StorageControler {
     private static final Logger logger = LoggerFactory.getLogger(StorageControler.class);
 

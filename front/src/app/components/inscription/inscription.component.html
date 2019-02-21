@@ -2,19 +2,138 @@
 
   <h3 class="row justify-content-center m-3"> Formulaire d'inscription</h3>
     <div class="row justify-content-center">
-    <form #f="ngForm" (ngSubmit)="refresh(searchBox.value)" class="form col-6 m-3">
-      <label>Numéro Siret</label>
+    <form #formComplet="ngForm" (ngSubmit)="onSubmit()" class="form col-9 m-3">
+      <div class="form-group">
+        <div class="row justify-content-center m-2">
+        <h3>Informations générales</h3>
+        </div>
 
+
+        <label>Siret</label>
         <input
                class="form-control"
-               matInput placeholder="saisir le numéro siret"
-               #searchBox id="searchBox"
+               matInput placeholder="Saisir le numéro siret"
+               [(ngModel)]="association.siret"
                aria-label="Siret"
+               name="Siret"
+               required
+               minlength="14"
+               maxlength="14"
               >
+
+
+
         <div class="row justify-content-center">
-        <button type="submit" class="btn btn-primary">Actualiser</button></div>
+        <button class="btn btn-primary" type="button" (click)="refresh(association.siret)">Trouver les informations</button></div>
       <label>Dénomination</label>
-        <input class="form-control" placeholder="dénomination sociale" [(ngModel)]="denomination" aria-label="Denomination" name="denomination">
+        <input class="form-control" placeholder="Dénomination sociale" [(ngModel)]="association.nom" aria-label="Denomination" name="denomination" required>
+      <label>Adresse (Veuillez valider l'adresse en sélectionnant l'adresse correcte)</label>
+
+      <input
+        class="form-control"
+        matInput placeholder="Adresse"
+        [(ngModel)]="searchBoxAdress"
+        name="searchBoxAdress"
+        aria-label="Adresse"
+        [matAutocomplete]="auto"
+        (input)="search(searchBoxAdress.value)"
+        required
+      >
+
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let feature of adressResults"  [(value)]="feature.properties.label" (onSelectionChange)="onSelectionChanged(feature)">
+          {{feature.properties.label}}
+        </mat-option>
+
+      </mat-autocomplete>
+
+       </div>
+      <div class="row justify-content-center m-2">
+        <h3>Informations de connexion</h3>
+      </div>
+      <label>Identifiant</label>
+
+      <input
+        class="form-control"
+        matInput placeholder="Identifiant de connexion"
+        [(ngModel)]="association.identifiant"
+        name="identifiant"
+        aria-label="Identifiant"
+        required
+      >
+      <label>Mot de passe</label>
+
+      <input
+      class="form-control"
+      matInput placeholder="Mot de passe de connexion"
+      type="password"
+      [(ngModel)]="association.mdp"
+      name="mdp"
+      aria-label="Mdp"
+      required
+    >
+      <label>Adresse mail</label>
+      <input
+        class="form-control"
+        matInput placeholder="E-mail"
+        type="email"
+        [(ngModel)]="association.mail"
+        name="mail"
+        aria-label="mail"
+        required
+
+      >
+
+
+
+      <div class="row justify-content-center m-2">
+        <h3>Description de l'association</h3>
+      </div>
+
+      <label>Site web</label>
+
+      <input
+        class="form-control"
+        matInput placeholder="Adresse web si existante"
+        [(ngModel)]="association.web"
+        name="web"
+        aria-label="Web"
+      >
+
+      <div class="form-group">
+        <label class="row m-2" for="domaine">Domaine associatif</label>
+        <select multiple [(ngModel)]="association.domaines" name="domaine" class="row form-control"  id="domaine" required>
+
+          <option *ngFor="let domaine of domaines" [(ngValue)]="domaine">{{domaine.nom}}</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control"
+                  rows="8"
+                  id="description"
+                  matInput placeholder="Décrivez votre association, ses activités, son historique etc."
+                  [(ngModel)]="association.description"
+                  name="description"
+                  aria-label="Description"
+                  required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Image</label>
+        <input class="form-control-file" type="file" (change)="selectFile($event)"  accept="image/*">
+      </div>
+      <div class="row justify-content-center m-3">
+      <button type="submit" [disabled]="formComplet.invalid" class="btn btn-special">Inscription</button>
+      </div>
+        <div class="row m-2" *ngIf="formComplet.invalid "
+             class="alert alert-danger">
+          <div *ngIf="formComplet.invalid">
+            Tous les champs ne sont pas correctement remplis
+          </div>
+        </div>
 
 
 </form>
