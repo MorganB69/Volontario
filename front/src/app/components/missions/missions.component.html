@@ -1,3 +1,54 @@
-<p>
-  missions works!
-</p>
+<div class="row">
+<div class="col-md-4" id="left-col-rech">
+
+  <form  #f="ngForm" (ngSubmit)="refresh(f)" class="form m-2">
+    <div class="row justify-content-center">
+    <h2 class="m-2">Formulaire</h2>
+    </div>
+    <div class="form-group">
+    <label class="row m-2" for="domaine">Domaine associatif</label>
+    <select multiple [(ngModel)]="domaineId" name="domaineId" class="row form-control"  id="domaine">
+
+      <option *ngFor="let domaine of domaines" [(ngValue)]="domaine.idDomaine">{{domaine.nom}}</option>
+    </select>
+  </div>
+
+    <div class="form-group">
+    <label class="row m-2">Disponibilités</label>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo1" [defaultChecked]="true" [(ngModel)]="dispo1" name="dispo1">
+        <label class="form-check-label" for="dispo1">Matin</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo2"  [defaultChecked]="true" [(ngModel)]="dispo2" name="dispo2">
+        <label class="form-check-label" for="dispo2">Midi</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo3"  [defaultChecked]="true" [(ngModel)]="dispo3" name="dispo3">
+        <label class="form-check-label" for="dispo3">Après-midi</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo4"  [defaultChecked]="true" [(ngModel)]="dispo4" name="dispo4">
+        <label class="form-check-label" for="dispo4">Soir</label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-special">Recherche</button>
+  </form>
+
+
+</div>
+
+<div class="col-md-8" id="right-col-rech">
+  <h2>Recherche de missions</h2>
+  <ul>
+    <li *ngFor="let mission of missions">
+      Description : {{mission.idMission}}
+
+    </li>
+  </ul>
+
+
+
+
+</div>
+</div>

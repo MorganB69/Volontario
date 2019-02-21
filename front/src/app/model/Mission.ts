@@ -4,7 +4,7 @@ import {Domaine} from './Domaine';
 import {Inscription} from './Inscription';
 
 export class Mission {
-  private _id: number;
+  private _idMission: number;
   private _nom: string;
   private _description: string;
   private _complement: string;
@@ -18,12 +18,12 @@ export class Mission {
   constructor() {
   }
 
-  get id(): number {
-    return this._id;
+  get idMission(): number {
+    return this._idMission;
   }
 
-  set id(value: number) {
-    this._id = value;
+  set idMission(value: number) {
+    this._idMission = value;
   }
 
   get nom(): string {

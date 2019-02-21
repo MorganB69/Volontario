@@ -1,0 +1,29 @@
+<div>
+
+  <h3 class="row justify-content-center m-3"> Formulaire d'inscription</h3>
+  <div class="row justify-content-center">
+    <form #f="ngForm" (ngSubmit)="onSubmit()" class="form col-6 m-3">
+      <label>Adresse</label>
+
+      <input
+        class="form-control"
+        matInput placeholder="saisir l'adresse"
+        #searchBox id="searchBox"
+        aria-label="Adresse"
+        [matAutocomplete]="auto"
+        (input)="search(searchBox.value)"
+      >
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let feature of adressResults"  [(value)]="feature.properties.label" (onSelectionChange)="onSelectionChanged(feature)">
+          {{feature.properties.label}}
+        </mat-option>
+
+      </mat-autocomplete>
+
+      <button type="submit" class="btn btn-special">Inscription</button>
+    </form>
+
+  </div>
+</div>
+
+
