@@ -1,5 +1,6 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -155,7 +156,7 @@ public class Association implements Serializable {
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference(value="asso-adresse")
     public Adresse getAdresse() {
         return adresse;
     }
@@ -165,7 +166,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association")
-    @JsonManagedReference
+    @JsonManagedReference(value="asso-mission")
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -174,8 +175,7 @@ public class Association implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "asso_domaine", joinColumns = {
             @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})

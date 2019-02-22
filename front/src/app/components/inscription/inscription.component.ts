@@ -10,6 +10,7 @@ import {MissionService} from '../../services/mission/mission.service';
 import {Domaine} from '../../model/Domaine';
 import {UploadService} from '../../services/upload/upload.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {RestService} from '../../services/rest/rest.service';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class InscriptionComponent implements OnInit {
   constructor(private siretService: SiretService,
               private adresseService: AdresseApiService,
               private missionService: MissionService,
-              private uploadService: UploadService) {
+              private uploadService: UploadService,
+              private restService: RestService) {
   }
 
 
@@ -100,6 +102,6 @@ export class InscriptionComponent implements OnInit {
     }
     this.adresse.jsonToAdresse(this.featureAdresse);
     this.association.adresse = this.adresse;
-    console.log(this.association);
+    this.restService.inscriptionAsso(this.association).subscribe();
   }
 }
