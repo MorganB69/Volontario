@@ -30,7 +30,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             console.log('client-error :' + errorMessage);
           } else {
             // server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
             const modalRef = this.modalService.open(ModalErrorComponent);
             modalRef.componentInstance.error = errorMessage;
             this.rollbar.error(error);

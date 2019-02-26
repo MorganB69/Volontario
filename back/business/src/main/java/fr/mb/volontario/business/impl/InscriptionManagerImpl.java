@@ -14,11 +14,19 @@ public class InscriptionManagerImpl implements InscriptionManager {
     @Autowired
     AssociationDAO associationDAO;
 
+    /**
+     * @param association
+     * @return
+     * @throws FunctionalException
+     */
     @Override
     @Transactional
     public Association inscriptionAsso(Association association) throws FunctionalException {
-        if (association==null) throw new FunctionalException("L'association est null");
-        else associationDAO.save(association);
+        if (associationDAO.existsBySiret(association.getSiret())) throw new FunctionalException("L'association est déjà enregistrée");
+        else if (associationDAO.existsByIdentifiant(association.getIdentifiant())) throw new FunctionalException("L'identifiant est déjà utilisé");
+        else
+        if(association.getPhoto()==null)association.setPhoto("photodef.jpg");
+        associationDAO.save(association);
 
         return association;
     }

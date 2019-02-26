@@ -124,7 +124,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     public String getPhoto() {
         return photo;
     }
