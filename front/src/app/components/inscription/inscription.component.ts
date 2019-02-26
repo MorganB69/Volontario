@@ -69,12 +69,20 @@ export class InscriptionComponent implements OnInit {
   refresh(term: string) {
     this.siretService.getInfos(term).subscribe((res) => {
       this.association.nom = res.records[0].fields.l1_normalisee,
-      this.searchBoxAdress = (res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree),
-      this.adresseService.adresseSearch(res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree).subscribe(
-        (resu) => this.featureAdresse = resu.features[0]
-      ); } );
-
+        this.searchBoxAdress = (res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree),
+        this.adresseService.adresseSearch(res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree).subscribe(
+          (resu) => this.featureAdresse = resu.features[0]
+        );
+    });
   }
+
+
+  reset() {
+    this.association.siret = null;
+    this.searchBoxAdress = null;
+    this.featureAdresse = null;
+  }
+
 
   getDomaines() {
     this.missionService.getDomaines().subscribe(
