@@ -31,6 +31,8 @@ export class InscriptionComponent implements OnInit {
    denomination: string;
   searchBoxAdress: string;
   domaines: Array<Domaine> = new Array<Domaine>();
+  private siretError = false;
+  private siretValid = false;
 
 
 
@@ -67,20 +69,25 @@ export class InscriptionComponent implements OnInit {
   }
 
   refresh(term: string) {
-    this.siretService.getInfos(term).subscribe((res) => {
-      this.association.nom = res.records[0].fields.l1_normalisee,
-        this.searchBoxAdress = (res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree),
-        this.adresseService.adresseSearch(res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree).subscribe(
-          (resu) => this.featureAdresse = resu.features[0]
-        );
+    this.siretService.getInfos(term)
+    .subscribe((res) => {
+      if (res.records.length !== 0) {
+        this.siretValid = true,
+        this.association.nom = res.records[0].fields.l1_normalisee,
+          this.searchBoxAdress = (res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree),
+          this.adresseService.adresseSearch(res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree).subscribe(
+            (resu) => this.featureAdresse = resu.features[0]
+          ); } else {this.siretError = true; }
     });
   }
 
 
   reset() {
     this.association.siret = null;
+    this.association.nom = null;
     this.searchBoxAdress = null;
     this.featureAdresse = null;
+    this.siretValid = false;
   }
 
 

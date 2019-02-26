@@ -5,10 +5,10 @@
     <form #formComplet="ngForm" (ngSubmit)="onSubmit()" class="form col-9 m-3">
       <div class="form-group">
         <div class="row justify-content-center m-2">
-        <h3>Informations générales</h3>
+        <h3>Informations légales</h3>
         </div>
 
-
+        <form #formSiret="ngForm">
         <label>Siret</label>
         <input
                class="form-control"
@@ -21,35 +21,28 @@
                maxlength="14"
                (click)="reset()"
               >
-
+          <div class="row m-2" *ngIf="siretError"
+               class="alert alert-danger">
+            <div *ngIf="siretError">
+              Aucun établissement n'a été trouvé
+            </div>
+          </div>
 
 
         <div class="row justify-content-center">
-        <button class="btn btn-primary" type="button" (click)="refresh(association.siret)">Trouver les informations</button></div>
-      <label>Dénomination</label>
-        <input class="form-control" placeholder="Dénomination sociale" [(ngModel)]="association.nom" aria-label="Denomination" name="denomination" required>
-      <label>Adresse (Veuillez valider l'adresse en sélectionnant l'adresse correcte)</label>
+        <button class="btn btn-special"[disabled]="formSiret.invalid" type="button" (click)="refresh(association.siret)">Rechercher</button></div>
+          </form>
+          <div class="row m-3">
+          Dénomination : {{association.nom}}
+          </div>
+          <div class="row m-3">
+          Adresse : {{searchBoxAdress}}
+          </div>
 
-      <input
-        class="form-control"
-        matInput placeholder="Adresse"
-        [(ngModel)]="searchBoxAdress"
-        name="searchBoxAdress"
-        aria-label="Adresse"
-        [matAutocomplete]="auto"
-        (input)="search(searchBoxAdress.value)"
-        required
-      >
-
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let feature of adressResults"  [(value)]="feature.properties.label" (onSelectionChange)="onSelectionChanged(feature)">
-          {{feature.properties.label}}
-        </mat-option>
-
-      </mat-autocomplete>
 
        </div>
-      <div class="row justify-content-center m-2">
+      <div *ngIf="siretValid">
+      <div class="row justify-content-center m-3">
         <h3>Informations de connexion</h3>
       </div>
       <label>Identifiant</label>
@@ -87,7 +80,7 @@
 
 
 
-      <div class="row justify-content-center m-2">
+      <div class="row justify-content-center m-3">
         <h3>Description de l'association</h3>
       </div>
 
@@ -136,7 +129,7 @@
           </div>
         </div>
 
-
+      </div>
 </form>
 
 </div>
