@@ -56,7 +56,7 @@ public class ITDao {
         adresse.setCommune("Lyon");
         adresse.setVoie("rue test");
         adresse.setDepartement("Rhônes");
-        adresse.setRegion("Rhônes-Alpes");
+
 
 
         //Benevole set up

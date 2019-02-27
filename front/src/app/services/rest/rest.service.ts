@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Domaine} from '../../model/Domaine';
 import {Recherche} from '../../model/Recherche';
 import {Mission} from '../../model/Mission';
+import {Association} from '../../model/Association';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,6 +31,12 @@ getDomaines(): Observable<Array<Domaine>> {
 recherche(recherche: Recherche) {
     console.log(recherche);
     return this.http.post<Mission[]>(this.baseUrl + 'mission/recherche', recherche, httpOptions );
+
+}
+
+inscriptionAsso(association: Association) {
+    console.log(association);
+    return this.http.post<Association>(this.baseUrl + 'association/inscription', association, httpOptions);
 
 }
 

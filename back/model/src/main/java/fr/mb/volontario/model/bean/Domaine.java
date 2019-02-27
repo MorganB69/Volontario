@@ -1,6 +1,7 @@
 package fr.mb.volontario.model.bean;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -24,7 +25,6 @@ public class Domaine implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_domaine", nullable = false, unique = true)
     public Integer getIdDomaine() {
         return idDomaine;
@@ -70,7 +70,7 @@ public class Domaine implements Serializable {
     }
 
     @OneToMany(mappedBy = "domaine", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference(value="mission-domaine")
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -80,7 +80,7 @@ public class Domaine implements Serializable {
     }
 
     @ManyToMany(mappedBy = "domaines", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonIgnore
     public Set<Association> getAssociations() {
         return associations;
     }
