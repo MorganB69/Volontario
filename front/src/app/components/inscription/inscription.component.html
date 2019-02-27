@@ -50,7 +50,7 @@
       <input
         class="form-control"
         matInput placeholder="Identifiant de connexion"
-        [(ngModel)]="association.identifiant"
+        [(ngModel)]="user.identifiant"
         name="identifiant"
         aria-label="Identifiant"
         required
@@ -61,7 +61,7 @@
       class="form-control"
       matInput placeholder="Mot de passe de connexion"
       type="password"
-      [(ngModel)]="association.mdp"
+      [(ngModel)]="user.mdp"
       name="mdp"
       aria-label="Mdp"
       required
@@ -71,7 +71,7 @@
         class="form-control"
         matInput placeholder="E-mail"
         type="email"
-        [(ngModel)]="association.mail"
+        [(ngModel)]="user.mail"
         name="mail"
         aria-label="mail"
         required

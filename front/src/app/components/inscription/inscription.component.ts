@@ -11,6 +11,7 @@ import {Domaine} from '../../model/Domaine';
 import {UploadService} from '../../services/upload/upload.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {RestService} from '../../services/rest/rest.service';
+import {User} from '../../model/User';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class InscriptionComponent implements OnInit {
   private adressResults: Array<Feature>;
   private featureAdresse: Feature;
   private adresse: Adresse = new Adresse();
+  private user: User = new User();
   @Input()
    association: Association = new Association();
   @Input()
@@ -117,6 +119,8 @@ export class InscriptionComponent implements OnInit {
     }
     this.adresse.jsonToAdresse(this.featureAdresse);
     this.association.adresse = this.adresse;
+    this.user.role = 'Association';
+    this.association.users.push(this.user);
     this.restService.inscriptionAsso(this.association).subscribe();
   }
 }

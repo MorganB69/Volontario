@@ -13,5 +13,5 @@ import java.util.List;
 public interface AssociationDAO extends PagingAndSortingRepository<Association, Integer>, AssociationCustomDAO {
 
     boolean existsBySiret(String siret);
-    boolean existsByIdentifiant(String identifiant);
+
 }

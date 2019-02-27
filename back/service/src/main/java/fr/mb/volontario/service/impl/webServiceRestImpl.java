@@ -55,7 +55,7 @@ public class webServiceRestImpl implements webServiceRest {
     @Override
     @PostMapping(value = "/association/inscription")
     public Association inscriptionAssociation(@RequestBody Association association) throws FunctionalException {
-       logger.info("inscription");
+       logger.info(association.toString());
         inscriptionManager.inscriptionAsso(association);
         return association;
     }

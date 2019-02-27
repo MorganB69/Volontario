@@ -44,6 +44,7 @@ public class ITDao {
     Benevole benevole = new Benevole();
     Domaine domaine = new Domaine();
     Adresse adresse = new Adresse();
+    User user = new User();
 
 
     @Before
@@ -62,14 +63,19 @@ public class ITDao {
         //Benevole set up
         LocalDate date = LocalDate.now();
         benevole.setDateNaissance(date);
-        benevole.setIdentifiant("Momo");
-        benevole.setMail("momo@gmail.fr");
         benevole.setNom("Bobo");
-        benevole.setMdp("azera");
         benevole.setPrenom("Morgan");
 
+        user.setIdentifiant("bobo");
+        user.setMdp("mdp");
+        user.setMail("mail@mail.com");
+        user.setRole("Benevole");
+
+
         benevole.setAdresse(adresse);
+        benevole.setUser(user);
         adresse.getBenevoles().add(benevole);
+        user.setBenevole(benevole);
 
 
 
