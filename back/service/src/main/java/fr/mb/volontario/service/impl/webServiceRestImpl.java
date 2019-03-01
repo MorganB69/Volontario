@@ -13,6 +13,7 @@ import fr.mb.volontario.service.contract.webServiceRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -46,6 +47,7 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @GetMapping(value = "/mission/domaines")
+    @Secured({"ROLE_Association"})
     public List<Domaine> findAllDomaine() throws NotFoundException {
         List<Domaine> listDomaine = missionManager.findAllDomaine();
 
