@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface UserDao extends PagingAndSortingRepository<User,Integer>,UserCustomDao {
 
     boolean existsByIdentifiant(String identifiant);
+    User findByIdentifiant(String identifiant);
 
 }
