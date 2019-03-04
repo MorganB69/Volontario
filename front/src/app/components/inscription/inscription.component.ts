@@ -119,7 +119,7 @@ export class InscriptionComponent implements OnInit {
     }
     this.adresse.jsonToAdresse(this.featureAdresse);
     this.association.adresse = this.adresse;
-    this.user.role = 'Association';
+    this.user.role = 'ASSO';
     this.association.users.push(this.user);
     this.restService.inscriptionAsso(this.association).subscribe();
   }

@@ -41,13 +41,19 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             // server-side error
             if (error.status === 401) {
               this.router.navigate(['login']);
-            }
+            } else
+              if (error.status === 403) {
+                errorMessage = `Vous n'avez pas accès à cette partie du site`;
+                const modalRef = this.modalService.open(ModalErrorComponent);
+                modalRef.componentInstance.error = errorMessage;
+                this.router.navigate(['login']);
+              } else {
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
             const modalRef = this.modalService.open(ModalErrorComponent);
             modalRef.componentInstance.error = errorMessage;
             this.rollbar.error(error);
             console.log('server error :' + errorMessage);
-          }
+          }}
 
           return throwError(errorMessage);
         })

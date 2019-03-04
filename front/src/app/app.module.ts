@@ -21,6 +21,7 @@ import { ModalErrorComponent } from './modal-error/modal-error.component';
 import * as Rollbar from 'rollbar';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
+import {JwtModule} from '@auth0/angular-jwt';
 
 
 const rollbarConfig = {
@@ -49,7 +50,7 @@ export function rollbarFactory() {
     FooterComponent,
     InscriptionBenevoleComponent,
     FormUploadComponent,
-    ModalErrorComponent
+    ModalErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +62,16 @@ export function rollbarFactory() {
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    NgbModule
+    NgbModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('AuthToken');
+        },
+        whitelistedDomains: ['localhost'],
+        blacklistedRoutes: []
+      }
+    })
   ],
 
   entryComponents: [ModalErrorComponent],

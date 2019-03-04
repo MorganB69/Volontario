@@ -6,12 +6,13 @@ import {MissionsComponent} from './components/missions/missions.component';
 import {Inscription} from './model/Inscription';
 import {InscriptionComponent} from './components/inscription/inscription.component';
 import {InscriptionBenevoleComponent} from './components/inscription-benevole/inscription-benevole.component';
+import {AuthGuard} from './interceptors/AuthGard';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: '', redirectTo: '/accueil', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
-  {path: 'recherche', component: MissionsComponent},
+  {path: 'recherche', component: MissionsComponent, canActivate: [AuthGuard]},
   {path: 'inscription', component: InscriptionComponent},
   {path: 'inscriptionBenevole', component: InscriptionBenevoleComponent}
 ];

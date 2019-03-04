@@ -44,18 +44,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 logger.warn("the token is expired and not valid anymore", e);
             } catch(SignatureException e){
                 logger.error("Authentication Failed. Username or Password not valid.");
+            } catch (Exception e) {
+                logger.error(e.getMessage());
             }
         } else {
             logger.warn("couldn't find bearer string, will ignore the header");
+
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userManager.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+                UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(authToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-                logger.info("authenticated user " + username + ", setting security context");
+                logger.info("authenticated user " + username + ", setting security context "+userDetails.getAuthorities().iterator().next().toString());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
