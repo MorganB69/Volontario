@@ -35,9 +35,12 @@ export class UserService {
     console.log('redirect');
     console.log(this.redirectUrl);
     if (this.redirectUrl) {
+      console.log(this.redirectUrl);
     this.router.navigate([this.redirectUrl]);
     this.redirectUrl = null;
-  }
+  } else {
+      this.router.navigate(['accueil']);
+    }
   }
 
   public isAuthenticated(): boolean  {

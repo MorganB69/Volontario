@@ -35,8 +35,10 @@
       </ul>
 
     </div>
-    <a class="btn btn-primary justify-content-right" routerLink="login">Connexion</a>
+    <a *ngIf="!getAuthenticated()" class="btn btn-primary justify-content-right" routerLink="login">Connexion</a>
 
+    <a *ngIf="getAuthenticated()" class="btn btn-primary justify-content-right" routerLink="logout" >Deconnexion</a>
+  
   </nav>
 </div>
 <section id="banner">

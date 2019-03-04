@@ -22,6 +22,7 @@ import * as Rollbar from 'rollbar';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
 import {JwtModule} from '@auth0/angular-jwt';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 const rollbarConfig = {
@@ -51,6 +52,7 @@ export function rollbarFactory() {
     InscriptionBenevoleComponent,
     FormUploadComponent,
     ModalErrorComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
