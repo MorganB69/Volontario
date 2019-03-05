@@ -30,7 +30,6 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @PostMapping(value="/mission/recherche")
-    @Secured("ROLE_ASSO")
     public List<Mission> rechercheMission(@RequestBody RechercheMission recherche) {
         List<Mission> listMission = missionManager.rechercheMission(recherche);
         return listMission;
