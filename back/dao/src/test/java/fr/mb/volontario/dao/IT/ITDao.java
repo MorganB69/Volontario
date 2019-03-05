@@ -61,8 +61,7 @@ public class ITDao {
 
 
         //Benevole set up
-        LocalDate date = LocalDate.now();
-        benevole.setDateNaissance(date);
+;
         benevole.setNom("Bobo");
         benevole.setPrenom("Morgan");
 

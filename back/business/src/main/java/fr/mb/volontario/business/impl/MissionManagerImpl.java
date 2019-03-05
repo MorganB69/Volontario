@@ -5,6 +5,7 @@ import fr.mb.volontario.dao.contract.DomaineDAO;
 import fr.mb.volontario.dao.contract.MissionDAO;
 import fr.mb.volontario.model.bean.Domaine;
 import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheMission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,14 @@ public class MissionManagerImpl implements MissionManager {
 
     @Override
     @Transactional
-    public List<Mission> rechercheMission(RechercheMission recherche) {
-
-        List<Mission>listReturn= missionDAO.rechercheMission(recherche);
+    public List<Mission> rechercheMission(RechercheMission recherche) throws FunctionalException {
+        List<Mission> listReturn = null;
+        try {
+            listReturn = missionDAO.rechercheMission(recherche);
+        }
+        catch (Exception exception) {
+            throw new FunctionalException("Une erreur est parvenue dans la recherche");
+        }
 
         return listReturn;
     }

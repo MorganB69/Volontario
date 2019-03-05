@@ -12,6 +12,9 @@ import {UploadService} from '../../services/upload/upload.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {RestService} from '../../services/rest/rest.service';
 import {User} from '../../model/User';
+import {ModalErrorComponent} from '../../modal-error/modal-error.component';
+import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -42,7 +45,9 @@ export class InscriptionComponent implements OnInit {
               private adresseService: AdresseApiService,
               private missionService: MissionService,
               private uploadService: UploadService,
-              private restService: RestService) {
+              private restService: RestService,
+              private router: Router,
+              private modal: NgbModal) {
   }
 
 
@@ -122,5 +127,9 @@ export class InscriptionComponent implements OnInit {
     this.user.role = 'ASSO';
     this.association.users.push(this.user);
     this.restService.inscriptionAsso(this.association).subscribe();
+    const modalRef = this.modal.open(ModalErrorComponent);
+    modalRef.componentInstance.body = 'Vous allez être redirigé vers la page de Login';
+    modalRef.componentInstance.titre = 'Félicitation pour votre inscription';
+    this.router.navigate(['login']);
   }
 }

@@ -19,7 +19,6 @@ public class Benevole implements Serializable {
     private Integer idBenevole;
     private String nom;
     private String prenom;
-    private LocalDate dateNaissance;
     private Adresse adresse;
     private Set<Inscription> inscriptions=new HashSet<>();
     private User user;
@@ -31,7 +30,6 @@ public class Benevole implements Serializable {
         this.idBenevole = idBenevole;
         this.nom = nom;
         this.prenom = prenom;
-        this.dateNaissance = dateNaissance;
     }
 
     @Id
@@ -66,15 +64,7 @@ public class Benevole implements Serializable {
     }
 
 
-    @Basic
-    @Column(name = "date_naissance", nullable = false)
-    public LocalDate getDateNaissance() {
-        return dateNaissance;
-    }
 
-    public void setDateNaissance(LocalDate dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -83,13 +73,12 @@ public class Benevole implements Serializable {
         Benevole benevole = (Benevole) o;
         return Objects.equals(idBenevole, benevole.idBenevole) &&
                 Objects.equals(nom, benevole.nom) &&
-                Objects.equals(prenom, benevole.prenom) &&
-                Objects.equals(dateNaissance, benevole.dateNaissance);
+                Objects.equals(prenom, benevole.prenom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idBenevole, nom, prenom, dateNaissance);
+        return Objects.hash(idBenevole, nom, prenom);
     }
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -6,6 +6,7 @@ import {Domaine} from '../../model/Domaine';
 import {Recherche} from '../../model/Recherche';
 import {Mission} from '../../model/Mission';
 import {Association} from '../../model/Association';
+import {Benevole} from '../../model/Benevole';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -37,7 +38,11 @@ recherche(recherche: Recherche) {
 inscriptionAsso(association: Association) {
     console.log(association);
     return this.http.post<Association>(this.baseUrl + 'association/inscription', association, httpOptions);
-
 }
+
+inscriptionBene(benevole: Benevole) {
+    console.log(benevole);
+    return this.http.post<Benevole>(this.baseUrl + 'benevole/inscription', benevole, httpOptions);
+  }
 
 }

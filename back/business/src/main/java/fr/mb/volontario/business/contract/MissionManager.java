@@ -2,6 +2,7 @@ package fr.mb.volontario.business.contract;
 
 import fr.mb.volontario.model.bean.Domaine;
 import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheMission;
 
@@ -16,7 +17,7 @@ public interface MissionManager {
      * @param recherche
      * @return
      */
-    List<Mission> rechercheMission(RechercheMission recherche);
+    List<Mission> rechercheMission(RechercheMission recherche) throws FunctionalException;
 
     /**
      * Obtention de tous les domaines
