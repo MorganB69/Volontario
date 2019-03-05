@@ -17,25 +17,20 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Benevole implements Serializable {
     private Integer idBenevole;
-    private String identifiant;
     private String nom;
     private String prenom;
-    private String mdp;
-    private String mail;
     private LocalDate dateNaissance;
     private Adresse adresse;
     private Set<Inscription> inscriptions=new HashSet<>();
+    private User user;
 
     public Benevole() {
     }
 
-    public Benevole(Integer idBenevole, String identifiant, String nom, String prenom, String mdp, String mail, LocalDate dateNaissance) {
+    public Benevole(Integer idBenevole, String nom, String prenom, LocalDate dateNaissance) {
         this.idBenevole = idBenevole;
-        this.identifiant = identifiant;
         this.nom = nom;
         this.prenom = prenom;
-        this.mdp = mdp;
-        this.mail = mail;
         this.dateNaissance = dateNaissance;
     }
 
@@ -48,16 +43,6 @@ public class Benevole implements Serializable {
 
     public void setIdBenevole(Integer idBenevole) {
         this.idBenevole = idBenevole;
-    }
-
-    @Basic
-    @Column(name = "identifiant", nullable = false)
-    public String getIdentifiant() {
-        return identifiant;
-    }
-
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
     }
 
     @Basic
@@ -80,25 +65,6 @@ public class Benevole implements Serializable {
         this.prenom = prenom;
     }
 
-    @Basic
-    @Column(name = "mdp", nullable = false)
-    public String getMdp() {
-        return mdp;
-    }
-
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
-
-    @Basic
-    @Column(name = "mail", nullable = false)
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 
     @Basic
     @Column(name = "date_naissance", nullable = false)
@@ -116,17 +82,14 @@ public class Benevole implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Benevole benevole = (Benevole) o;
         return Objects.equals(idBenevole, benevole.idBenevole) &&
-                Objects.equals(identifiant, benevole.identifiant) &&
                 Objects.equals(nom, benevole.nom) &&
                 Objects.equals(prenom, benevole.prenom) &&
-                Objects.equals(mdp, benevole.mdp) &&
-                Objects.equals(mail, benevole.mail) &&
                 Objects.equals(dateNaissance, benevole.dateNaissance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idBenevole, identifiant, nom, prenom, mdp, mail, dateNaissance);
+        return Objects.hash(idBenevole, nom, prenom, dateNaissance);
     }
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -146,5 +109,15 @@ public class Benevole implements Serializable {
 
     public void setInscriptions(Set<Inscription> inscriptions) {
         this.inscriptions = inscriptions;
+    }
+
+    @OneToOne(mappedBy = "benevole", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="bene-user")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
