@@ -21,7 +21,7 @@ import java.util.List;
 @ContextConfiguration(locations= {"/ApplicationContextIntegrationTestDao.xml"})
 public class ITMissionDao {
 
-    Logger logger = LoggerFactory.getLogger(ITDao.class);
+    Logger logger = LoggerFactory.getLogger(ITMissionDao.class);
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();
@@ -54,4 +54,6 @@ public class ITMissionDao {
         Assert.assertTrue("Test avec un domaine 1 et dispo 1 et 3", listTest.stream().anyMatch(o -> o.getIdMission()==(1))&&listTest.stream().anyMatch(o -> o.getIdMission()==(3)));
 
     }
+
+
 }

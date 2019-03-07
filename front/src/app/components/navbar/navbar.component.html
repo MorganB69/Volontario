@@ -1,3 +1,4 @@
+<div>
 <div class="row">
   <nav class="navbar fixed-top navbar-expand-lg bg-light navbar-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Togglenavigation">
@@ -11,32 +12,31 @@
           <a class="nav-link" routerLink="/accueil">ACCUEIL</a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropBenevoles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            BENEVOLES
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropBenevoles">
-            <a class="nav-link">Trouver une mission</a>
-            <a class="nav-link">Espace personnel</a>
-          </div>
+        <li class="nav-item ml-3mr-3">
+          <a class="nav-link" routerLink="/recherche">CHERCHER UNE MISSION</a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropAssos  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ASSOCIATIONS
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropAssos">
-            <a class="nav-link">Espace association</a>
-            <a class="nav-link">Créer une mission</a>
-
-          </div>
+        <li class="nav-item ml-3mr-3">
+          <a class="nav-link" routerLink="">ESPACE ASSOCIATION</a>
         </li>
+
+
       </ul>
 
-    </div>
-    <a class="btn btn-primary justify-content-right" routerLink="login">Connexion</a>
 
+    <ul class="navbar-nav justify-content-right">
+
+      <li class="nav-item m-1">
+    <a *ngIf="!getAuthenticated()" class="btn btn-sm btn-primary justify-content-center" routerLink="/inscription">Inscription</a>
+
+      </li>
+      <li class="nav-item m-1">
+    <a *ngIf="!getAuthenticated()" class="btn btn btn-sm btn-special justify-content-center" routerLink="login">Connexion</a>
+
+    <a *ngIf="getAuthenticated()" class="btn btn btn-sm btn-danger justify-content-center" routerLink="logout" >Deconnexion</a>
+      </li>
+    </ul>
+    </div>
   </nav>
 </div>
 <section id="banner">
@@ -47,3 +47,4 @@
   </div>
 
 </section>
+</div>

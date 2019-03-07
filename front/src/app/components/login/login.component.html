@@ -8,30 +8,36 @@
 
       <div class="row justify-content-center ">
 
-        <form class="form m-2">
+        <form class="form m-2" #loginForm="ngForm" (ngSubmit)="login()">
 
           <h3> Formulaire de connexion</h3>
 
 
             <div class="form-group">
               <label for="identifiant">Identifiant</label>
-              <input type="text" class="form-control" id="identifiant" required>
+              <input type="text" class="form-control" id="identifiant" [(ngModel)]="username" name="username" required>
             </div>
 
             <div class="form-group">
               <label for="mdp">Mot de passe</label>
-              <input type="text" class="form-control" id="mdp">
+              <input type="text" class="form-control" id="mdp" [(ngModel)]="password" name="password" required>
             </div>
 
             <div class="row justify-content-center m-2">
-            <button type="submit" class="btn btn-special">Login</button>
+            <button type="submit" class="btn btn-special" [disabled]="loginForm.invalid">Login</button>
             </div>
             <div class="row justify-content-center mt-2">
               <p>Vous n'avez pas encore de compte? Inscrivez-vous</p>
             </div>
 
             <div class="row justify-content-center mb-2">
-            <button type="submit" class="btn btn-primary">Inscription</button>
+            <button class="btn btn-primary" routerLink="/inscription">Inscription</button>
+          </div>
+          <div class="row m-2" *ngIf="loginError"
+               class="alert alert-danger">
+            <div *ngIf="loginError">
+              Erreur d'identification
+            </div>
           </div>
           </form>
 

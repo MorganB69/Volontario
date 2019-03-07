@@ -1,5 +1,6 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -15,27 +16,22 @@ import java.util.Set;
 public class Association implements Serializable {
     private Integer idAssociation;
     private String nom;
-    private String mail;
     private String web;
-    private String identifiant;
-    private String mdp;
     private String siret;
     private String description;
     private String photo;
     private Adresse adresse;
     private Set<Mission> missions= new HashSet<>();
     private Set<Domaine> domaines= new HashSet<>();
+    private Set<User> users= new HashSet<>();
 
     public Association() {
     }
 
-    public Association(Integer idAssociation, String nom, String mail, String web, String identifiant, String mdp, String siret, String description, String photo) {
+    public Association(Integer idAssociation, String nom, String web, String siret, String description, String photo) {
         this.idAssociation = idAssociation;
         this.nom = nom;
-        this.mail = mail;
         this.web = web;
-        this.identifiant = identifiant;
-        this.mdp = mdp;
         this.siret = siret;
         this.description = description;
         this.photo = photo;
@@ -62,15 +58,6 @@ public class Association implements Serializable {
         this.nom = nom;
     }
 
-    @Basic
-    @Column(name = "mail", nullable = false)
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 
     @Basic
     @Column(name = "web", nullable = true)
@@ -82,25 +69,6 @@ public class Association implements Serializable {
         this.web = web;
     }
 
-    @Basic
-    @Column(name = "identifiant", nullable = false)
-    public String getIdentifiant() {
-        return identifiant;
-    }
-
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
-    }
-
-    @Basic
-    @Column(name = "mdp", nullable = false)
-    public String getMdp() {
-        return mdp;
-    }
-
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
 
     @Basic
     @Column(name = "siret", nullable = false)
@@ -123,7 +91,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     public String getPhoto() {
         return photo;
     }
@@ -139,10 +107,7 @@ public class Association implements Serializable {
         Association that = (Association) o;
         return Objects.equals(idAssociation, that.idAssociation) &&
                 Objects.equals(nom, that.nom) &&
-                Objects.equals(mail, that.mail) &&
                 Objects.equals(web, that.web) &&
-                Objects.equals(identifiant, that.identifiant) &&
-                Objects.equals(mdp, that.mdp) &&
                 Objects.equals(siret, that.siret) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(photo, that.photo);
@@ -150,12 +115,12 @@ public class Association implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idAssociation, nom, mail, web, identifiant, mdp, siret, description, photo);
+        return Objects.hash(idAssociation, nom,  web, siret, description, photo);
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference(value="asso-adresse")
     public Adresse getAdresse() {
         return adresse;
     }
@@ -165,7 +130,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association")
-    @JsonManagedReference
+    @JsonManagedReference(value="asso-mission")
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -174,8 +139,7 @@ public class Association implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "asso_domaine", joinColumns = {
             @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})
@@ -185,5 +149,31 @@ public class Association implements Serializable {
 
     public void setDomaines(Set<Domaine> domaines) {
         this.domaines = domaines;
+    }
+
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="asso-user")
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Association{" +
+                "idAssociation=" + idAssociation +
+                ", nom='" + nom + '\'' +
+                ", web='" + web + '\'' +
+                ", siret='" + siret + '\'' +
+                ", description='" + description + '\'' +
+                ", photo='" + photo + '\'' +
+                ", adresse=" + adresse +
+                ", missions=" + missions +
+                ", domaines=" + domaines +
+                ", users=" + users +
+                '}';
     }
 }

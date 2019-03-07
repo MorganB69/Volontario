@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface AssociationDAO extends PagingAndSortingRepository<Association, Integer>, AssociationCustomDAO {
 
+    boolean existsBySiret(String siret);
+
 }

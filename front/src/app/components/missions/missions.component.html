@@ -1,17 +1,33 @@
 <div class="row">
 <div class="col-md-4" id="left-col-rech">
 
-  <form  #f="ngForm" (ngSubmit)="refresh(f)" class="form m-2">
+  <form  #rechercheForm="ngForm" (ngSubmit)="refresh(f)" class="form m-2">
     <div class="row justify-content-center">
     <h2 class="m-2">Formulaire</h2>
     </div>
     <div class="form-group">
     <label class="row m-2" for="domaine">Domaine associatif</label>
-    <select multiple [(ngModel)]="domaineId" name="domaineId" class="row form-control"  id="domaine">
+    <select multiple [(ngModel)]="domaineId" name="domaineId" class="row form-control"  id="domaine" required>
 
       <option *ngFor="let domaine of domaines" [(ngValue)]="domaine.idDomaine">{{domaine.nom}}</option>
     </select>
   </div>
+
+    <div class="form-group">
+      <label class="row m-2" for="departement">Département</label>
+      <select name="departement" class="row form-control" #departement id="departement" (change)="onSelected(departement.value)" required>
+
+        <option *ngFor="let departement of departements" [(ngValue)]="selectedDep" >{{departement}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngIf="displayCommune">
+      <label class="row m-2" for="commune">Commune</label>
+      <select name="commune" class="row form-control"  id="commune" required>
+
+        <option *ngFor="let commune of communes"  [(ngValue)]="selectedCom" >{{commune}}</option>
+      </select>
+    </div>
 
     <div class="form-group">
     <label class="row m-2">Disponibilités</label>
@@ -32,7 +48,7 @@
         <label class="form-check-label" for="dispo4">Soir</label>
       </div>
     </div>
-    <button type="submit" class="btn btn-special">Recherche</button>
+    <button type="submit" [disabled]="rechercheForm.invalid" class="btn btn-special">Recherche</button>
   </form>
 
 

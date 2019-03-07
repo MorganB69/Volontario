@@ -1,7 +1,9 @@
 package fr.mb.volontario.model.bean;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -83,7 +85,7 @@ public class Inscription implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_mission", referencedColumnName = "id_mission", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "mission-inscri")
     public Mission getMission() {
         return mission;
     }
@@ -97,7 +99,7 @@ public class Inscription implements Serializable {
             @JoinColumn(name = "id_inscription", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_benevole", nullable = false, updatable = false)
     })
-    @JsonBackReference
+    @JsonIgnore
     public Set<Benevole> getBenevoles() {
         return benevoles;
     }
