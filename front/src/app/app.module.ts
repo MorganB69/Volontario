@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MissionsComponent } from './components/missions/missions.component';
 import { MissionDetailComponent } from './components/mission-detail/mission-detail.component';
 import { LoginComponent } from './components/login/login.component';
-import { InscriptionComponent } from './components/inscription/inscription.component';
+import { InscriptionComponent } from './components/inscription-association/inscription.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -23,6 +23,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
 import {JwtModule} from '@auth0/angular-jwt';
 import { LogoutComponent } from './components/logout/logout.component';
+import { NavInscriComponent } from './components/nav-inscri/nav-inscri.component';
 
 
 const rollbarConfig = {
@@ -53,6 +54,7 @@ export function rollbarFactory() {
     FormUploadComponent,
     ModalErrorComponent,
     LogoutComponent,
+    NavInscriComponent,
   ],
   imports: [
     BrowserModule,

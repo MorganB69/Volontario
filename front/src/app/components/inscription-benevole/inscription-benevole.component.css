@@ -4,6 +4,22 @@
 
 }
 
+
+.ng-valid[required], .ng-valid.required  {
+  border: 1px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border: 1px solid #a94442; /* red */
+}
+
+.form-control:valid{
+  background-color: lightcyan;
+}
+.form-control:invalid{
+  border: 1px solid #a94442; /* red */
+}
+
 .h2 {
   font-size: 3em;
 }
@@ -31,6 +47,14 @@
   padding-right: 3.25em;
 
 }
+#description{
+  border-radius:15px;
+  margin: 1em;
+}
+#domaine{
+  border-radius:15px;
+  margin: 1em;
+}
 
 .btn-special:hover {
   background-color: #00d69d;
@@ -39,4 +63,3 @@
 .btn-special:active {
   background-color: #00a377;
 }
-

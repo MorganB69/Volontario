@@ -34,7 +34,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             // client-side error
             errorMessage = `Error: ${error.error.message}`;
             const modalRef = this.modalService.open(ModalErrorComponent);
-            modalRef.componentInstance.error = errorMessage;
+            modalRef.componentInstance.body = errorMessage;
+            modalRef.componentInstance.titre = 'Une erreur est survenue';
             this.rollbar.error(error);
             console.log('client-error :' + errorMessage);
           } else {
@@ -45,12 +46,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               if (error.status === 403) {
                 errorMessage = `Vous n'avez pas accès à cette partie du site`;
                 const modalRef = this.modalService.open(ModalErrorComponent);
-                modalRef.componentInstance.error = errorMessage;
+                modalRef.componentInstance.body = errorMessage;
+                modalRef.componentInstance.titre = 'Une erreur est survenue';
                 this.router.navigate(['login']);
               } else {
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
             const modalRef = this.modalService.open(ModalErrorComponent);
-            modalRef.componentInstance.error = errorMessage;
+                modalRef.componentInstance.body = 'Le service demandé est actuellement indisponible, veuillez nous excuser';
+                modalRef.componentInstance.titre = 'Une erreur est survenue';
             this.rollbar.error(error);
             console.log('server error :' + errorMessage);
           }}

@@ -6,7 +6,6 @@ export class Benevole {
   id: number;
   nom: string;
   prenom: string;
-  date_naissance: Date;
   adresse: Adresse;
   inscriptions: Array<Inscription>;
   user: User;

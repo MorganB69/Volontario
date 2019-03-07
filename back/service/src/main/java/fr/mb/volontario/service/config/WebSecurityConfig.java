@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/token/*", "/signup","/uploadFile", "/association/inscription", "/mission/domaines").permitAll()
+                .antMatchers("/token/*", "/signup","/uploadFile", "/association/inscription","/benevole/inscription", "/mission/domaines", "/mission/departements","/mission/communes").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

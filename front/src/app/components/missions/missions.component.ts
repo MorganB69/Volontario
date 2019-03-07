@@ -4,6 +4,7 @@ import {MissionService} from '../../services/mission/mission.service';
 import {Recherche} from '../../model/Recherche';
 import {Mission} from '../../model/Mission';
 import {NgForm} from '@angular/forms';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-missions',
@@ -14,6 +15,11 @@ export class MissionsComponent implements OnInit {
 
   domaines: Array<Domaine> = new Array<Domaine>();
   missions: Array<Mission> = new Array<Mission>();
+  departements: string[];
+  communes: string[];
+  selectedDep: string;
+  selectedCom: string;
+
   dispo1 = true;
   dispo2 = true;
   dispo3 = true;
@@ -21,6 +27,7 @@ export class MissionsComponent implements OnInit {
 
   recherche: Recherche = new Recherche();
   domaineId: Array<number> = new Array<number>();
+  displayCommune = false;
 
 
   constructor(private missionService: MissionService) {
@@ -30,6 +37,7 @@ export class MissionsComponent implements OnInit {
 
     this.getDomaines();
     this.getMissions();
+    this.getDepartements();
   }
 
   getDomaines() {
@@ -37,6 +45,30 @@ export class MissionsComponent implements OnInit {
       (response) => this.domaines = response,
       (error) => console.log('error domaine'));
     return this.domaines;
+  }
+
+  getDepartements() {
+    this.missionService.getDetpartements().subscribe(
+      (response) => {this.departements = response;
+      },
+      (error) => console.log('error adresses'));
+    return this.departements;
+  }
+
+  onSelected(dep: string) {
+    this.getCommunes(dep);
+    this.displayCommune = true;
+    console.log(this.displayCommune);
+    console.log(dep);
+    console.log(this.communes);
+  }
+
+  getCommunes(dep: string) {
+    this.missionService.getCommunes(dep).subscribe(
+      (response) => {this.communes = response;
+      },
+      (error) => console.log('error adresses'));
+    return this.communes;
   }
 
   getMissions() {

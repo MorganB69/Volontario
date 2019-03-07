@@ -7,8 +7,9 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./modal-error.component.css']
 })
 export class ModalErrorComponent implements OnInit {
-  @Input() error;
+  @Input() body;
   @Input() message;
+  @Input() titre;
 
   constructor(public activeModal: NgbActiveModal) {
   }

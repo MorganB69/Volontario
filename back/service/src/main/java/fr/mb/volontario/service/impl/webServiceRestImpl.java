@@ -3,10 +3,12 @@ package fr.mb.volontario.service.impl;
 import fr.mb.volontario.business.contract.InscriptionManager;
 import fr.mb.volontario.business.contract.MissionManager;
 import fr.mb.volontario.model.bean.Association;
+import fr.mb.volontario.model.bean.Benevole;
 import fr.mb.volontario.model.bean.Domaine;
 import fr.mb.volontario.model.bean.Mission;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
+import fr.mb.volontario.model.recherche.RechercheAdresse;
 import fr.mb.volontario.model.recherche.RechercheMission;
 import fr.mb.volontario.service.contract.webServiceRest;
 import org.slf4j.Logger;
@@ -30,8 +32,7 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @PostMapping(value="/mission/recherche")
-    @Secured("ROLE_ASSO")
-    public List<Mission> rechercheMission(@RequestBody RechercheMission recherche) {
+    public List<Mission> rechercheMission(@RequestBody RechercheMission recherche) throws FunctionalException {
         List<Mission> listMission = missionManager.rechercheMission(recherche);
         return listMission;
     }
@@ -44,10 +45,32 @@ public class webServiceRestImpl implements webServiceRest {
     }
 
     @Override
+    @GetMapping(value = "/mission/departements")
+    public List<String> findDepartements() throws NotFoundException {
+        List<String> listDepartements = missionManager.findDepartement();
+        return listDepartements;
+    }
+
+    @Override
+    @PostMapping(value = "/mission/communes")
+    public List<String> findCommunes(@RequestBody String dep) throws NotFoundException {
+        List<String> listCommunes = missionManager.findCommune(dep);
+        return listCommunes;
+    }
+
+    @Override
     @PostMapping(value = "/association/inscription")
     public Association inscriptionAssociation(@RequestBody Association association) throws FunctionalException {
        logger.info(association.toString());
-        inscriptionManager.inscriptionAsso(association);
+        association = inscriptionManager.inscriptionAsso(association);
         return association;
+    }
+
+    @Override
+    @PostMapping(value = "/benevole/inscription")
+    public Benevole inscriptionBenevole(@RequestBody Benevole benevole) throws FunctionalException {
+        logger.info(benevole.toString());
+        benevole = inscriptionManager.inscriptionBene(benevole);
+        return benevole;
     }
 }

@@ -2,8 +2,10 @@ package fr.mb.volontario.business.impl;
 
 import fr.mb.volontario.business.contract.InscriptionManager;
 import fr.mb.volontario.dao.contract.AssociationDAO;
+import fr.mb.volontario.dao.contract.BenevoleDAO;
 import fr.mb.volontario.dao.contract.UserDao;
 import fr.mb.volontario.model.bean.Association;
+import fr.mb.volontario.model.bean.Benevole;
 import fr.mb.volontario.model.exception.FunctionalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +20,9 @@ public class InscriptionManagerImpl implements InscriptionManager {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    BenevoleDAO benevoleDAO;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
@@ -39,5 +44,16 @@ public class InscriptionManagerImpl implements InscriptionManager {
         associationDAO.save(association);
 
         return association;
+    }
+
+    @Override
+    @Transactional
+    public Benevole inscriptionBene(Benevole benevole) throws FunctionalException {
+        if (userDao.existsByIdentifiant(benevole.getUser().getIdentifiant())) throw new FunctionalException("L'identifiant est déjà utilisé");
+        else {
+            benevole.getUser().setMdp((bcryptEncoder.encode(benevole.getUser().getMdp())));
+            benevoleDAO.save(benevole);
+        }
+        return benevole;
     }
 }
