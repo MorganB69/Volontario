@@ -6,7 +6,9 @@ import fr.mb.volontario.model.bean.Domaine;
 import fr.mb.volontario.model.bean.Mission;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
+import fr.mb.volontario.model.recherche.RechercheAdresse;
 import fr.mb.volontario.model.recherche.RechercheMission;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -29,6 +31,23 @@ public interface webServiceRest {
      * @throws NotFoundException
      */
     List<Domaine> findAllDomaine() throws NotFoundException;
+
+
+    /**
+     * Obtention des départements
+     * @return
+     * @throws NotFoundException
+     */
+    List<String> findDepartements() throws NotFoundException;
+
+
+    /**
+     * Obtention des villes en fonction du département
+     * @param dep
+     * @return
+     * @throws NotFoundException
+     */
+    List<String> findCommunes(String dep) throws NotFoundException;
 
     /**
      * Inscription d'une association

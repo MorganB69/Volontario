@@ -16,6 +16,14 @@ export class MissionService {
   return this.restService.getDomaines();
   }
 
+  getDetpartements() {
+    return this.restService.getDepartements();
+  }
+
+  getCommunes(dep: string) {
+    return this.restService.getCommunes(dep);
+  }
+
   rechercheMission(recherche: Recherche) {
     return this.restService.recherche(recherche);
   }

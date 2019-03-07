@@ -8,6 +8,7 @@ import fr.mb.volontario.model.bean.Domaine;
 import fr.mb.volontario.model.bean.Mission;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
+import fr.mb.volontario.model.recherche.RechercheAdresse;
 import fr.mb.volontario.model.recherche.RechercheMission;
 import fr.mb.volontario.service.contract.webServiceRest;
 import org.slf4j.Logger;
@@ -41,6 +42,20 @@ public class webServiceRestImpl implements webServiceRest {
     public List<Domaine> findAllDomaine() throws NotFoundException {
         List<Domaine> listDomaine = missionManager.findAllDomaine();
         return listDomaine;
+    }
+
+    @Override
+    @GetMapping(value = "/mission/departements")
+    public List<String> findDepartements() throws NotFoundException {
+        List<String> listDepartements = missionManager.findDepartement();
+        return listDepartements;
+    }
+
+    @Override
+    @PostMapping(value = "/mission/communes")
+    public List<String> findCommunes(@RequestBody String dep) throws NotFoundException {
+        List<String> listCommunes = missionManager.findCommune(dep);
+        return listCommunes;
     }
 
     @Override
