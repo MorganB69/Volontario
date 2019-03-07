@@ -15,17 +15,17 @@
 
     <div class="form-group">
       <label class="row m-2" for="departement">Département</label>
-      <select name="departement" class="row form-control" #departement id="departement" (change)="onSelected(departement.value)" required>
-
-        <option *ngFor="let departement of departements" [(ngValue)]="selectedDep" >{{departement}}</option>
+      <select [(ngModel)]="selectedDep" name="selectedDep" class="row form-control" #departement id="departement" (change)="onSelected(departement.value)" required>
+        <option [value]="defaultDep">{{defaultDep}}</option>
+        <option *ngFor="let departement of departements" [value]="departement" >{{departement}}</option>
       </select>
     </div>
 
     <div class="form-group" *ngIf="displayCommune">
       <label class="row m-2" for="commune">Commune</label>
-      <select name="commune" class="row form-control"  id="commune" required>
-
-        <option *ngFor="let commune of communes"  [(ngValue)]="selectedCom" >{{commune}}</option>
+      <select [(ngModel)]="selectedCom" name="selectedCom" class="row form-control"  id="commune" required>
+        <option [value]="defaultCom">{{defaultCom}}</option>
+        <option *ngFor="let commune of communes"  [value]="commune" >{{commune}}</option>
       </select>
     </div>
 

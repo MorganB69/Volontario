@@ -4,7 +4,7 @@ import {MissionService} from '../../services/mission/mission.service';
 import {Recherche} from '../../model/Recherche';
 import {Mission} from '../../model/Mission';
 import {NgForm} from '@angular/forms';
-import {forEach} from '@angular/router/src/utils/collection';
+
 
 @Component({
   selector: 'app-missions',
@@ -19,6 +19,8 @@ export class MissionsComponent implements OnInit {
   communes: string[];
   selectedDep: string;
   selectedCom: string;
+  defaultDep = 'Tous les départements';
+  defaultCom = 'Toutes les communes';
 
   dispo1 = true;
   dispo2 = true;
@@ -38,6 +40,8 @@ export class MissionsComponent implements OnInit {
     this.getDomaines();
     this.getMissions();
     this.getDepartements();
+    this.selectedDep = this.defaultDep;
+    this.selectedCom = this.defaultCom;
   }
 
   getDomaines() {
@@ -58,9 +62,7 @@ export class MissionsComponent implements OnInit {
   onSelected(dep: string) {
     this.getCommunes(dep);
     this.displayCommune = true;
-    console.log(this.displayCommune);
-    console.log(dep);
-    console.log(this.communes);
+    console.log(this.selectedDep);
   }
 
   getCommunes(dep: string) {
@@ -73,7 +75,11 @@ export class MissionsComponent implements OnInit {
 
   getMissions() {
     this.missionService.rechercheMission(this.recherche).subscribe(
-      (response) => this.missions = response,
+      (response) => {this.missions = response;
+      this.recherche = new Recherche();
+        this.selectedDep = this.defaultDep;
+        this.selectedCom = this.defaultCom;
+      },
       (error) => console.log('error recherche mission'));
     return this.missions;
   }
@@ -85,6 +91,8 @@ export class MissionsComponent implements OnInit {
     if (this.dispo2 === true) { this.recherche.disponibilite.push(2); }
     if (this.dispo3 === true) { this.recherche.disponibilite.push(3); }
     if (this.dispo4 === true) { this.recherche.disponibilite.push(4); }
+    if (this.selectedDep !== this.defaultDep && this.selectedDep !== null ) { this.recherche.departement = this.selectedDep; }
+    if (this.selectedCom !== this.defaultCom && this.selectedCom !== null ) { this.recherche.commune = this.selectedCom; }
     this.recherche.domaine = this.domaineId;
     this.getMissions();
   }

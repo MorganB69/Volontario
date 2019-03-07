@@ -37,6 +37,8 @@ public class MissionDAOImpl implements MissionCustomDao {
             //JOINTURES DES INSCRIPTIONS
             if (!recherche.getDisponibilite().isEmpty()) SQL += " JOIN mission.inscriptions as inscription ";
 
+            if(recherche.getDepartement()!=null||recherche.getCommune()!=null) SQL += " JOIN mission.adresse as adresse ";
+
             // CRITERE DU DOMAINE
             if (!recherche.getDomaine().isEmpty()||!recherche.getDisponibilite().isEmpty()){
             SQL +=  " WHERE ";
@@ -77,12 +79,22 @@ public class MissionDAOImpl implements MissionCustomDao {
 
                 SQL += " ) ";
             }
+
+        if (recherche.getDepartement()!=null) {
+            SQL += " AND adresse.departement = (:departement) ";
+        }
+        if(recherche.getCommune()!=null) {
+            SQL += " AND adresse.commune = (:commune) ";
+        }
+
             SQL += " ORDER By mission.idMission ";
 
 
 
         Query query = entityManager.createQuery(SQL);
         if(!recherche.getDomaine().isEmpty()) query.setParameter("domaine",recherche.getDomaine());
+        if (recherche.getDepartement()!=null) query.setParameter("departement", recherche.getDepartement());
+        if(recherche.getCommune()!=null) query.setParameter("commune", recherche.getCommune());
         listReturn= query.getResultList();
 
 
