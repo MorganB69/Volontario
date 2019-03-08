@@ -31,13 +31,18 @@ public class MissionDAOImpl implements MissionCustomDao {
             //SELECTION DES MISSIONS
             SQL += " SELECT DISTINCT mission FROM Mission as mission ";
 
+            //JOINTURE DES ASSOCIATIONS
+            SQL += " LEFT JOIN FETCH mission.association as association ";
+
+
+
             //JOINTURES DES DOMAINES
-            if(!recherche.getDomaine().isEmpty()) SQL += " JOIN mission.domaine as domaine ";
+            SQL += " LEFT JOIN FETCH mission.domaine as domaine ";
 
             //JOINTURES DES INSCRIPTIONS
-            if (!recherche.getDisponibilite().isEmpty()) SQL += " JOIN mission.inscriptions as inscription ";
+            SQL += " LEFT JOIN FETCH mission.inscriptions as inscription ";
 
-            if(recherche.getDepartement()!=null||recherche.getCommune()!=null) SQL += " JOIN mission.adresse as adresse ";
+            SQL += " LEFT JOIN FETCH mission.adresse as adresse ";
 
             // CRITERE DU DOMAINE
             if (!recherche.getDomaine().isEmpty()||!recherche.getDisponibilite().isEmpty()){

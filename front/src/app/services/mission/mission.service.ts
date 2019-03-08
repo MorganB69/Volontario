@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {RestService} from '../rest/rest.service';
 import {Domaine} from '../../model/Domaine';
 import {Recherche} from '../../model/Recherche';
+import {UploadService} from '../upload/upload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import {Recherche} from '../../model/Recherche';
 export class MissionService {
 
 
-  constructor(private restService: RestService) { }
+
+  constructor(private restService: RestService, private uploadService: UploadService) { }
 
 
   getDomaines() {
@@ -26,6 +28,10 @@ export class MissionService {
 
   rechercheMission(recherche: Recherche) {
     return this.restService.recherche(recherche);
+  }
+
+  getImage(path: string) {
+  return this.uploadService.getImage(path);
   }
 
 }

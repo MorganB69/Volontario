@@ -83,7 +83,6 @@ public class Benevole implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
-    @JsonBackReference(value="bene-adresse")
     public Adresse getAdresse() {
         return adresse;
     }

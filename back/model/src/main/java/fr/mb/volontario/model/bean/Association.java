@@ -120,7 +120,6 @@ public class Association implements Serializable {
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
-    @JsonBackReference(value="asso-adresse")
     public Adresse getAdresse() {
         return adresse;
     }
@@ -130,7 +129,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association")
-    @JsonManagedReference(value="asso-mission")
+    @JsonBackReference(value="asso-mission")
     public Set<Mission> getMissions() {
         return missions;
     }

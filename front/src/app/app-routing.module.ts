@@ -9,6 +9,7 @@ import {InscriptionBenevoleComponent} from './components/inscription-benevole/in
 import {AuthGuard} from './interceptors/AuthGard';
 import {LogoutComponent} from './components/logout/logout.component';
 import {NavInscriComponent} from './components/nav-inscri/nav-inscri.component';
+import {MissionDetailComponent} from './components/mission-detail/mission-detail.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'inscriptionAssociation', component: InscriptionComponent},
   {path: 'inscriptionBenevole', component: InscriptionBenevoleComponent},
   {path: 'logout', component: LogoutComponent},
-  {path: 'inscription', component: NavInscriComponent}
+  {path: 'inscription', component: NavInscriComponent},
+  {path: 'detail/:id', component: MissionDetailComponent}
 ];
 
 

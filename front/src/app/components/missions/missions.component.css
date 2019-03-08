@@ -9,13 +9,58 @@
   border-radius:30px;
 
 }
+.card{
+  color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-color:  #00BC8A;
+
+
+
+}
+
+
+card.header a:hover{
+  text-decoration:none;
+  text-align:center;
+}
+.card-body{
+  background-color: #e8edf1;
+}
+
+#listMission{
+  list-style:none;
+}
+#attribut{
+  color:Blue;
+}
+
+#img-card{
+  max-height:170px;
+  max-width:250px;
+  overflow:hidden;
+}
+@media (max-width: 240px) {
+  #card-list {
+    max-width: 200px;
+  }
+}
+.portfolio-item {
+  margin-top:2em;
+  margin-bottom:2em;
+  max-height:500px;
+  max-width:450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
 .btn-special {
   background-color: #00BC8A;
   color: white;
   border-radius:100px;
   border-color:#00BC8A ;
-  padding-left: 3.25em;
-  padding-right: 3.25em;
+  padding-left: 1.25em;
+  padding-right: 1.25em;
 
 }
 

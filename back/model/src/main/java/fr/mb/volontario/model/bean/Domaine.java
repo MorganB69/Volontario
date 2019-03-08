@@ -70,7 +70,7 @@ public class Domaine implements Serializable {
     }
 
     @OneToMany(mappedBy = "domaine", fetch = FetchType.LAZY)
-    @JsonManagedReference(value="mission-domaine")
+    @JsonIgnore
     public Set<Mission> getMissions() {
         return missions;
     }
