@@ -76,7 +76,12 @@ public class MissionManagerImpl implements MissionManager {
         return listReturn;
     }
 
-
+    @Override
+    public Mission getMissionById(Integer id) throws NotFoundException, FunctionalException {
+        if(id==null || id <=0 ) throw new FunctionalException("erreur de donnée, l'id est incorrect");
+        Mission mission = missionDAO.findById(id).orElseThrow(() -> new NotFoundException("Mission non trouvée"));
+        return mission;
+    }
 
 
 }

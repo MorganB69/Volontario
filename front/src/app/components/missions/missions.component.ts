@@ -32,8 +32,7 @@ export class MissionsComponent implements OnInit {
   recherche: Recherche = new Recherche();
   domaineId: Array<number> = new Array<number>();
   displayCommune = false;
-  imageToShow: any;
-  private isImageLoading: boolean;
+
 
 
   constructor(private missionService: MissionService) {

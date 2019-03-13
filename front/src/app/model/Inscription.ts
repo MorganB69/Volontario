@@ -4,7 +4,7 @@ import {Benevole} from './Benevole';
 
 export class Inscription {
   id: number;
-  nbPlaces: number;
+  nbplaces: number;
   debut: Date;
   fin: Date;
   mission: Mission;

@@ -1,3 +1,178 @@
-<p>
-  mission-detail works!
-</p>
+<div class ="alert alert-danger" *ngIf="notfound">Mission non trouvée</div>
+<h1 class="text-center text-uppercase m-2">{{mission.nom}} </h1>
+<div class="row m-2">
+
+  <div class="col-xs-12 col-md-7 col-lg-8" id="center-column">
+
+
+
+
+
+
+    <h5 class="collapsible-title mt-3" data-toggle="collapse" data-target="#associated-desc2" aria-expanded="true" aria-controls="associated-desc2">
+      <i class="fas fa-info-circle"></i> Description de la mission <i class="fa fa-arrow-down fa-pull-right"></i>
+  </h5>
+
+    <div class="collapse collapse show mt-3 mb-3" id="associated-desc2" aria-expanded="true">
+
+      <div class="card card-body text-dark rounded">
+        <div>
+
+        </div>
+
+
+        <p>{{mission.description}}</p><br>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="mission.complement">
+    <h5 class="collapsible-title mt-3" data-toggle="collapse" data-target="#associated-desc4" aria-expanded="true" aria-controls="associated-desc4">
+      <i class="fas fa-info-circle"></i> Complément<i class="fa fa-arrow-down fa-pull-right"></i>
+    </h5>
+
+
+    <div class="collapse collapse show mt-3 mb-3" id="associated-desc4" aria-expanded="true">
+
+      <div class="card card-body text-dark rounded">
+        <div>
+
+        </div>
+
+
+        <p>{{mission.complement}}</p><br>
+
+      </div>
+
+    </div>
+    </div>
+
+    <h5 class="collapsible-title mt-3" data-toggle="collapse" data-target="#associated-desc" aria-expanded="true" aria-controls="associated-desc">
+      <i class="fas fa-info-circle"></i> Description de l'association <i class="fa fa-arrow-down fa-pull-right"></i>
+    </h5>
+
+    <div class="collapse collapse show mt-3 mb-3" id="associated-desc" aria-expanded="true">
+
+      <div class="card card-body text-dark rounded">
+        <div>
+
+        </div>
+
+
+        <p>{{mission.association.description}}</p><br>
+
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+  <div class="col-xs-12 col-md-5 col-lg-4" id="right-column">
+
+    <h5 class="collapsible-title mt-3" data-toggle="collapse" data-target="#associated-detail" aria-expanded="true" aria-controls="associated-detail">
+      <i class="fas fa-hands-helping"></i> Détails de l'association <i class="fa fa-arrow-down fa-pull-right"></i>
+    </h5>
+
+    <div class="collapse collapse show mt-3 mb-3" id="associated-detail" aria-expanded="true">
+
+      <div class="card card-body text-dark rounded">
+
+        <h5>{{mission.association.nom}}</h5>
+
+        <div class="row">
+
+          <figure class="figure m-3 " >
+            <img class="figure-img img-fluid rounded " id="detailImgMission" [src]="mission.association.imagetoshow" alt="asso image"/>
+          </figure>
+        </div>
+
+        <ul id="listMission">
+
+
+          <li><b>Adresse de l'association</b><br>
+            <span id="attribut">{{mission.association.adresse.voie}} {{mission.association.adresse.code}} {{mission.association.adresse.commune}}</span>
+          </li>
+
+          <li *ngIf="mission.association.web"><b>Site web</b><br>
+            <span id="attribut">{{mission.association.web}}</span>
+          </li>
+
+
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    <h5 class="mt-3" data-toggle="collapse" href="#associated-det" aria-expanded="true" aria-controls="associated-det">
+      <i class="fa fa-info-circle"></i> Détails Mission <i class="fa fa-arrow-down fa-pull-right" ></i>
+    </h5>
+
+
+
+      <div class="collapse collapse show mt-3 mb-3" id="associated-det" aria-expanded="true">
+
+        <div class="card card-body  text-dark rounded">
+
+
+          <ul id="listMission">
+            <li>
+              <b>Lieu </b> <br>
+              <span id="attribut">
+                {{mission.adresse.voie}} {{mission.adresse.code}} {{mission.adresse.commune}}</span>
+            </li>
+            <li>
+              <b>Domaine </b><br>
+              <span id="attribut">{{mission.domaine.nom}} </span>
+            </li>
+            <li>
+              <b>Compétences demandées </b><br>
+              <span id="attribut">{{mission.competence}} </span>
+            </li>
+
+
+
+          </ul>
+        </div>
+      </div>
+
+        <h5 class="mt-3" data-toggle="collapse" href="#associated-insc" aria-expanded="true" aria-controls="associated-insc">
+          <i class="fa fa-info-circle"></i> Inscriptions <i class="fa fa-arrow-down fa-pull-right" ></i>
+        </h5>
+
+        <div class="collapse collapse show mt-3 mb-3" id="associated-insc" aria-expanded="true">
+
+          <div class="card card-body  text-dark rounded">
+
+
+            <ul *ngFor="let inscription of mission.inscriptions" id="listInscription">
+              <li class="m-1">
+                <b>Date début</b><br>
+                <span id="attribut">{{inscription.debut|date:'d MMM y à hh:mm'}}</span>
+              </li>
+              <li class="m-1">
+                <b>Date fin prévue</b><br>
+                <span id="attribut">{{inscription.fin|date:'d MMM y à hh:mm'}}</span>
+              </li>
+              <li class="m-1">
+                <b>Places disponibles : </b><span id="attribut">{{inscription.nbplaces}}</span>
+              </li>
+              <div class="row justify-content-center">
+                <button *ngIf="getAuthenticated()" class="btn btn-special btn-sm m-2" (click)="inscrire(inscription.id)">Inscription</button>
+
+                <button *ngIf="!getAuthenticated()" class="btn btn-special btn-sm m-2" (click)="login(missionId)">Se connecter</button>
+
+              </div>
+            </ul>
+          </div>
+
+
+    </div>
+
+
+  </div>
+</div>

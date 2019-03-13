@@ -34,4 +34,8 @@ export class MissionService {
   return this.uploadService.getImage(path);
   }
 
+  getMissionById(id: string){
+    return this.restService.getMissionById(id);
+  }
+
 }

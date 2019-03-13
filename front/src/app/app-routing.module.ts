@@ -15,12 +15,14 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: '', redirectTo: '/accueil', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
+  { path: 'login/:url', component: LoginComponent},
   {path: 'recherche', component: MissionsComponent},
   {path: 'inscriptionAssociation', component: InscriptionComponent},
   {path: 'inscriptionBenevole', component: InscriptionBenevoleComponent},
   {path: 'logout', component: LogoutComponent},
   {path: 'inscription', component: NavInscriComponent},
-  {path: 'detail/:id', component: MissionDetailComponent}
+  {path: 'detail/:id', component: MissionDetailComponent},
+  {path: 'detail/:id/:idInscription', component: MissionDetailComponent, canActivate: [AuthGuard]}
 ];
 
 

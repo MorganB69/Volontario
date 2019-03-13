@@ -1,0 +1,56 @@
+#detailImgAsso{
+
+  min-height:250px;
+  min-width:170px;
+
+
+}
+
+#attribut{
+  color:Blue;
+}
+
+#listMission{
+  list-style:none;
+  padding: 0;
+}
+
+#listInscription{
+  list-style:none;
+  padding: 0;
+  background-color:#e3e6ea;
+  border-style: solid;
+  border-width: 1px;
+  border-color:  #0278fd;
+
+}
+
+
+
+.btn-special {
+  background-color: #00BC8A;
+  color: white;
+  border-radius:100px;
+  border-color:#00BC8A ;
+  padding-left: 1.25em;
+  padding-right: 1.25em;
+
+}
+
+.btn-special:hover {
+  background-color: #00d69d;
+}
+
+.btn-special:active {
+  background-color: #00a377;
+}
+
+.card{
+  color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-color:  #00BC8A;
+}
+.card-body{
+  background-color: #e8edf1;
+}

@@ -73,4 +73,12 @@ public class webServiceRestImpl implements webServiceRest {
         benevole = inscriptionManager.inscriptionBene(benevole);
         return benevole;
     }
+
+    @Override
+    @GetMapping(value = "/mission/id")
+    public Mission getMissionById(@RequestParam Integer id) throws NotFoundException, FunctionalException {
+       Mission mission = missionManager.getMissionById(id);
+       return mission;
+
+    }
 }
