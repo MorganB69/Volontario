@@ -38,4 +38,12 @@ export class MissionService {
     return this.restService.getMissionById(id);
   }
 
+  addUserToMission(idInscription: number) {
+    return this.restService.addUserToMission(idInscription);
+  }
+
+  deleteUserToMission(idInscription: number) {
+   return this.restService.deleteUserFromMission(idInscription);
+  }
+
 }

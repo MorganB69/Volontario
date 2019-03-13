@@ -161,12 +161,18 @@
               <li class="m-1">
                 <b>Places disponibles : </b><span id="attribut">{{inscription.nbplaces}}</span>
               </li>
-              <div class="row justify-content-center">
-                <button *ngIf="getAuthenticated()" class="btn btn-special btn-sm m-2" (click)="inscrire(inscription.id)">Inscription</button>
+              <li>
+                ID : {{inscription.idInscription}}
+              </li>
+              <li *ngIf="getAuthenticated()" class="row justify-content-center">
+                <button  *ngIf="!checkInscription(inscription.idInscription)" class="btn btn-special btn-sm m-2" (click)="inscrire(inscription.idInscription)">Inscription</button>
+                <span *ngIf="checkInscription(inscription.idInscription)" id="attribut">Vous êtes inscrit à cette mission</span>
+                <button *ngIf="checkInscription(inscription.idInscription)" class="btn btn-danger btn-sm m-2" (click)="desinscrire(inscription.idInscription)">Desinscription</button>
+              </li>
+              <li *ngIf="!getAuthenticated()" class="row justify-content-center">
+                <button  class="btn btn-special btn-sm m-2" (click)="login(missionId)">Se connecter</button>
 
-                <button *ngIf="!getAuthenticated()" class="btn btn-special btn-sm m-2" (click)="login(missionId)">Se connecter</button>
-
-              </div>
+              </li>
             </ul>
           </div>
 

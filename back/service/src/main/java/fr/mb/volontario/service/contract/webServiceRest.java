@@ -1,9 +1,6 @@
 package fr.mb.volontario.service.contract;
 
-import fr.mb.volontario.model.bean.Association;
-import fr.mb.volontario.model.bean.Benevole;
-import fr.mb.volontario.model.bean.Domaine;
-import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.model.bean.*;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheAdresse;
@@ -76,5 +73,22 @@ public interface webServiceRest {
      */
     Mission getMissionById(Integer id) throws NotFoundException, FunctionalException;
 
+    /**
+     * Rajout d'un utilisateur à une liste d'inscription
+     * @param idInscription
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
     void addUserToMission(Integer idInscription) throws NotFoundException, FunctionalException;
+
+
+    /**
+     * Desinscription d'un utilisateur à une mission
+     * @param idInscription
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    void deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException;
+
+    User getUser() throws NotFoundException, FunctionalException;
 }

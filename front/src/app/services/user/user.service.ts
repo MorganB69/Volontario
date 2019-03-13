@@ -6,6 +6,7 @@ import {Token} from '../../model/Token';
 import {Router} from '@angular/router';
 import {TokenStorage} from '../../model/TokenStorage';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {User} from '../../model/User';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +18,7 @@ const httpOptions = {
 
 export class UserService {
 
-
+  public user: User;
   public redirectUrl: string;
 
   constructor(private http: HttpClient, private  router: Router, private tokenStorage: TokenStorage, public jwtHelper: JwtHelperService) {
@@ -58,5 +59,11 @@ export class UserService {
 
   logout(): void {
     this.tokenStorage.signOut();
+  }
+
+  public getUser(): Observable<User> {
+    if (this.isAuthenticated()) {
+      return this.http.get<User>(this.baseUrl + 'user/getUser', httpOptions);
+    }
   }
 }

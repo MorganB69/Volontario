@@ -54,10 +54,20 @@ inscriptionBene(benevole: Benevole) {
     console.log(benevole);
     return this.http.post<Benevole>(this.baseUrl + 'benevole/inscription', benevole, {headers: headers});
   }
-
+// Obtenir une mission par son id
   getMissionById(id: string): Observable<Mission> {
     const params = new HttpParams().set('id', id);
     return this.http.get<Mission>(this.baseUrl + 'mission/id', {headers: headers, params: params});
 }
+
+// Rajout d'un utilisateur à une mission
+  addUserToMission(idInscription: number) {
+    return this.http.post(this.baseUrl + 'mission/addUser', idInscription, {headers: headers} );
+  }
+
+  // Suppression d'un utilisateur à une mission
+  deleteUserFromMission (idInscription: number) {
+    return this.http.post(this.baseUrl + 'mission/deleteUser', idInscription, {headers: headers} );
+  }
 
 }

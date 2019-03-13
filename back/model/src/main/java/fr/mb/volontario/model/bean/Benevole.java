@@ -100,7 +100,7 @@ public class Benevole implements Serializable {
     }
 
     @OneToOne(mappedBy = "benevole", cascade = CascadeType.ALL)
-    @JsonManagedReference(value="bene-user")
+    @JsonBackReference(value="bene-user")
     public User getUser() {
         return user;
     }

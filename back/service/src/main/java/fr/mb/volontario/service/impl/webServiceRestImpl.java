@@ -2,10 +2,8 @@ package fr.mb.volontario.service.impl;
 
 import fr.mb.volontario.business.contract.InscriptionManager;
 import fr.mb.volontario.business.contract.MissionManager;
-import fr.mb.volontario.model.bean.Association;
-import fr.mb.volontario.model.bean.Benevole;
-import fr.mb.volontario.model.bean.Domaine;
-import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.business.contract.UserManager;
+import fr.mb.volontario.model.bean.*;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 
@@ -32,6 +30,8 @@ public class webServiceRestImpl implements webServiceRest {
     MissionManager missionManager;
     @Autowired
     InscriptionManager inscriptionManager;
+    @Autowired
+    UserManager userManager;
 
 
     @Override
@@ -87,10 +87,28 @@ public class webServiceRestImpl implements webServiceRest {
     }
 
     @Override
-    @PostMapping(value = "/mission/addUser/idInscription")
+    @PostMapping(value = "/mission/addUser")
     public void addUserToMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         missionManager.addUserToMission(username, idInscription);
+    }
+
+    @Override
+    @PostMapping(value = "/mission/deleteUser")
+    public void deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        missionManager.deleteUserFromMission(username, idInscription);
+    }
+
+    @Override
+    @GetMapping(value = "/user/getUser")
+    public User getUser() throws NotFoundException, FunctionalException{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userManager.findOne(username);
+        return  user;
+
     }
 }

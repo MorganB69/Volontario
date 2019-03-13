@@ -4,6 +4,7 @@ import {Mission} from '../../model/Mission';
 import {MissionService} from '../../services/mission/mission.service';
 import {UserService} from '../../services/user/user.service';
 import {HttpParams} from '@angular/common/http';
+import {User} from '../../model/User';
 
 @Component({
   selector: 'app-mission-detail',
@@ -18,12 +19,25 @@ export class MissionDetailComponent implements OnInit {
   private inscriptionId: string;
   private notfound = false;
   authenticated: boolean;
+  user: User = new User();
 
-  constructor(private route: ActivatedRoute, private missionService: MissionService, private authService: UserService, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private missionService: MissionService,
+              private authService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
     this.missionId = this.route.snapshot.params['id'];
     this.getMissionById(this.missionId);
+    if (this.getAuthenticated()) {
+      this.getUser();
+    }
+  }
+
+  getUser() {
+    this.authService.getUser().subscribe(
+      res => this.user = res
+    );
   }
 
   getAuthenticated(): boolean {
@@ -38,8 +52,25 @@ export class MissionDetailComponent implements OnInit {
     return this.mission;
 }
 
-inscrire(id: string) {
-    
+inscrire(id: number) {
+  this.missionService.addUserToMission(id).subscribe();
+  this.getUser();
+  this.checkInscription(id);
+}
+desinscrire(id: number) {
+    this.missionService.deleteUserToMission(id).subscribe();
+    this.getUser();
+    this.checkInscription(id);
+}
+
+checkInscription(idInscription: number): boolean {
+    let retour = false;
+    for (const inscription of this.user.benevole.inscriptions) {
+      if (inscription.idInscription === idInscription) {
+        retour = true;
+      }
+    }
+    return retour;
 }
 
 login(id: string) {

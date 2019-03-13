@@ -151,7 +151,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
-    @JsonManagedReference(value="asso-user")
+    @JsonBackReference(value="asso-user")
     public Set<User> getUsers() {
         return users;
     }
