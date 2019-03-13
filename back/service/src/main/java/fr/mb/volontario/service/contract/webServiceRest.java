@@ -64,8 +64,17 @@ public interface webServiceRest {
      * @return benevole
      * @throws FunctionalException
      */
-    Benevole inscriptionBenevole(@RequestBody Benevole benevole) throws FunctionalException;
+    Benevole inscriptionBenevole(Benevole benevole) throws FunctionalException;
 
 
-    Mission getMissionById(@RequestParam Integer id) throws NotFoundException, FunctionalException;
+    /**
+     * Obtention d'une mission par son ID
+     * @param id
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    Mission getMissionById(Integer id) throws NotFoundException, FunctionalException;
+
+    void addUserToMission(Integer idInscription) throws NotFoundException, FunctionalException;
 }

@@ -51,4 +51,8 @@ public interface MissionManager {
      * @throws NotFoundException
      */
     Mission getMissionById(Integer id) throws NotFoundException, FunctionalException;
+
+    void addUserToMission(String username, Integer inscriptionId) throws FunctionalException, NotFoundException;
+
+    void deleteUserFromMission(String username, Integer idInscription) throws FunctionalException, NotFoundException;
 }

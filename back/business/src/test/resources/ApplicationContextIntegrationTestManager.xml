@@ -15,6 +15,7 @@
   	<context:annotation-config/>
     <context:component-scan base-package="fr.mb.volontario.model"/>
 	<context:component-scan base-package="fr.mb.volontario.dao"/>
+	<context:component-scan base-package="fr.mb.volontario.business"/>
 	<jpa:repositories base-package="fr.mb.volontario.dao" />
 
 
@@ -23,7 +24,7 @@
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
         <list>
-            <value>classpath:daotest.properties</value>
+            <value>classpath:businesstest.properties</value>
         </list>
     </property>
 	</bean>
