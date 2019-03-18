@@ -28,7 +28,9 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 
 
-
+export function gettoken () {
+  return localStorage.getItem('access_token');
+}
 
 
 
@@ -62,9 +64,7 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
     AngularFontAwesomeModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('AuthToken');
-        },
+        tokenGetter: gettoken ,
         whitelistedDomains: ['localhost'],
         blacklistedRoutes: []
       }
