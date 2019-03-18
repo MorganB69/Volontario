@@ -1,6 +1,7 @@
 package fr.mb.volontario.model.bean;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -106,7 +107,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse", cascade = CascadeType.REFRESH)
-    @JsonManagedReference(value = "asso-adresse")
+    @JsonIgnore
     public Set<Association> getAssociations() {
         return associations;
     }
@@ -116,7 +117,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse")
-    @JsonManagedReference(value="bene-adresse")
+    @JsonIgnore
     public Set<Benevole> getBenevoles() {
         return benevoles;
     }
@@ -126,7 +127,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse")
-    @JsonManagedReference(value="mission-adresse")
+    @JsonIgnore
     public Set<Mission> getMissions() {
         return missions;
     }

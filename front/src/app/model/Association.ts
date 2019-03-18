@@ -14,6 +14,7 @@ export class Association {
   missions: Array<Mission>;
   domaines: Array<Domaine>;
   users: Array<User> = new Array<User>();
+  imagetoshow: any;
 
   constructor() {
   }

@@ -31,11 +31,18 @@ public class MissionDAOImpl implements MissionCustomDao {
             //SELECTION DES MISSIONS
             SQL += " SELECT DISTINCT mission FROM Mission as mission ";
 
+            //JOINTURE DES ASSOCIATIONS
+            SQL += " LEFT JOIN FETCH mission.association as association ";
+
+
+
             //JOINTURES DES DOMAINES
-            if(!recherche.getDomaine().isEmpty()) SQL += " JOIN mission.domaine as domaine ";
+            SQL += " LEFT JOIN FETCH mission.domaine as domaine ";
 
             //JOINTURES DES INSCRIPTIONS
-            if (!recherche.getDisponibilite().isEmpty()) SQL += " JOIN mission.inscriptions as inscription ";
+            SQL += " LEFT JOIN FETCH mission.inscriptions as inscription ";
+
+            SQL += " LEFT JOIN FETCH mission.adresse as adresse ";
 
             // CRITERE DU DOMAINE
             if (!recherche.getDomaine().isEmpty()||!recherche.getDisponibilite().isEmpty()){
@@ -77,12 +84,22 @@ public class MissionDAOImpl implements MissionCustomDao {
 
                 SQL += " ) ";
             }
+
+        if (recherche.getDepartement()!=null) {
+            SQL += " AND adresse.departement = (:departement) ";
+        }
+        if(recherche.getCommune()!=null) {
+            SQL += " AND adresse.commune = (:commune) ";
+        }
+
             SQL += " ORDER By mission.idMission ";
 
 
 
         Query query = entityManager.createQuery(SQL);
         if(!recherche.getDomaine().isEmpty()) query.setParameter("domaine",recherche.getDomaine());
+        if (recherche.getDepartement()!=null) query.setParameter("departement", recherche.getDepartement());
+        if(recherche.getCommune()!=null) query.setParameter("commune", recherche.getCommune());
         listReturn= query.getResultList();
 
 

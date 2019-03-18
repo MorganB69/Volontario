@@ -43,4 +43,16 @@ public interface MissionManager {
      * @throws NotFoundException
      */
     List<String> findCommune(String departement) throws NotFoundException;
+
+    /**
+     * Obtention d'une mission by id
+     * @param id
+     * @return
+     * @throws NotFoundException
+     */
+    Mission getMissionById(Integer id) throws NotFoundException, FunctionalException;
+
+    void addUserToMission(String username, Integer inscriptionId) throws FunctionalException, NotFoundException;
+
+    void deleteUserFromMission(String username, Integer idInscription) throws FunctionalException, NotFoundException;
 }

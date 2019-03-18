@@ -3,6 +3,8 @@ package fr.mb.volontario.model.bean;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -105,7 +107,7 @@ public class Mission implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_association", referencedColumnName = "id_association", nullable = false)
-    @JsonBackReference(value = "asso-mission")
+    @JsonManagedReference(value = "asso-mission")
     public Association getAssociation() {
         return association;
     }
@@ -115,7 +117,6 @@ public class Mission implements Serializable {
     }
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonBackReference(value = "mission-adresse")
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -127,7 +128,6 @@ public class Mission implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_domaine", referencedColumnName = "id_domaine", nullable = false)
-    @JsonBackReference(value = "mission-domaine")
     public Domaine getDomaine() {
         return domaine;
     }

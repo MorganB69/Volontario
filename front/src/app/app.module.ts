@@ -24,18 +24,10 @@ import {environment} from '../environments/environment';
 import {JwtModule} from '@auth0/angular-jwt';
 import { LogoutComponent } from './components/logout/logout.component';
 import { NavInscriComponent } from './components/nav-inscri/nav-inscri.component';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 
-const rollbarConfig = {
-  accessToken: environment.rollbarToken,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-};
 
-
-export function rollbarFactory() {
-  return new Rollbar(rollbarConfig);
-}
 
 
 
@@ -67,6 +59,7 @@ export function rollbarFactory() {
     MatFormFieldModule,
     MatInputModule,
     NgbModule,
+    AngularFontAwesomeModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -82,7 +75,6 @@ export function rollbarFactory() {
 
 
   providers: [
-    { provide: RollbarService, useFactory: rollbarFactory },
     {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpErrorInterceptor,

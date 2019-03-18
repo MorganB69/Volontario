@@ -1,9 +1,6 @@
 package fr.mb.volontario.service.contract;
 
-import fr.mb.volontario.model.bean.Association;
-import fr.mb.volontario.model.bean.Benevole;
-import fr.mb.volontario.model.bean.Domaine;
-import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.model.bean.*;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheAdresse;
@@ -11,6 +8,7 @@ import fr.mb.volontario.model.recherche.RechercheMission;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -63,5 +61,34 @@ public interface webServiceRest {
      * @return benevole
      * @throws FunctionalException
      */
-    Benevole inscriptionBenevole(@RequestBody Benevole benevole) throws FunctionalException;
+    Benevole inscriptionBenevole(Benevole benevole) throws FunctionalException;
+
+
+    /**
+     * Obtention d'une mission par son ID
+     * @param id
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    Mission getMissionById(Integer id) throws NotFoundException, FunctionalException;
+
+    /**
+     * Rajout d'un utilisateur à une liste d'inscription
+     * @param idInscription
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    void addUserToMission(Integer idInscription) throws NotFoundException, FunctionalException;
+
+
+    /**
+     * Desinscription d'un utilisateur à une mission
+     * @param idInscription
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    void deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException;
+
+    User getUser() throws NotFoundException, FunctionalException;
 }

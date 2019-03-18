@@ -15,7 +15,7 @@ const TOKEN_HEADER_KEY = 'Authorization';
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-  constructor(@Inject(RollbarService) private rollbar: Rollbar,
+  constructor(
               private modalService: NgbModal,
               private token: TokenStorage,
               private router: Router) {}
@@ -36,7 +36,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             const modalRef = this.modalService.open(ModalErrorComponent);
             modalRef.componentInstance.body = errorMessage;
             modalRef.componentInstance.titre = 'Une erreur est survenue';
-            this.rollbar.error(error);
             console.log('client-error :' + errorMessage);
           } else {
             // server-side error
@@ -54,7 +53,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             const modalRef = this.modalService.open(ModalErrorComponent);
                 modalRef.componentInstance.body = 'Le service demandé est actuellement indisponible, veuillez nous excuser';
                 modalRef.componentInstance.titre = 'Une erreur est survenue';
-            this.rollbar.error(error);
             console.log('server error :' + errorMessage);
           }}
 
