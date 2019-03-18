@@ -1,24 +1,30 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "domaine")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Domaine implements Serializable {
     private Integer idDomaine;
     private String nom;
     private String description;
-    private Set<Mission> missions;
-    private Set<Association>associations;
+    private Set<Mission> missions=new HashSet<>();
+    private Set<Association>associations=new HashSet<>();
 
     public Domaine() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_domaine", nullable = false, unique = true)
     public Integer getIdDomaine() {
         return idDomaine;
@@ -29,7 +35,7 @@ public class Domaine implements Serializable {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -39,7 +45,7 @@ public class Domaine implements Serializable {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = -1)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -63,7 +69,8 @@ public class Domaine implements Serializable {
         return Objects.hash(idDomaine, nom, description);
     }
 
-    @OneToMany(mappedBy = "domaine")
+    @OneToMany(mappedBy = "domaine", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -72,7 +79,8 @@ public class Domaine implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany(mappedBy = "domaines")
+    @ManyToMany(mappedBy = "domaines", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<Association> getAssociations() {
         return associations;
     }

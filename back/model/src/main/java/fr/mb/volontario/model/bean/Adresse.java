@@ -1,24 +1,38 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "adresse")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Adresse implements Serializable {
     private Integer idAdresse;
     private String voie;
     private String code;
     private String commune;
-    private String region;
     private String departement;
-    private Set<Association> associations;
-    private Set<Benevole> benevoles;
-    private Set<Mission> missions;
+    private Set<Association> associations = new HashSet<>();
+    private Set<Benevole> benevoles= new HashSet<>();
+    private Set<Mission> missions= new HashSet<>();
 
     public Adresse() {
+    }
+
+    public Adresse(Integer idAdresse,  String voie, String code, String commune, String region, String departement) {
+        this.idAdresse = idAdresse;
+        this.voie = voie;
+        this.code = code;
+        this.commune = commune;
+        this.departement = departement;
     }
 
     @Id
@@ -32,8 +46,10 @@ public class Adresse implements Serializable {
         this.idAdresse = idAdresse;
     }
 
+
+
     @Basic
-    @Column(name = "voie", nullable = false, length = -1)
+    @Column(name = "voie", nullable = false)
     public String getVoie() {
         return voie;
     }
@@ -43,7 +59,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "code", nullable = false, length = -1)
+    @Column(name = "code", nullable = false)
     public String getCode() {
         return code;
     }
@@ -53,7 +69,7 @@ public class Adresse implements Serializable {
     }
 
     @Basic
-    @Column(name = "commune", nullable = false, length = -1)
+    @Column(name = "commune", nullable = false)
     public String getCommune() {
         return commune;
     }
@@ -62,18 +78,9 @@ public class Adresse implements Serializable {
         this.commune = commune;
     }
 
-    @Basic
-    @Column(name = "region", nullable = false, length = -1)
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
 
     @Basic
-    @Column(name = "departement", nullable = false, length = -1)
+    @Column(name = "departement", nullable = false)
     public String getDepartement() {
         return departement;
     }
@@ -91,16 +98,16 @@ public class Adresse implements Serializable {
                 Objects.equals(voie, adresse.voie) &&
                 Objects.equals(code, adresse.code) &&
                 Objects.equals(commune, adresse.commune) &&
-                Objects.equals(region, adresse.region) &&
                 Objects.equals(departement, adresse.departement);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idAdresse, voie, code, commune, region, departement);
+        return Objects.hash(idAdresse, voie, code, commune, departement);
     }
 
-    @OneToMany(mappedBy = "adresse")
+    @OneToMany(mappedBy = "adresse", cascade = CascadeType.REFRESH)
+    @JsonIgnore
     public Set<Association> getAssociations() {
         return associations;
     }
@@ -110,6 +117,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse")
+    @JsonIgnore
     public Set<Benevole> getBenevoles() {
         return benevoles;
     }
@@ -119,6 +127,7 @@ public class Adresse implements Serializable {
     }
 
     @OneToMany(mappedBy = "adresse")
+    @JsonIgnore
     public Set<Mission> getMissions() {
         return missions;
     }

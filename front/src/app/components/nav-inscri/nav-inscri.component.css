@@ -1,0 +1,16 @@
+.btn-special:hover {
+  background-color: #00d69d;
+}
+
+
+.btn-special:active {
+  background-color: #00a377;
+}
+.btn-special {
+  background-color: #00BC8A;
+  color: white;
+  border-color: #356b78 ;
+  padding-left: 1.75em;
+  padding-right: 1.75em;
+
+}

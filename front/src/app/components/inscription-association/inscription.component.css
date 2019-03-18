@@ -1,0 +1,66 @@
+.form-control{
+  border-radius:100px;
+  margin: 1em;
+
+}
+
+
+.ng-valid[required], .ng-valid.required  {
+  border: 1px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border: 1px solid #a94442; /* red */
+}
+
+.form-control:valid{
+  background-color: lightcyan;
+}
+.form-control:invalid{
+  border: 1px solid #a94442; /* red */
+}
+
+.h2 {
+  font-size: 3em;
+}
+.form {
+
+  background-color: #e8edf1 ;
+  padding: 2.25em 2.25em 2.25em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #00BC8A ;
+
+  border-radius:30px;
+}
+.btn{
+  border-radius: 100px;
+  padding-left: 2.25em;
+  padding-right: 2.25em;
+}
+.btn-special {
+  background-color: #00BC8A;
+  color: white;
+  border-radius:100px;
+  border-color:#00BC8A ;
+  padding-left: 3.25em;
+  padding-right: 3.25em;
+
+}
+#description{
+  border-radius:15px;
+  margin: 1em;
+}
+#domaine{
+  border-radius:15px;
+  margin: 1em;
+}
+
+.btn-special:hover {
+  background-color: #00d69d;
+}
+
+.btn-special:active {
+  background-color: #00a377;
+}
+

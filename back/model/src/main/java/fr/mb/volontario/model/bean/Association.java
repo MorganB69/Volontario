@@ -1,27 +1,40 @@
 package fr.mb.volontario.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "association")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Association implements Serializable {
     private Integer idAssociation;
     private String nom;
-    private String mail;
     private String web;
-    private String identifiant;
-    private String mdp;
     private String siret;
     private String description;
     private String photo;
     private Adresse adresse;
-    private Set<Mission> missions;
-    private Set<Domaine> domaines;
+    private Set<Mission> missions= new HashSet<>();
+    private Set<Domaine> domaines= new HashSet<>();
+    private Set<User> users= new HashSet<>();
 
     public Association() {
+    }
+
+    public Association(Integer idAssociation, String nom, String web, String siret, String description, String photo) {
+        this.idAssociation = idAssociation;
+        this.nom = nom;
+        this.web = web;
+        this.siret = siret;
+        this.description = description;
+        this.photo = photo;
     }
 
     @Id
@@ -36,7 +49,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = -1)
+    @Column(name = "nom", nullable = false)
     public String getNom() {
         return nom;
     }
@@ -45,18 +58,9 @@ public class Association implements Serializable {
         this.nom = nom;
     }
 
-    @Basic
-    @Column(name = "mail", nullable = false, length = -1)
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 
     @Basic
-    @Column(name = "web", nullable = true, length = -1)
+    @Column(name = "web", nullable = true)
     public String getWeb() {
         return web;
     }
@@ -65,28 +69,9 @@ public class Association implements Serializable {
         this.web = web;
     }
 
-    @Basic
-    @Column(name = "identifiant", nullable = false, length = -1)
-    public String getIdentifiant() {
-        return identifiant;
-    }
-
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
-    }
 
     @Basic
-    @Column(name = "mdp", nullable = false, length = -1)
-    public String getMdp() {
-        return mdp;
-    }
-
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
-
-    @Basic
-    @Column(name = "siret", nullable = false, length = -1)
+    @Column(name = "siret", nullable = false)
     public String getSiret() {
         return siret;
     }
@@ -96,7 +81,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = -1)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -106,7 +91,7 @@ public class Association implements Serializable {
     }
 
     @Basic
-    @Column(name = "photo", nullable = false, length = -1)
+    @Column(name = "photo")
     public String getPhoto() {
         return photo;
     }
@@ -122,10 +107,7 @@ public class Association implements Serializable {
         Association that = (Association) o;
         return Objects.equals(idAssociation, that.idAssociation) &&
                 Objects.equals(nom, that.nom) &&
-                Objects.equals(mail, that.mail) &&
                 Objects.equals(web, that.web) &&
-                Objects.equals(identifiant, that.identifiant) &&
-                Objects.equals(mdp, that.mdp) &&
                 Objects.equals(siret, that.siret) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(photo, that.photo);
@@ -133,10 +115,10 @@ public class Association implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idAssociation, nom, mail, web, identifiant, mdp, siret, description, photo);
+        return Objects.hash(idAssociation, nom,  web, siret, description, photo);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse", nullable = false)
     public Adresse getAdresse() {
         return adresse;
@@ -147,6 +129,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association")
+    @JsonBackReference(value="asso-mission")
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -155,7 +138,7 @@ public class Association implements Serializable {
         this.missions = missions;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "asso_domaine", joinColumns = {
             @JoinColumn(name = "id_association", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "id_domaine", nullable = false, updatable = false)})
@@ -165,5 +148,31 @@ public class Association implements Serializable {
 
     public void setDomaines(Set<Domaine> domaines) {
         this.domaines = domaines;
+    }
+
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+    @JsonBackReference(value="asso-user")
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Association{" +
+                "idAssociation=" + idAssociation +
+                ", nom='" + nom + '\'' +
+                ", web='" + web + '\'' +
+                ", siret='" + siret + '\'' +
+                ", description='" + description + '\'' +
+                ", photo='" + photo + '\'' +
+                ", adresse=" + adresse +
+                ", missions=" + missions +
+                ", domaines=" + domaines +
+                ", users=" + users +
+                '}';
     }
 }

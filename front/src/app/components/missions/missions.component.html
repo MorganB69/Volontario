@@ -1,0 +1,93 @@
+<div class="row">
+<div class="col-md-4" id="left-col-rech">
+
+  <form  #rechercheForm="ngForm" (ngSubmit)="refresh(f)" class="form m-2">
+    <div class="row justify-content-center">
+    <h2 class="m-2">Formulaire</h2>
+    </div>
+    <div class="form-group">
+    <label class="row m-2" for="domaine">Domaine associatif</label>
+    <select multiple [(ngModel)]="domaineId" name="domaineId" class="row form-control"  id="domaine" required>
+
+      <option *ngFor="let domaine of domaines" [(ngValue)]="domaine.idDomaine">{{domaine.nom}}</option>
+    </select>
+  </div>
+
+    <div class="form-group">
+      <label class="row m-2" for="departement">Département</label>
+      <select [(ngModel)]="selectedDep" name="selectedDep" class="row form-control" #departement id="departement" (change)="onSelected(departement.value)" required>
+        <option [value]="defaultDep">{{defaultDep}}</option>
+        <option *ngFor="let departement of departements" [value]="departement" >{{departement}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngIf="displayCommune">
+      <label class="row m-2" for="commune">Commune</label>
+      <select [(ngModel)]="selectedCom" name="selectedCom" class="row form-control"  id="commune" required>
+        <option [value]="defaultCom">{{defaultCom}}</option>
+        <option *ngFor="let commune of communes"  [value]="commune" >{{commune}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+    <label class="row m-2">Disponibilités</label>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo1" [defaultChecked]="true" [(ngModel)]="dispo1" name="dispo1">
+        <label class="form-check-label" for="dispo1">Matin</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo2"  [defaultChecked]="true" [(ngModel)]="dispo2" name="dispo2">
+        <label class="form-check-label" for="dispo2">Midi</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo3"  [defaultChecked]="true" [(ngModel)]="dispo3" name="dispo3">
+        <label class="form-check-label" for="dispo3">Après-midi</label>
+      </div>
+      <div class="form-check m-2">
+        <input type="checkbox" class="form-check-input" id="dispo4"  [defaultChecked]="true" [(ngModel)]="dispo4" name="dispo4">
+        <label class="form-check-label" for="dispo4">Soir</label>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+    <button type="submit" [disabled]="rechercheForm.invalid" class="btn btn-special">Recherche</button>
+    </div>
+  </form>
+
+
+</div>
+
+<div class="col-md-8" id="right-col-rech">
+  <div class="row justify-content-center">
+  <h2>Missions</h2>
+  </div>
+  <div class="row justify-content-center">
+  <div *ngFor="let mission of missions" class="col-10 mb-8 m-3 m-1" >
+  <div  class="card h-100 -dark" id="card-list">
+    <h5 class="card-header">
+      <a [routerLink]="['/detail', mission.idMission]">{{mission.nom}}</a>
+    </h5>
+    <div class="card-body">
+      <div class="row">
+    <img class="img-fluid col-4" id="img-card"  [src]="mission.association.imagetoshow" alt="img"/>
+
+
+
+      <div class="card-text col-8">
+        <ul class="col m-1" id="listMission">
+          <li><b>Association :</b> <span id="attribut"> {{mission.association.nom}} </span></li>
+          <li><b>Domaine :</b> <span id="attribut"> {{mission.domaine.nom}}</span></li>
+          <li><b>Ville : </b> <span id="attribut">{{mission.adresse.commune}}</span></li>
+        </ul>
+        <div class="row m-3 justify-content-center">
+          <button type="button" [routerLink]="['/detail', mission.idMission]" class="btn btn-special">En savoir plus</button>
+        </div>
+
+      </div>
+  </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>

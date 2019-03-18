@@ -1,0 +1,107 @@
+<div>
+
+  <h3 class="row justify-content-center m-3">Bénévole</h3>
+  <div class="row justify-content-center">
+    <form #f="ngForm" (ngSubmit)="onSubmit()" class="form col-6 m-3">
+
+      <div class="row justify-content-center m-3">
+        <h3>Informations de connexion</h3>
+      </div>
+      <label>Identifiant</label>
+
+      <input
+      class="form-control"
+      matInput placeholder="Identifiant de connexion"
+      [(ngModel)]="user.identifiant"
+      name="identifiant"
+      aria-label="Identifiant"
+      required
+    >
+      <label>Mot de passe</label>
+
+      <input
+        class="form-control"
+        matInput placeholder="Mot de passe de connexion"
+        type="password"
+        [(ngModel)]="user.mdp"
+        name="mdp"
+        aria-label="Mdp"
+        required
+      >
+      <label>Adresse mail</label>
+      <input
+        class="form-control"
+        matInput placeholder="E-mail"
+        type="email"
+        [(ngModel)]="user.mail"
+        name="mail"
+        aria-label="mail"
+        required
+
+      >
+      <div class="row justify-content-center m-3">
+        <h3>Informations personnelles</h3>
+      </div>
+      <label>Prénom</label>
+
+      <input
+        class="form-control"
+        matInput placeholder="Prénom"
+        [(ngModel)]="benevole.prenom"
+        name="prenom"
+        aria-label="Prénom"
+        required
+      >
+      <label>Nom</label>
+
+      <input
+        class="form-control"
+        matInput placeholder="Prénom"
+        [(ngModel)]="benevole.nom"
+        name="nom"
+        aria-label="Nom"
+        required
+      >
+
+      <label>Adresse</label>
+      <input
+        class="form-control"
+        matInput placeholder="saisir l'adresse"
+        #searchBox id="searchBox"
+        aria-label="Adresse"
+        [matAutocomplete]="auto"
+        (input)="search(searchBox.value)"
+        minlength="3"
+        required
+      >
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let feature of adressResults"  [(value)]="feature.properties.label" (onSelectionChange)="onSelectionChanged(feature)">
+          {{feature.properties.label}}
+        </mat-option>
+
+      </mat-autocomplete>
+      <div class="row m-2" *ngIf="adresseError"
+           class="alert alert-danger">
+        <div *ngIf="adresseError">
+         Choisissez une adresse après avoir saisie votre adresse
+        </div>
+      </div>
+
+      <div class="row justify-content-center m-3">
+        <button type="submit" [disabled]="f.invalid" class="btn btn-special">Inscription</button>
+      </div>
+      <div class="row m-2" *ngIf="f.invalid "
+           class="alert alert-danger">
+        <div *ngIf="f.invalid">
+          Tous les champs ne sont pas correctement remplis
+        </div>
+
+
+  </div>
+    </form>
+
+  </div>
+</div>
+
+
+

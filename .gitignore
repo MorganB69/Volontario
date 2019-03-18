@@ -27,3 +27,15 @@ hs_err_pid*
 *.iml
 *.idea
 *mvnw
+
+front/src/environments/environment\.ts
+
+back/service/certificat\.cer
+
+back/service/src/main/resources/keystore\.p12
+
+back/service/src/main/resources/mytruststore
+
+back/service/src/test/resources/mykeystore\.jks
+
+*.jpg
