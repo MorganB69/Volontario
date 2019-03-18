@@ -54,13 +54,11 @@ export class MissionDetailComponent implements OnInit {
 
 inscrire(id: number) {
   this.missionService.addUserToMission(id).subscribe();
-  this.getUser();
-  this.checkInscription(id);
+  this.ngOnInit();
 }
 desinscrire(id: number) {
     this.missionService.deleteUserToMission(id).subscribe();
-    this.getUser();
-    this.checkInscription(id);
+    this.ngOnInit();
 }
 
 checkInscription(idInscription: number): boolean {
