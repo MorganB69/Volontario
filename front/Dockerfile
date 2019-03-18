@@ -1,20 +1,19 @@
 # base image
 FROM node:8-alpine as node
 
-
-
 WORKDIR /usr/src/app
 
-
-
-# install and cache app dependencies
 COPY package*.json ./
 
-RUN npm install -g @angular/cli
+RUN npm install
 
-# add app
 COPY . .
 
+RUN npm run build
 
-# start app
-CMD ng serve --host 0.0.0.0
+# Stage 2
+FROM nginx:1.13.12-alpine
+
+COPY --from=node /usr/src/app/dist/angular-docker /usr/share/nginx/html
+
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
