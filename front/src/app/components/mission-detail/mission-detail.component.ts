@@ -15,9 +15,9 @@ export class MissionDetailComponent implements OnInit {
 
 
   mission: Mission;
-  private missionId: string;
-  private inscriptionId: string;
-  private notfound = false;
+  missionId: string;
+  inscriptionId: string;
+  notfound = false;
   authenticated: boolean;
   user: User = new User();
 
