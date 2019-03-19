@@ -4,7 +4,7 @@ services:
   postgresql:
     build: ./databaseTest
     ports:
-      - "9032:5432"
+      - "9033:5432"
     network_mode: bridge
 #    volumes:
 #      - "./data/db:/var/lib/postgresql/data"
