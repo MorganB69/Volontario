@@ -57,8 +57,5 @@ public class AuthentificationIT {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    public void roleTest(){
 
-    }
 }

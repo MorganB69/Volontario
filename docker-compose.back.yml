@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+
+
+  springboot:
+    container_name: springboot
+    build: ./back
+    ports:
+      - 8443:8443
+    environment:
+      - DATASOURCEURL=${DATASOURCEURL}
+      - DATASOURCEURL=${DATASOURCEURLTEST}
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}

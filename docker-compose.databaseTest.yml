@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  postgresql:
+    build: ./databaseTest
+    ports:
+      - "9032:5432"
+    network_mode: bridge
+#    volumes:
+#      - "./data/db:/var/lib/postgresql/data"
+#       - "./init/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    environment:
+      - POSTGRES_DB=${DBTEST}
+      - POSTGRES_USER=${USERNAMETEST}
+      - POSTGRES_PASSWORD=${PASSWORDTEST}
+    container_name: postgresqlTest
