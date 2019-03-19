@@ -6,3 +6,4 @@ services:
     build: ./front
     ports:
       - 80:80 
+    network_mode: bridge

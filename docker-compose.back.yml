@@ -11,6 +11,7 @@ services:
       - 8443:8443
     environment:
       - DATASOURCEURL=${DATASOURCEURL}
-      - DATASOURCEURL=${DATASOURCEURLTEST}
+      - DATASOURCEURLTEST=${DATASOURCEURLTEST}
       - USERNAME=${USERNAME}
       - PASSWORD=${PASSWORD}
+    network_mode: bridge
