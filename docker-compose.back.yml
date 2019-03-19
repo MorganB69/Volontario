@@ -2,9 +2,8 @@ version: '2'
 
 services:
 
-
-
   springboot:
+    image: springbootimg
     container_name: springboot
     build: ./back
     ports:

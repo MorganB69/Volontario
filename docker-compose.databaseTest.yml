@@ -2,6 +2,7 @@ version: '2'
 
 services:
   postgresql:
+    image: postresqltestimg
     build: ./databaseTest
     ports:
       - "9033:5432"

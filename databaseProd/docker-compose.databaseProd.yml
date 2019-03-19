@@ -2,6 +2,7 @@ version: '2'
 
 services:
   postgresql:
+    image: postresqlprodimg
     container_name: postgresqlProd
     build: ./
     ports:
