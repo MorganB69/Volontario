@@ -11,9 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.transaction.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ServiceApplication.class)
+@org.springframework.boot.test.context.SpringBootTest(classes = ServiceApplication.class)
 @Transactional
-public class SpringBootIT {
+public class SpringBootTest {
 
     @Autowired
     MissionDAO missionDAO;

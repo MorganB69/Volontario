@@ -2,7 +2,6 @@ package fr.mb.volontario.dao.IT;
 
 import fr.mb.volontario.dao.contract.*;
 import fr.mb.volontario.model.bean.*;
-import fr.mb.volontario.model.recherche.RechercheAdresse;
 import org.hibernate.LazyInitializationException;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -14,16 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.LogManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"/ApplicationContextTestDao.xml"})
-public class ITDao {
-    Logger logger = LoggerFactory.getLogger(ITDao.class);
+public class DaoTest {
+    Logger logger = LoggerFactory.getLogger(DaoTest.class);
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();
