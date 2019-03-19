@@ -4,7 +4,7 @@ services:
   angular:
     image: angularimg
     container_name: angular
-    build: ./front
+    build: ./
     ports:
       - 80:80 
     network_mode: bridge
