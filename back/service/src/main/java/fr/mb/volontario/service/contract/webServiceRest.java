@@ -3,12 +3,8 @@ package fr.mb.volontario.service.contract;
 import fr.mb.volontario.model.bean.*;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
-import fr.mb.volontario.model.recherche.RechercheAdresse;
 import fr.mb.volontario.model.recherche.RechercheMission;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -79,7 +75,7 @@ public interface webServiceRest {
      * @throws NotFoundException
      * @throws FunctionalException
      */
-    void addUserToMission(Integer idInscription) throws NotFoundException, FunctionalException;
+    Boolean addUserToMission(Integer idInscription) throws NotFoundException, FunctionalException;
 
 
     /**
@@ -88,7 +84,7 @@ public interface webServiceRest {
      * @throws NotFoundException
      * @throws FunctionalException
      */
-    void deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException;
+    Boolean deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException;
 
     User getUser() throws NotFoundException, FunctionalException;
 }

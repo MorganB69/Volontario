@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Token} from '../../model/Token';
 import {Router} from '@angular/router';
@@ -20,6 +20,7 @@ export class UserService {
 
   public user: User;
   public redirectUrl: string;
+
 
   constructor(private http: HttpClient, private  router: Router, private tokenStorage: TokenStorage, public jwtHelper: JwtHelperService) {
   }
