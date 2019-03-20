@@ -13,4 +13,6 @@ services:
       - DATASOURCEURLTEST=${DATASOURCEURLTEST}
       - USERNAME=${USERNAME}
       - PASSWORD=${PASSWORD}
+      - UPLOAD=${UPLOAD}
+      - TMP=${TMP}
     network_mode: bridge
