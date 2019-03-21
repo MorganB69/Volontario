@@ -1,13 +1,18 @@
 package fr.mb.volontario.business.contract;
 
 import fr.mb.volontario.model.bean.Domaine;
+import fr.mb.volontario.model.bean.Inscription;
 import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.model.bean.User;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheAdresse;
 import fr.mb.volontario.model.recherche.RechercheMission;
+import freemarker.template.TemplateException;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -55,4 +60,8 @@ public interface MissionManager {
     void addUserToMission(String username, Integer inscriptionId) throws FunctionalException, NotFoundException;
 
     void deleteUserFromMission(String username, Integer idInscription) throws FunctionalException, NotFoundException;
+
+
+    //-----------Mail------------------
+    void mailConsigne(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException;
 }

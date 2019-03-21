@@ -1,21 +1,31 @@
 package fr.mb.volontario.business.impl;
 
+import fr.mb.volontario.business.contract.EmailService;
 import fr.mb.volontario.business.contract.MissionManager;
 import fr.mb.volontario.dao.contract.*;
 import fr.mb.volontario.dao.impl.MissionDAOImpl;
+import fr.mb.volontario.model.Mail;
 import fr.mb.volontario.model.bean.*;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheAdresse;
 import fr.mb.volontario.model.recherche.RechercheMission;
+import freemarker.template.TemplateException;
 import org.aspectj.weaver.ast.Not;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MissionManagerImpl implements MissionManager {
@@ -34,6 +44,9 @@ public class MissionManagerImpl implements MissionManager {
 
     @Autowired
     InscriptionDAO inscriptionDAO;
+
+    @Autowired
+    EmailService emailService;
 
     Logger logger = LoggerFactory.getLogger(MissionManagerImpl.class);
 
@@ -127,6 +140,7 @@ public class MissionManagerImpl implements MissionManager {
 
 
     //-----------------------------Methodes de contrôles------------------------------
+
     //CheckInscription
     void checkInscription(Integer idInscription) throws FunctionalException {
         if(idInscription==null || idInscription<=0) throw new FunctionalException("erreur de donnée l'id est incorrect");
@@ -146,6 +160,40 @@ public class MissionManagerImpl implements MissionManager {
              ) {
            if (benevole.getUser().getIdentifiant().equals(user.getIdentifiant())) throw new FunctionalException("L'utilisateur est déjà inscrit à cette mission");
         }
+    }
+
+
+//-----------Mail------------------
+    @Override
+    public void mailConsigne(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException {
+
+        User user = userDao.findByIdentifiant(username);
+        Inscription inscription = inscriptionDAO.findById(inscriptionId).orElseThrow(() ->  new NotFoundException("inscription non trouvée"));
+
+
+        Mail mail = new Mail("mb.testocrbiblio@gmail.com", user.getMail(), "Inscription mission Volontario");
+        Map<String, Object> model = new HashMap<>();
+        model.put("identifiant", user.getIdentifiant());
+        String adresse =
+                        inscription.getMission().getAdresse().getVoie() +' '+
+                        inscription.getMission().getAdresse().getCommune() +' '+
+                        inscription.getMission().getAdresse().getCode();
+        LocalDateTime dateDebut = inscription.getDebut().toLocalDateTime();
+        LocalDateTime dateFin = inscription.getFin().toLocalDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy : kk:mm");
+        String dateDebutString = dateDebut.format(formatter);
+        String dateFinString = dateFin.format(formatter);
+        Association asso = inscription.getMission().getAssociation();
+        String mailasso = asso.getUsers().iterator().next().getMail();
+
+        model.put("adresse", adresse);
+        model.put("debut", dateDebutString);
+        model.put("fin",dateFinString);
+        model.put("inscription",inscription);
+        model.put("mission",inscription.getMission());
+        model.put("mailasso",mailasso);
+        mail.setModel(model);
+        emailService.sendSimpleMessage(mail,"consigne.ftl");
     }
 
 

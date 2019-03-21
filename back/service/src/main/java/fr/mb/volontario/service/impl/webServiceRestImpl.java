@@ -10,6 +10,7 @@ import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheMission;
 
 import fr.mb.volontario.service.contract.webServiceRest;
+import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -111,6 +115,14 @@ public class webServiceRestImpl implements webServiceRest {
         String username = authentication.getName();
         User user = userManager.findOne(username);
         return  user;
+
+    }
+
+    @Override
+    @GetMapping(value = "/mission/mailConsigne")
+    public void mailConsigne(@RequestParam Integer idInscription, @RequestParam String username) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException {
+
+        missionManager.mailConsigne(idInscription,username);
 
     }
 }
