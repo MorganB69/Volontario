@@ -5,7 +5,7 @@
 -- Dumped from database version 11.1
 -- Dumped by pg_dump version 11.1
 
--- Started on 2019-03-21 11:23:09
+-- Started on 2019-03-21 11:32:49
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -551,7 +551,7 @@ SELECT pg_catalog.setval('public.mission_id_mission_seq', 4, true);
 -- Name: utilisateur_id_utilisateur_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.utilisateur_id_utilisateur_seq', 9, true);
+SELECT pg_catalog.setval('public.utilisateur_id_utilisateur_seq', 10, true);
 
 
 --
@@ -759,7 +759,7 @@ ALTER TABLE ONLY public.utilisateur
     ADD CONSTRAINT user_benevole_fk FOREIGN KEY (id_benevole) REFERENCES public.benevole(id_benevole);
 
 
--- Completed on 2019-03-21 11:23:09
+-- Completed on 2019-03-21 11:32:49
 
 --
 -- PostgreSQL database dump complete
