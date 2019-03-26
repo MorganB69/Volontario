@@ -15,8 +15,4 @@ public class AssociationDAOImpl implements AssociationCustomDAO {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Override
-    public Association rechercheAssociation() {
-        return null;
-    }
 }

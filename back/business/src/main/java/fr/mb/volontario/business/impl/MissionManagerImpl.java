@@ -60,10 +60,7 @@ public class MissionManagerImpl implements MissionManager {
         catch (Exception exception) {
             throw new FunctionalException("Une erreur est parvenue dans la recherche");
         }
-        for (Mission mission:listReturn
-             ) {
-            logger.info(mission.getAssociation().getNom());
-        }
+
         return listReturn;
     }
 
@@ -165,6 +162,7 @@ public class MissionManagerImpl implements MissionManager {
 
 //-----------Mail------------------
     @Override
+    @Transactional
     public void mailConsigne(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException {
 
         User user = userDao.findByIdentifiant(username);
