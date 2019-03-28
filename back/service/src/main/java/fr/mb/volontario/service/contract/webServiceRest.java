@@ -79,7 +79,7 @@ public interface webServiceRest {
      * @throws NotFoundException
      * @throws FunctionalException
      */
-    Boolean addUserToMission(Integer idInscription) throws NotFoundException, FunctionalException;
+    Boolean addUserToMission(Integer idInscription) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException;
 
 
     /**
@@ -88,7 +88,7 @@ public interface webServiceRest {
      * @throws NotFoundException
      * @throws FunctionalException
      */
-    Boolean deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException;
+    Boolean deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException;
 
     User getUser() throws NotFoundException, FunctionalException;
 

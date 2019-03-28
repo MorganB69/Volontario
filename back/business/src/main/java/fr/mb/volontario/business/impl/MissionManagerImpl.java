@@ -165,33 +165,77 @@ public class MissionManagerImpl implements MissionManager {
     @Transactional
     public void mailConsigne(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException {
 
+        Map<String, Object> model = this.mailDonnees(inscriptionId,username);
+        Mail mail = new Mail("mb.testocrbiblio@gmail.com", (String) model.get("mailbene"), "Inscription mission Volontario");
+
+
+        mail.setModel(model);
+        emailService.sendSimpleMessage(mail,"consigne.ftl");
+    }
+
+    @Override
+    @Transactional
+    public void mailInscriAsso(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException {
+
+        Map<String, Object> model = this.mailDonnees(inscriptionId,username);
+        Mail mail = new Mail("mb.testocrbiblio@gmail.com", (String) model.get("mailasso"), "Un bénévole s'est inscrit à votre mission");
+
+
+        mail.setModel(model);
+        emailService.sendSimpleMessage(mail,"inscription.ftl");
+    }
+
+    @Override
+    @Transactional
+    public void mailDesinscriAsso(Integer inscriptionId, String username) throws NotFoundException, MessagingException, IOException, TemplateException {
+
+        Map<String, Object> model = this.mailDonnees(inscriptionId,username);
+        Mail mail = new Mail("mb.testocrbiblio@gmail.com", (String) model.get("mailasso"), "Un bénévole s'est désinscrit de votre mission");
+
+
+
+
+        mail.setModel(model);
+        emailService.sendSimpleMessage(mail,"desinscription.ftl");
+
+    }
+
+
+    public Map<String, Object> mailDonnees(Integer inscriptionId, String username  ) throws NotFoundException {
         User user = userDao.findByIdentifiant(username);
         Inscription inscription = inscriptionDAO.findById(inscriptionId).orElseThrow(() ->  new NotFoundException("inscription non trouvée"));
 
-
-        Mail mail = new Mail("mb.testocrbiblio@gmail.com", user.getMail(), "Inscription mission Volontario");
         Map<String, Object> model = new HashMap<>();
-        model.put("identifiant", user.getIdentifiant());
+        Association asso = inscription.getMission().getAssociation();
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy : kk:mm");
+        LocalDateTime debut = inscription.getDebut().toLocalDateTime();
+        String debutString = debut.format(formatter);
+        LocalDateTime fin = inscription.getFin().toLocalDateTime();
+        String finString = fin.format(formatter);
+
+
         String adresse =
-                        inscription.getMission().getAdresse().getVoie() +' '+
+                inscription.getMission().getAdresse().getVoie() +' '+
                         inscription.getMission().getAdresse().getCommune() +' '+
                         inscription.getMission().getAdresse().getCode();
-        LocalDateTime dateDebut = inscription.getDebut().toLocalDateTime();
-        LocalDateTime dateFin = inscription.getFin().toLocalDateTime();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy : kk:mm");
-        String dateDebutString = dateDebut.format(formatter);
-        String dateFinString = dateFin.format(formatter);
-        Association asso = inscription.getMission().getAssociation();
+
+
+        String mailbene = user.getMail();
         String mailasso = asso.getUsers().iterator().next().getMail();
 
+        model.put("nomAsso", asso.getNom());
+        model.put("identifiant", user.getIdentifiant());
         model.put("adresse", adresse);
-        model.put("debut", dateDebutString);
-        model.put("fin",dateFinString);
+        model.put("debut", debutString);
+        model.put("fin",finString);
         model.put("inscription",inscription);
         model.put("mission",inscription.getMission());
+        model.put("mailbene",mailbene);
         model.put("mailasso",mailasso);
-        mail.setModel(model);
-        emailService.sendSimpleMessage(mail,"consigne.ftl");
+
+        return model;
     }
 
 

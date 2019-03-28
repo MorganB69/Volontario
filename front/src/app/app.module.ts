@@ -25,6 +25,7 @@ import {JwtModule} from '@auth0/angular-jwt';
 import { LogoutComponent } from './components/logout/logout.component';
 import { NavInscriComponent } from './components/nav-inscri/nav-inscri.component';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import { EspaceAssoComponent } from './espace-asso/espace-asso.component';
 
 
 
@@ -49,6 +50,7 @@ export function gettoken () {
     ModalErrorComponent,
     LogoutComponent,
     NavInscriComponent,
+    EspaceAssoComponent,
   ],
   imports: [
     BrowserModule,

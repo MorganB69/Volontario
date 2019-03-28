@@ -62,6 +62,41 @@ public interface MissionManager {
     void deleteUserFromMission(String username, Integer idInscription) throws FunctionalException, NotFoundException;
 
 
+    /**
+     * Mail de consigne pour le bénévole
+     * @param inscriptionId
+     * @param username
+     * @throws MessagingException
+     * @throws IOException
+     * @throws TemplateException
+     * @throws FunctionalException
+     * @throws NotFoundException
+     */
     //-----------Mail------------------
     void mailConsigne(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException;
+
+
+    /**
+     * Mail d'inscription à l'asso
+     * @param inscriptionId
+     * @param username
+     * @throws MessagingException
+     * @throws IOException
+     * @throws TemplateException
+     * @throws FunctionalException
+     * @throws NotFoundException
+     */
+    void mailInscriAsso(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException;
+
+
+    /**
+     * Mail de désinscription à l'asso
+     * @param inscriptionId
+     * @param username
+     * @throws NotFoundException
+     * @throws MessagingException
+     * @throws IOException
+     * @throws TemplateException
+     */
+    void mailDesinscriAsso(Integer inscriptionId, String username) throws NotFoundException, MessagingException, IOException, TemplateException;
 }

@@ -57,8 +57,10 @@ public class ServiceApplicationTests {
     }
 
     @Test
-    public void mailConsigneTest() throws MessagingException, TemplateException, NotFoundException, FunctionalException, IOException {
+    public void mailTest() throws MessagingException, TemplateException, NotFoundException, FunctionalException, IOException {
         missionManager.mailConsigne(1,"Morgan");
+        missionManager.mailInscriAsso(1,"Morgan");
+        missionManager.mailDesinscriAsso(1,"Morgan");
     }
 
     @Test

@@ -92,19 +92,22 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @PostMapping(value = "/mission/addUser")
-    public Boolean addUserToMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException {
+    public Boolean addUserToMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         missionManager.addUserToMission(username, idInscription);
+        missionManager.mailConsigne(idInscription,username);
+        missionManager.mailInscriAsso(idInscription,username);
         return true;
     }
 
     @Override
     @PostMapping(value = "/mission/deleteUser")
-    public Boolean deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException {
+    public Boolean deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         missionManager.deleteUserFromMission(username, idInscription);
+        missionManager.mailDesinscriAsso(idInscription,username);
         return true;
     }
 
