@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"/ApplicationContextIntegrationTestDao.xml"})
-public class ITUserDao {
+public class UserDaoTest {
 
     @Autowired
     UserDao userDao;

@@ -39,3 +39,7 @@ back/service/src/main/resources/mytruststore
 back/service/src/test/resources/mykeystore\.jks
 
 *.jpg
+
+*/tmp
+
+*/target

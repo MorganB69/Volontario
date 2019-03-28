@@ -1,4 +1,5 @@
-<div class ="alert alert-danger" *ngIf="notfound">Mission non trouvée</div>
+<div *ngIf="notfound" class ="alert alert-danger">Mission non trouvée</div>
+<div *ngIf="mission">
 <h1 class="text-center text-uppercase m-2">{{mission.nom}} </h1>
 <div class="row m-2">
 
@@ -85,7 +86,7 @@
         <div class="row">
 
           <figure class="figure m-3 " >
-            <img class="figure-img img-fluid rounded " id="detailImgMission" [src]="mission.association.imagetoshow" alt="asso image"/>
+            <img *ngIf="mission.association.imagetoshow" class="figure-img img-fluid rounded " id="detailImgMission" [src]="mission.association.imagetoshow" alt="asso image"/>
           </figure>
         </div>
 
@@ -181,4 +182,5 @@
 
 
   </div>
+</div>
 </div>

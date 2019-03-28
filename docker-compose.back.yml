@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+  springboot:
+    image: springbootimg
+    container_name: springboot
+    build: ./back
+    ports:
+      - 8443:8443
+    environment:
+      - DATASOURCEURL=${DATASOURCEURL}
+      - DATASOURCEURLTEST=${DATASOURCEURLTEST}
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
+      - UPLOAD=${UPLOAD}
+      - TMP=${TMP}
+      - USERNAMEMAIL=${USERNAMEMAIL}
+      - PASSWORDMAIL=${PASSWORDMAIL}
+    network_mode: bridge

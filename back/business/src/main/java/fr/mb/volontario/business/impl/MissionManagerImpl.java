@@ -1,21 +1,31 @@
 package fr.mb.volontario.business.impl;
 
+import fr.mb.volontario.business.contract.EmailService;
 import fr.mb.volontario.business.contract.MissionManager;
 import fr.mb.volontario.dao.contract.*;
 import fr.mb.volontario.dao.impl.MissionDAOImpl;
+import fr.mb.volontario.model.Mail;
 import fr.mb.volontario.model.bean.*;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheAdresse;
 import fr.mb.volontario.model.recherche.RechercheMission;
+import freemarker.template.TemplateException;
 import org.aspectj.weaver.ast.Not;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MissionManagerImpl implements MissionManager {
@@ -35,6 +45,9 @@ public class MissionManagerImpl implements MissionManager {
     @Autowired
     InscriptionDAO inscriptionDAO;
 
+    @Autowired
+    EmailService emailService;
+
     Logger logger = LoggerFactory.getLogger(MissionManagerImpl.class);
 
     @Override
@@ -47,10 +60,7 @@ public class MissionManagerImpl implements MissionManager {
         catch (Exception exception) {
             throw new FunctionalException("Une erreur est parvenue dans la recherche");
         }
-        for (Mission mission:listReturn
-             ) {
-            logger.info(mission.getAssociation().getNom());
-        }
+
         return listReturn;
     }
 
@@ -127,6 +137,7 @@ public class MissionManagerImpl implements MissionManager {
 
 
     //-----------------------------Methodes de contrôles------------------------------
+
     //CheckInscription
     void checkInscription(Integer idInscription) throws FunctionalException {
         if(idInscription==null || idInscription<=0) throw new FunctionalException("erreur de donnée l'id est incorrect");
@@ -146,6 +157,85 @@ public class MissionManagerImpl implements MissionManager {
              ) {
            if (benevole.getUser().getIdentifiant().equals(user.getIdentifiant())) throw new FunctionalException("L'utilisateur est déjà inscrit à cette mission");
         }
+    }
+
+
+//-----------Mail------------------
+    @Override
+    @Transactional
+    public void mailConsigne(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException {
+
+        Map<String, Object> model = this.mailDonnees(inscriptionId,username);
+        Mail mail = new Mail("mb.testocrbiblio@gmail.com", (String) model.get("mailbene"), "Inscription mission Volontario");
+
+
+        mail.setModel(model);
+        emailService.sendSimpleMessage(mail,"consigne.ftl");
+    }
+
+    @Override
+    @Transactional
+    public void mailInscriAsso(Integer inscriptionId, String username) throws MessagingException, IOException, TemplateException, FunctionalException, NotFoundException {
+
+        Map<String, Object> model = this.mailDonnees(inscriptionId,username);
+        Mail mail = new Mail("mb.testocrbiblio@gmail.com", (String) model.get("mailasso"), "Un bénévole s'est inscrit à votre mission");
+
+
+        mail.setModel(model);
+        emailService.sendSimpleMessage(mail,"inscription.ftl");
+    }
+
+    @Override
+    @Transactional
+    public void mailDesinscriAsso(Integer inscriptionId, String username) throws NotFoundException, MessagingException, IOException, TemplateException {
+
+        Map<String, Object> model = this.mailDonnees(inscriptionId,username);
+        Mail mail = new Mail("mb.testocrbiblio@gmail.com", (String) model.get("mailasso"), "Un bénévole s'est désinscrit de votre mission");
+
+
+
+
+        mail.setModel(model);
+        emailService.sendSimpleMessage(mail,"desinscription.ftl");
+
+    }
+
+
+    public Map<String, Object> mailDonnees(Integer inscriptionId, String username  ) throws NotFoundException {
+        User user = userDao.findByIdentifiant(username);
+        Inscription inscription = inscriptionDAO.findById(inscriptionId).orElseThrow(() ->  new NotFoundException("inscription non trouvée"));
+
+        Map<String, Object> model = new HashMap<>();
+        Association asso = inscription.getMission().getAssociation();
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy : kk:mm");
+        LocalDateTime debut = inscription.getDebut().toLocalDateTime();
+        String debutString = debut.format(formatter);
+        LocalDateTime fin = inscription.getFin().toLocalDateTime();
+        String finString = fin.format(formatter);
+
+
+        String adresse =
+                inscription.getMission().getAdresse().getVoie() +' '+
+                        inscription.getMission().getAdresse().getCommune() +' '+
+                        inscription.getMission().getAdresse().getCode();
+
+
+        String mailbene = user.getMail();
+        String mailasso = asso.getUsers().iterator().next().getMail();
+
+        model.put("nomAsso", asso.getNom());
+        model.put("identifiant", user.getIdentifiant());
+        model.put("adresse", adresse);
+        model.put("debut", debutString);
+        model.put("fin",finString);
+        model.put("inscription",inscription);
+        model.put("mission",inscription.getMission());
+        model.put("mailbene",mailbene);
+        model.put("mailasso",mailasso);
+
+        return model;
     }
 
 

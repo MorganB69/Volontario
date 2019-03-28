@@ -10,6 +10,7 @@ import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheMission;
 
 import fr.mb.volontario.service.contract.webServiceRest;
+import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -88,18 +92,23 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @PostMapping(value = "/mission/addUser")
-    public void addUserToMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException {
+    public Boolean addUserToMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         missionManager.addUserToMission(username, idInscription);
+        missionManager.mailConsigne(idInscription,username);
+        missionManager.mailInscriAsso(idInscription,username);
+        return true;
     }
 
     @Override
     @PostMapping(value = "/mission/deleteUser")
-    public void deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException {
+    public Boolean deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         missionManager.deleteUserFromMission(username, idInscription);
+        missionManager.mailDesinscriAsso(idInscription,username);
+        return true;
     }
 
     @Override
@@ -109,6 +118,14 @@ public class webServiceRestImpl implements webServiceRest {
         String username = authentication.getName();
         User user = userManager.findOne(username);
         return  user;
+
+    }
+
+    @Override
+    @GetMapping(value = "/mission/mailConsigne")
+    public void mailConsigne(@RequestParam Integer idInscription, @RequestParam String username) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException {
+
+        missionManager.mailConsigne(idInscription,username);
 
     }
 }

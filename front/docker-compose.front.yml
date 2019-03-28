@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  angular:
+    image: angularimg
+    container_name: angular
+    build: ./
+    ports:
+      - 80:80 
+    network_mode: bridge
+    mem_limit: 3g

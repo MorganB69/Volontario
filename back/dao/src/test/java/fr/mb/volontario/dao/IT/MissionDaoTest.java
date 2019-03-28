@@ -19,9 +19,9 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"/ApplicationContextIntegrationTestDao.xml"})
-public class ITMissionDao {
+public class MissionDaoTest {
 
-    Logger logger = LoggerFactory.getLogger(ITMissionDao.class);
+    Logger logger = LoggerFactory.getLogger(MissionDaoTest.class);
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();

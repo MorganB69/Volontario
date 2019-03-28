@@ -5,6 +5,7 @@ import {MissionService} from '../../services/mission/mission.service';
 import {UserService} from '../../services/user/user.service';
 import {HttpParams} from '@angular/common/http';
 import {User} from '../../model/User';
+import {Observable, of, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-mission-detail',
@@ -14,11 +15,10 @@ import {User} from '../../model/User';
 export class MissionDetailComponent implements OnInit {
 
 
-  mission: Mission;
-  private missionId: string;
-  private inscriptionId: string;
-  private notfound = false;
-  authenticated: boolean;
+  mission: Mission ;
+  missionId: string;
+  inscriptionId: string;
+  notfound = false;
   user: User = new User();
 
   constructor(private route: ActivatedRoute,
@@ -27,11 +27,12 @@ export class MissionDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.missionId = this.route.snapshot.params['id'];
-    this.getMissionById(this.missionId);
     if (this.getAuthenticated()) {
       this.getUser();
     }
+    this.missionId = this.route.snapshot.params['id'];
+    this.getMissionById(this.missionId);
+
   }
 
   getUser() {
@@ -47,27 +48,39 @@ export class MissionDetailComponent implements OnInit {
   getMissionById(id: string) {
     this.missionService.getMissionById(id).subscribe(
       res => {this.mission = res;
-      this.mission.association.imagetoshow = this.getImage(this.mission); }
+      if (res) {this.mission.association.imagetoshow = this.getImage(this.mission); }}
     , error => this.notfound = true );
     return this.mission;
 }
 
 inscrire(id: number) {
-  this.missionService.addUserToMission(id).subscribe();
-  this.ngOnInit();
+  this.missionService.addUserToMission(id).subscribe(value => {
+    if (value) {
+      this.getUser();
+    } else {
+    }
+    });
 }
 desinscrire(id: number) {
-    this.missionService.deleteUserToMission(id).subscribe();
-    this.ngOnInit();
+    this.missionService.deleteUserToMission(id).subscribe(value => {
+      if (value) {
+        this.getUser();
+      } else {
+      }
+    });
 }
+
+
 
 checkInscription(idInscription: number): boolean {
     let retour = false;
+    if (this.user.benevole.inscriptions) {
     for (const inscription of this.user.benevole.inscriptions) {
       if (inscription.idInscription === idInscription) {
         retour = true;
       }
     }
+  }
     return retour;
 }
 
@@ -77,13 +90,15 @@ login(id: string) {
 }
 
   getImage(mission: Mission) {
-    this.missionService.getImage(mission.association.photo).subscribe(
-      data => {
-        this.createImageFromBlob(data, mission);
-      }, error => {
-        console.log(error);
-      });
-    return mission.association.imagetoshow;
+    if (mission.association.photo !== null) {
+      this.missionService.getImage(mission.association.photo).subscribe(
+        data => {
+          this.createImageFromBlob(data, mission);
+        }, error => {
+          console.log(error);
+        });
+      return mission.association.imagetoshow;
+    }
   }
 
   createImageFromBlob(image: Blob, mission: Mission) {

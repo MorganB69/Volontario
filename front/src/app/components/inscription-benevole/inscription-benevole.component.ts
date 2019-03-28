@@ -17,13 +17,13 @@ import {ModalErrorComponent} from '../../modal-error/modal-error.component';
 })
 export class InscriptionBenevoleComponent implements OnInit {
 
-  private searchTerms = new Subject<string>();
-  private adressResults: Array<Feature>;
-  private featureAdresse: Feature;
-  private adresse: Adresse = new Adresse();
-  private user: User = new User();
-  private benevole: Benevole = new Benevole();
-  private adresseError = false;
+  searchTerms = new Subject<string>();
+   adressResults: Array<Feature>;
+  featureAdresse: Feature;
+  adresse: Adresse = new Adresse();
+   user: User = new User();
+   benevole: Benevole = new Benevole();
+   adresseError = false;
 
 
 

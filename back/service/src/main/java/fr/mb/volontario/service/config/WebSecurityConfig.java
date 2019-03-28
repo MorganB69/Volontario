@@ -13,6 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
 
@@ -48,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/mission/id","/token/*", "/signup","/uploadFile","/downloadFile/*", "/association/inscription","/benevole/inscription", "/mission/domaines", "/mission/departements","/mission/communes").permitAll()
+                .antMatchers("/mission/id","/token/*", "/signup","/uploadFile","/downloadFile/*", "/association/inscription","/benevole/inscription", "/mission/domaines", "/mission/departements","/mission/communes","mission/mailConsigne").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -60,5 +62,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
+
 
 }

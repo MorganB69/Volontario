@@ -25,19 +25,19 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class InscriptionComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
-  private searchTerms = new Subject<string>();
-  private adressResults: Array<Feature>;
-  private featureAdresse: Feature;
-  private adresse: Adresse = new Adresse();
-  private user: User = new User();
+  searchTerms = new Subject<string>();
+  adressResults: Array<Feature>;
+  featureAdresse: Feature;
+  adresse: Adresse = new Adresse();
+  user: User = new User();
   @Input()
    association: Association = new Association();
   @Input()
    denomination: string;
   searchBoxAdress: string;
   domaines: Array<Domaine> = new Array<Domaine>();
-  private siretError = false;
-  private siretValid = false;
+  siretError = false;
+  siretValid = false;
 
 
 
