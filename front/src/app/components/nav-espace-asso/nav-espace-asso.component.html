@@ -1,0 +1,20 @@
+<div class="row m-2" *ngIf="errorAsso "
+     class="alert alert-danger">
+  <div class="row justify-content-center" *ngIf="errorAsso">
+    Vous n'êtes pas une association
+  </div>
+</div>
+<div *ngIf="!errorAsso">
+<h2 class="row justify-content-center m-3"> Espace association</h2>
+<div class = "row justify-content-center">
+  <div class="btn-group" role="group" aria-label="Basic example">
+
+
+    <button type="button" class="btn btn-special"(click)="assoSelected()">Mon association</button>
+    <button type="button" class="btn btn-special" (click)="missionSelected()">Gestion mission</button>
+  </div>
+</div>
+<app-espace-asso *ngIf="espaceasso"></app-espace-asso>
+<app-espace-mission *ngIf="espacemission"></app-espace-mission>
+</div>
+

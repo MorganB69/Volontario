@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   password: string;
   loginError = false;
 
+
   url: string;
 
   ngOnInit() {
@@ -26,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     console.log(this.username);
-    console.log(this.url);
     this.authService.Auth(this.username, this.password).subscribe(
       data => {
         this.token.saveToken(data.token);

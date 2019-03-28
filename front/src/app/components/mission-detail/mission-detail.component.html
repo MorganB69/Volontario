@@ -162,19 +162,20 @@
               <li class="m-1">
                 <b>Places disponibles : </b><span id="attribut">{{inscription.nbplaces}}</span>
               </li>
-              <li>
-                ID : {{inscription.idInscription}}
-              </li>
-              <li *ngIf="getAuthenticated()" class="row justify-content-center">
-                <button  *ngIf="!checkInscription(inscription.idInscription)" class="btn btn-special btn-sm m-2" (click)="inscrire(inscription.idInscription)">Inscription</button>
-                <span *ngIf="checkInscription(inscription.idInscription)" id="attribut">Vous êtes inscrit à cette mission</span>
-                <button *ngIf="checkInscription(inscription.idInscription)" class="btn btn-danger btn-sm m-2" (click)="desinscrire(inscription.idInscription)">Desinscription</button>
+
+              <li *ngIf="getAuthenticated()" class="row justify-content-center m-1">
+                <button  *ngIf="checkInscription(inscription.idInscription)=='noninscrit'" class="btn btn-special btn-sm m-2" (click)="inscrire(inscription.idInscription)">Inscription</button>
+                <span *ngIf="checkInscription(inscription.idInscription)=='inscrit'" id="attribut">Vous êtes inscrit à cette mission, un mail avec les consignes vous a été envoyé</span>
+                <button *ngIf="checkInscription(inscription.idInscription)=='inscrit'" class="btn btn-danger btn-sm m-2" (click)="desinscrire(inscription.idInscription)">Desinscription</button>
+                <span *ngIf="checkInscription(inscription.idInscription)=='association'" id="attribut">Vous êtes une association, vous ne pouvez pas vous inscrire à une mission</span>
+
               </li>
               <li *ngIf="!getAuthenticated()" class="row justify-content-center">
                 <button  class="btn btn-special btn-sm m-2" (click)="login(missionId)">Se connecter</button>
 
               </li>
             </ul>
+            <div class="alert alert-info" *ngIf="isLoading$ | async">Demande en cours, veuillez patienter...</div>
           </div>
 
 

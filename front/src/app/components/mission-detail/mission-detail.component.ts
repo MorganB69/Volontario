@@ -5,7 +5,7 @@ import {MissionService} from '../../services/mission/mission.service';
 import {UserService} from '../../services/user/user.service';
 import {HttpParams} from '@angular/common/http';
 import {User} from '../../model/User';
-import {Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-mission-detail',
@@ -20,6 +20,7 @@ export class MissionDetailComponent implements OnInit {
   inscriptionId: string;
   notfound = false;
   user: User = new User();
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private route: ActivatedRoute,
               private missionService: MissionService,
@@ -54,33 +55,50 @@ export class MissionDetailComponent implements OnInit {
 }
 
 inscrire(id: number) {
+  this.isLoading$.next(true);
   this.missionService.addUserToMission(id).subscribe(value => {
     if (value) {
       this.getUser();
     } else {
     }
+    },
+    error => {
+      console.log(error);
+    },
+    () => {
+      this.isLoading$.next(false);
     });
 }
 desinscrire(id: number) {
+    this.isLoading$.next(true);
     this.missionService.deleteUserToMission(id).subscribe(value => {
       if (value) {
         this.getUser();
       } else {
-      }
-    });
+      }},
+      error => {
+        console.log(error);
+      },
+        () => {
+          this.isLoading$.next(false);
+        });
 }
 
 
 
-checkInscription(idInscription: number): boolean {
-    let retour = false;
-    if (this.user.benevole.inscriptions) {
-    for (const inscription of this.user.benevole.inscriptions) {
-      if (inscription.idInscription === idInscription) {
-        retour = true;
+checkInscription(idInscription: number): string {
+    let retour = 'noninscrit';
+    if (this.user.benevole) {
+      if (this.user.benevole.inscriptions) {
+        for (const inscription of this.user.benevole.inscriptions) {
+          if (inscription.idInscription === idInscription) {
+            retour = 'inscrit';
+          }
+        }
       }
+  } else {
+      retour = 'association';
     }
-  }
     return retour;
 }
 
