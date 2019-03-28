@@ -5,7 +5,7 @@
 -- Dumped from database version 11.1
 -- Dumped by pg_dump version 11.1
 
--- Started on 2019-03-19 11:54:37
+-- Started on 2019-03-21 11:32:49
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -53,7 +53,7 @@ CREATE SEQUENCE public.adresse_id_adresse_seq
 ALTER TABLE public.adresse_id_adresse_seq OWNER TO postgres;
 
 --
--- TOC entry 2916 (class 0 OID 0)
+-- TOC entry 2918 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: adresse_id_adresse_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -108,7 +108,7 @@ CREATE SEQUENCE public.association_id_association_seq
 ALTER TABLE public.association_id_association_seq OWNER TO postgres;
 
 --
--- TOC entry 2917 (class 0 OID 0)
+-- TOC entry 2919 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: association_id_association_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -147,7 +147,7 @@ CREATE SEQUENCE public.benevole_id_benevole_seq
 ALTER TABLE public.benevole_id_benevole_seq OWNER TO postgres;
 
 --
--- TOC entry 2918 (class 0 OID 0)
+-- TOC entry 2920 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: benevole_id_benevole_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -198,7 +198,7 @@ CREATE SEQUENCE public.domaine_id_domaine_seq
 ALTER TABLE public.domaine_id_domaine_seq OWNER TO postgres;
 
 --
--- TOC entry 2919 (class 0 OID 0)
+-- TOC entry 2921 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: domaine_id_domaine_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -216,7 +216,8 @@ CREATE TABLE public.inscription (
     nbplaces integer NOT NULL,
     debut timestamp without time zone NOT NULL,
     fin timestamp without time zone NOT NULL,
-    id_mission integer NOT NULL
+    id_mission integer NOT NULL,
+    consigne character varying DEFAULT 'Pas de consigne particulière'::character varying NOT NULL
 );
 
 
@@ -238,7 +239,7 @@ CREATE SEQUENCE public.inscription_id_inscription_seq
 ALTER TABLE public.inscription_id_inscription_seq OWNER TO postgres;
 
 --
--- TOC entry 2920 (class 0 OID 0)
+-- TOC entry 2922 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: inscription_id_inscription_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -281,7 +282,7 @@ CREATE SEQUENCE public.mission_id_mission_seq
 ALTER TABLE public.mission_id_mission_seq OWNER TO postgres;
 
 --
--- TOC entry 2921 (class 0 OID 0)
+-- TOC entry 2923 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: mission_id_mission_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -323,7 +324,7 @@ CREATE TABLE public.utilisateur (
 ALTER TABLE public.utilisateur OWNER TO postgres;
 
 --
--- TOC entry 2735 (class 2604 OID 25385)
+-- TOC entry 2736 (class 2604 OID 25385)
 -- Name: adresse id_adresse; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -331,7 +332,7 @@ ALTER TABLE ONLY public.adresse ALTER COLUMN id_adresse SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2736 (class 2604 OID 25386)
+-- TOC entry 2737 (class 2604 OID 25386)
 -- Name: association id_association; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -339,7 +340,7 @@ ALTER TABLE ONLY public.association ALTER COLUMN id_association SET DEFAULT next
 
 
 --
--- TOC entry 2738 (class 2604 OID 25387)
+-- TOC entry 2739 (class 2604 OID 25387)
 -- Name: benevole id_benevole; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -347,7 +348,7 @@ ALTER TABLE ONLY public.benevole ALTER COLUMN id_benevole SET DEFAULT nextval('p
 
 
 --
--- TOC entry 2739 (class 2604 OID 25389)
+-- TOC entry 2740 (class 2604 OID 25389)
 -- Name: inscription id_inscription; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -355,7 +356,7 @@ ALTER TABLE ONLY public.inscription ALTER COLUMN id_inscription SET DEFAULT next
 
 
 --
--- TOC entry 2740 (class 2604 OID 25390)
+-- TOC entry 2742 (class 2604 OID 25390)
 -- Name: mission id_mission; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -363,7 +364,7 @@ ALTER TABLE ONLY public.mission ALTER COLUMN id_mission SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2895 (class 0 OID 25334)
+-- TOC entry 2897 (class 0 OID 25334)
 -- Dependencies: 196
 -- Data for Name: adresse; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -381,7 +382,7 @@ COPY public.adresse (id_adresse, voie, code, commune, departement) FROM stdin;
 
 
 --
--- TOC entry 2897 (class 0 OID 25342)
+-- TOC entry 2899 (class 0 OID 25342)
 -- Dependencies: 198
 -- Data for Name: asso_domaine; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -395,7 +396,7 @@ COPY public.asso_domaine (id_domaine, id_association) FROM stdin;
 
 
 --
--- TOC entry 2898 (class 0 OID 25345)
+-- TOC entry 2900 (class 0 OID 25345)
 -- Dependencies: 199
 -- Data for Name: association; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -409,7 +410,7 @@ COPY public.association (id_association, nom, web, siret, description, photo, id
 
 
 --
--- TOC entry 2900 (class 0 OID 25353)
+-- TOC entry 2902 (class 0 OID 25353)
 -- Dependencies: 201
 -- Data for Name: benevole; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -423,20 +424,20 @@ COPY public.benevole (id_benevole, nom, prenom, id_adresse) FROM stdin;
 
 
 --
--- TOC entry 2902 (class 0 OID 25361)
+-- TOC entry 2904 (class 0 OID 25361)
 -- Dependencies: 203
 -- Data for Name: benevole_inscription; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.benevole_inscription (id_benevole, id_inscription) FROM stdin;
-1	1
 3	1
+1	1
 1	2
 \.
 
 
 --
--- TOC entry 2903 (class 0 OID 25364)
+-- TOC entry 2905 (class 0 OID 25364)
 -- Dependencies: 204
 -- Data for Name: domaine; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -448,21 +449,21 @@ COPY public.domaine (id_domaine, nom, description) FROM stdin;
 
 
 --
--- TOC entry 2905 (class 0 OID 25372)
+-- TOC entry 2907 (class 0 OID 25372)
 -- Dependencies: 206
 -- Data for Name: inscription; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.inscription (id_inscription, nbplaces, debut, fin, id_mission) FROM stdin;
-1	2	2019-01-22 19:10:00	2019-01-22 20:30:00	1
-4	2	2019-01-22 16:05:00	2019-01-22 17:05:00	3
-3	2	2019-01-22 15:05:00	2019-01-22 17:05:00	2
-2	3	2019-01-22 11:05:00	2019-01-22 12:05:00	1
+COPY public.inscription (id_inscription, nbplaces, debut, fin, id_mission, consigne) FROM stdin;
+4	2	2019-01-22 16:05:00	2019-01-22 17:05:00	3	Pas de consigne particulière
+1	2	2019-01-22 19:10:00	2019-01-22 20:30:00	1	Pas de consigne particulière
+2	3	2019-01-22 11:05:00	2019-01-22 12:05:00	1	Pas de consigne particulière
+3	2	2019-01-22 15:05:00	2019-01-22 17:05:00	2	Pas de consigne particulière
 \.
 
 
 --
--- TOC entry 2907 (class 0 OID 25377)
+-- TOC entry 2909 (class 0 OID 25377)
 -- Dependencies: 208
 -- Data for Name: mission; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -475,22 +476,23 @@ COPY public.mission (id_mission, nom, description, complement, competence, id_as
 
 
 --
--- TOC entry 2909 (class 0 OID 25465)
+-- TOC entry 2911 (class 0 OID 25465)
 -- Dependencies: 210
 -- Data for Name: utilisateur; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.utilisateur (id_utilisateur, identifiant, mdp, mail, role, id_benevole, id_association) FROM stdin;
-6	Hcltechnologies	$2a$10$Wzt8gcdNbziL2LTrNK/y5OI6TR9IBdagj7Xj9nbdeyEJgyeCLyzjG	azeaz.morgan@gmail.com	ASSO	\N	22
-1	Morgan	$2a$10$Wzt8gcdNbziL2LTrNK/y5OI6TR9IBdagj7Xj9nbdeyEJgyeCLyzjG	brighi.morgan@gmail.fr	BENE	1	\N
-7	Jean	$2a$10$fMm8r8WyCLvO03FR4MJlnO2SN37DGhwcPcxh6EaFKsWrhGbJdq0Y2	jean@gmail.fr	BENE	3	\N
-8	Carole	$2a$10$7skqOKz0uu/YT0xhuqHWeOu0URj8Io5v2whnvYGMVYFNQBNNkPHy6	carole@gmail.fr	BENE	4	\N
-9	Paul	$2a$10$b3O6xfqfaoZa2RS9HWCkeO3XZkHVOnFUJYBYZldPWdTq6fOBhJaBC	paul@gmail.fr	BENE	5	\N
+6	Hcltechnologies	$2a$10$Wzt8gcdNbziL2LTrNK/y5OI6TR9IBdagj7Xj9nbdeyEJgyeCLyzjG	mb.testocrbiblio@gmail.com	ASSO	\N	22
+1	Morgan	$2a$10$Wzt8gcdNbziL2LTrNK/y5OI6TR9IBdagj7Xj9nbdeyEJgyeCLyzjG	mb.testocrbiblio@gmail.com	BENE	1	\N
+7	Jean	$2a$10$fMm8r8WyCLvO03FR4MJlnO2SN37DGhwcPcxh6EaFKsWrhGbJdq0Y2	mb.testocrbiblio@gmail.com	BENE	3	\N
+8	Carole	$2a$10$7skqOKz0uu/YT0xhuqHWeOu0URj8Io5v2whnvYGMVYFNQBNNkPHy6	mb.testocrbiblio@gmail.com	BENE	4	\N
+9	Paul	$2a$10$b3O6xfqfaoZa2RS9HWCkeO3XZkHVOnFUJYBYZldPWdTq6fOBhJaBC	mb.testocrbiblio@gmail.com	BENE	5	\N
+10	Soutien	$2a$10$Wzt8gcdNbziL2LTrNK/y5OI6TR9IBdagj7Xj9nbdeyEJgyeCLyzjG	mb.testocrbiblio@gmail.com	ASSO	\N	6
 \.
 
 
 --
--- TOC entry 2922 (class 0 OID 0)
+-- TOC entry 2924 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: adresse_id_adresse_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -499,7 +501,7 @@ SELECT pg_catalog.setval('public.adresse_id_adresse_seq', 30, true);
 
 
 --
--- TOC entry 2923 (class 0 OID 0)
+-- TOC entry 2925 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: association_id_association_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -508,7 +510,7 @@ SELECT pg_catalog.setval('public.association_id_association_seq', 22, true);
 
 
 --
--- TOC entry 2924 (class 0 OID 0)
+-- TOC entry 2926 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: benevole_id_benevole_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -517,7 +519,7 @@ SELECT pg_catalog.setval('public.benevole_id_benevole_seq', 5, true);
 
 
 --
--- TOC entry 2925 (class 0 OID 0)
+-- TOC entry 2927 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: domaine_id_domaine_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -526,7 +528,7 @@ SELECT pg_catalog.setval('public.domaine_id_domaine_seq', 1, false);
 
 
 --
--- TOC entry 2926 (class 0 OID 0)
+-- TOC entry 2928 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: inscription_id_inscription_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -535,7 +537,7 @@ SELECT pg_catalog.setval('public.inscription_id_inscription_seq', 1, false);
 
 
 --
--- TOC entry 2927 (class 0 OID 0)
+-- TOC entry 2929 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: mission_id_mission_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -544,16 +546,16 @@ SELECT pg_catalog.setval('public.mission_id_mission_seq', 4, true);
 
 
 --
--- TOC entry 2928 (class 0 OID 0)
+-- TOC entry 2930 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: utilisateur_id_utilisateur_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.utilisateur_id_utilisateur_seq', 9, true);
+SELECT pg_catalog.setval('public.utilisateur_id_utilisateur_seq', 10, true);
 
 
 --
--- TOC entry 2743 (class 2606 OID 25392)
+-- TOC entry 2745 (class 2606 OID 25392)
 -- Name: adresse adresse_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -562,7 +564,7 @@ ALTER TABLE ONLY public.adresse
 
 
 --
--- TOC entry 2745 (class 2606 OID 25394)
+-- TOC entry 2747 (class 2606 OID 25394)
 -- Name: asso_domaine asso_domaine_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -571,7 +573,7 @@ ALTER TABLE ONLY public.asso_domaine
 
 
 --
--- TOC entry 2747 (class 2606 OID 25396)
+-- TOC entry 2749 (class 2606 OID 25396)
 -- Name: association association_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -580,7 +582,7 @@ ALTER TABLE ONLY public.association
 
 
 --
--- TOC entry 2751 (class 2606 OID 25398)
+-- TOC entry 2753 (class 2606 OID 25398)
 -- Name: benevole_inscription benevole_inscription_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -589,7 +591,7 @@ ALTER TABLE ONLY public.benevole_inscription
 
 
 --
--- TOC entry 2749 (class 2606 OID 25400)
+-- TOC entry 2751 (class 2606 OID 25400)
 -- Name: benevole benevole_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -598,7 +600,7 @@ ALTER TABLE ONLY public.benevole
 
 
 --
--- TOC entry 2753 (class 2606 OID 25402)
+-- TOC entry 2755 (class 2606 OID 25402)
 -- Name: domaine domaine_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -607,7 +609,7 @@ ALTER TABLE ONLY public.domaine
 
 
 --
--- TOC entry 2755 (class 2606 OID 25404)
+-- TOC entry 2757 (class 2606 OID 25404)
 -- Name: inscription inscription_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -616,7 +618,7 @@ ALTER TABLE ONLY public.inscription
 
 
 --
--- TOC entry 2757 (class 2606 OID 25406)
+-- TOC entry 2759 (class 2606 OID 25406)
 -- Name: mission mission_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -625,7 +627,7 @@ ALTER TABLE ONLY public.mission
 
 
 --
--- TOC entry 2761 (class 2606 OID 25472)
+-- TOC entry 2763 (class 2606 OID 25472)
 -- Name: utilisateur user_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -634,7 +636,7 @@ ALTER TABLE ONLY public.utilisateur
 
 
 --
--- TOC entry 2758 (class 1259 OID 25487)
+-- TOC entry 2760 (class 1259 OID 25487)
 -- Name: fki_user_association_fk; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -642,7 +644,7 @@ CREATE INDEX fki_user_association_fk ON public.utilisateur USING btree (id_assoc
 
 
 --
--- TOC entry 2759 (class 1259 OID 25481)
+-- TOC entry 2761 (class 1259 OID 25481)
 -- Name: fki_user_benevole_fk; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -650,7 +652,7 @@ CREATE INDEX fki_user_benevole_fk ON public.utilisateur USING btree (id_benevole
 
 
 --
--- TOC entry 2764 (class 2606 OID 25407)
+-- TOC entry 2766 (class 2606 OID 25407)
 -- Name: association adresse_association_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -659,7 +661,7 @@ ALTER TABLE ONLY public.association
 
 
 --
--- TOC entry 2765 (class 2606 OID 25412)
+-- TOC entry 2767 (class 2606 OID 25412)
 -- Name: benevole adresse_benevole_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -668,7 +670,7 @@ ALTER TABLE ONLY public.benevole
 
 
 --
--- TOC entry 2769 (class 2606 OID 25417)
+-- TOC entry 2771 (class 2606 OID 25417)
 -- Name: mission adresse_mission_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -677,7 +679,7 @@ ALTER TABLE ONLY public.mission
 
 
 --
--- TOC entry 2762 (class 2606 OID 25422)
+-- TOC entry 2764 (class 2606 OID 25422)
 -- Name: asso_domaine association_asso_domaine_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -686,7 +688,7 @@ ALTER TABLE ONLY public.asso_domaine
 
 
 --
--- TOC entry 2770 (class 2606 OID 25427)
+-- TOC entry 2772 (class 2606 OID 25427)
 -- Name: mission association_mission_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -695,7 +697,7 @@ ALTER TABLE ONLY public.mission
 
 
 --
--- TOC entry 2766 (class 2606 OID 25432)
+-- TOC entry 2768 (class 2606 OID 25432)
 -- Name: benevole_inscription benevole_benevole_inscription_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -704,7 +706,7 @@ ALTER TABLE ONLY public.benevole_inscription
 
 
 --
--- TOC entry 2763 (class 2606 OID 25437)
+-- TOC entry 2765 (class 2606 OID 25437)
 -- Name: asso_domaine domaine_asso_domaine_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -713,7 +715,7 @@ ALTER TABLE ONLY public.asso_domaine
 
 
 --
--- TOC entry 2771 (class 2606 OID 25442)
+-- TOC entry 2773 (class 2606 OID 25442)
 -- Name: mission domaine_mission_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -722,7 +724,7 @@ ALTER TABLE ONLY public.mission
 
 
 --
--- TOC entry 2767 (class 2606 OID 25447)
+-- TOC entry 2769 (class 2606 OID 25447)
 -- Name: benevole_inscription inscription_benevole_inscription_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -731,7 +733,7 @@ ALTER TABLE ONLY public.benevole_inscription
 
 
 --
--- TOC entry 2768 (class 2606 OID 25452)
+-- TOC entry 2770 (class 2606 OID 25452)
 -- Name: inscription mission_inscription_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -740,7 +742,7 @@ ALTER TABLE ONLY public.inscription
 
 
 --
--- TOC entry 2773 (class 2606 OID 25482)
+-- TOC entry 2775 (class 2606 OID 25482)
 -- Name: utilisateur user_association_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -749,7 +751,7 @@ ALTER TABLE ONLY public.utilisateur
 
 
 --
--- TOC entry 2772 (class 2606 OID 25476)
+-- TOC entry 2774 (class 2606 OID 25476)
 -- Name: utilisateur user_benevole_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -757,7 +759,7 @@ ALTER TABLE ONLY public.utilisateur
     ADD CONSTRAINT user_benevole_fk FOREIGN KEY (id_benevole) REFERENCES public.benevole(id_benevole);
 
 
--- Completed on 2019-03-19 11:54:38
+-- Completed on 2019-03-21 11:32:49
 
 --
 -- PostgreSQL database dump complete

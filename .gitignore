@@ -41,3 +41,5 @@ back/service/src/test/resources/mykeystore\.jks
 *.jpg
 
 */tmp
+
+*/target

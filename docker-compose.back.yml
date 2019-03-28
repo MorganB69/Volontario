@@ -15,4 +15,6 @@ services:
       - PASSWORD=${PASSWORD}
       - UPLOAD=${UPLOAD}
       - TMP=${TMP}
+      - USERNAMEMAIL=${USERNAMEMAIL}
+      - PASSWORDMAIL=${PASSWORDMAIL}
     network_mode: bridge

@@ -20,6 +20,7 @@ public class Inscription implements Serializable {
     private Integer nbplaces;
     private Timestamp debut;
     private Timestamp fin;
+    private String consigne;
     private Mission mission;
     private Set<Benevole> benevoles=new HashSet<>();
 
@@ -75,12 +76,13 @@ public class Inscription implements Serializable {
         return Objects.equals(idInscription, that.idInscription) &&
                 Objects.equals(nbplaces, that.nbplaces) &&
                 Objects.equals(debut, that.debut) &&
+                Objects.equals(consigne, that.consigne) &&
                 Objects.equals(fin, that.fin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idInscription, nbplaces, debut, fin);
+        return Objects.hash(idInscription, nbplaces, debut, fin, consigne);
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -106,5 +108,15 @@ public class Inscription implements Serializable {
 
     public void setBenevoles(Set<Benevole> benevoles) {
         this.benevoles = benevoles;
+    }
+
+    @Basic
+    @Column(name = "consigne", nullable = false)
+    public String getConsigne() {
+        return consigne;
+    }
+
+    public void setConsigne(String consigne) {
+        this.consigne = consigne;
     }
 }
