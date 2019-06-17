@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -127,5 +128,41 @@ public class webServiceRestImpl implements webServiceRest {
 
         missionManager.mailConsigne(idInscription,username);
 
+    }
+
+    @Override
+    @PostMapping(value = "association/{idAssociation}/mission")
+    public Mission saveMission(@RequestBody Mission mission, @PathVariable Integer idAssociation) throws NotFoundException, FunctionalException {
+        return missionManager.saveMission(mission,idAssociation);
+    }
+
+    @Override
+    @PostMapping(value = "mission/{idMission}/inscription")
+    public Inscription saveInscription(@RequestBody Inscription inscription, @PathVariable Integer idMission) throws FunctionalException {
+        return inscriptionManager.saveInscription(inscription,idMission);
+    }
+
+    @Override
+    @DeleteMapping(value = "/mission/{idMission}")
+    public void deleteMission(@PathVariable Integer idMission) throws NotFoundException {
+        missionManager.deleteMission(idMission);
+    }
+
+    @Override
+    @DeleteMapping(value = "/inscription/{idInscription}")
+    public void deleteInscription(@PathVariable Integer idInscription) throws NotFoundException {
+        inscriptionManager.deleteInscription(idInscription);
+    }
+
+    @Override
+    @PostMapping(value = "/deleteInscriptions")
+    public void deleteListeInscriptions(@RequestBody List<Integer> idsInscriptions) {
+        inscriptionManager.deleteListeInscription(idsInscriptions);
+    }
+
+    @Override
+    @GetMapping(value = "association/{idAssociation}/missions")
+    public List<Mission> getMissionByIdAsso(@PathVariable Integer idAssociation) throws NotFoundException {
+        return null;
     }
 }

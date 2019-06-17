@@ -1,17 +1,21 @@
 package fr.mb.volontario.business.impl;
 
 import fr.mb.volontario.business.contract.InscriptionManager;
-import fr.mb.volontario.dao.contract.AssociationDAO;
-import fr.mb.volontario.dao.contract.BenevoleDAO;
-import fr.mb.volontario.dao.contract.UserDao;
+import fr.mb.volontario.dao.contract.*;
 import fr.mb.volontario.model.bean.Association;
 import fr.mb.volontario.model.bean.Benevole;
+import fr.mb.volontario.model.bean.Inscription;
+import fr.mb.volontario.model.bean.Mission;
 import fr.mb.volontario.model.exception.FunctionalException;
+import fr.mb.volontario.model.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
+import java.util.List;
+
 @Service
 public class InscriptionManagerImpl implements InscriptionManager {
 
@@ -26,6 +30,10 @@ public class InscriptionManagerImpl implements InscriptionManager {
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
+    @Autowired
+    private MissionDAO missionDao;
+    @Autowired
+    private InscriptionDAO inscriptionDao;
 
     /**
      * @param association
@@ -55,5 +63,39 @@ public class InscriptionManagerImpl implements InscriptionManager {
             benevoleDAO.save(benevole);
         }
         return benevole;
+    }
+
+    @Override
+    @Transactional
+    public Inscription saveInscription(Inscription inscription, Integer idMission) throws FunctionalException {
+        Assert.notNull(inscription, "L'inscription est obligatoire");
+        Assert.notNull(idMission, "L'id de la mission est obligatoire");
+        Mission mission = missionDao.findById(idMission).orElse(null);
+        if (mission==null) throw new FunctionalException("La mission n'existe pas");
+        else {
+            inscription.setMission(mission);
+            return inscriptionDao.save(inscription);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteInscription(Integer idInscription) throws NotFoundException {
+        Assert.notNull(idInscription, "L'id de l'inscription est obligatoire");
+        Inscription inscription= inscriptionDao.findById(idInscription).orElse(null);
+        if (inscription==null) throw new NotFoundException("L'inscription n'existe pas");
+        else {
+            inscriptionDao.delete(inscription);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void deleteListeInscription(List<Integer> idsInscription) {
+        Assert.notNull(idsInscription, "La liste est obligatoire");
+        for (Integer id: idsInscription){
+            inscriptionDao.deleteById(id);
+        }
     }
 }

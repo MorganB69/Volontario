@@ -1,5 +1,6 @@
 package fr.mb.volontario.business.impl;
 
+import com.google.common.collect.Lists;
 import fr.mb.volontario.business.contract.EmailService;
 import fr.mb.volontario.business.contract.MissionManager;
 import fr.mb.volontario.dao.contract.*;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
@@ -38,6 +40,9 @@ public class MissionManagerImpl implements MissionManager {
 
     @Autowired
     AdresseDAO adresseDAO;
+
+    @Autowired
+    AssociationDAO associationDAO;
 
     @Autowired
     UserDao userDao;
@@ -135,31 +140,6 @@ public class MissionManagerImpl implements MissionManager {
 
 
 
-
-    //-----------------------------Methodes de contrôles------------------------------
-
-    //CheckInscription
-    void checkInscription(Integer idInscription) throws FunctionalException {
-        if(idInscription==null || idInscription<=0) throw new FunctionalException("erreur de donnée l'id est incorrect");
-    }
-
-    //CheckUser
-    public void checkUser(User user) throws NotFoundException{
-        if (user==null) throw new NotFoundException("utilisateur non trouvé");
-    }
-    //Verif du nombre de place restantes
-    void checkNbPlace(Inscription inscription) throws FunctionalException{
-        if (inscription.getNbplaces()<=0) throw new FunctionalException("il n'y a plus de place disponible");
-    }
-    //Verif que l'utilisateur n'est pas inscrit
-    void checkUserInscription(Inscription inscription, User user) throws  FunctionalException{
-        for (Benevole benevole:inscription.getBenevoles()
-             ) {
-           if (benevole.getUser().getIdentifiant().equals(user.getIdentifiant())) throw new FunctionalException("L'utilisateur est déjà inscrit à cette mission");
-        }
-    }
-
-
 //-----------Mail------------------
     @Override
     @Transactional
@@ -200,8 +180,47 @@ public class MissionManagerImpl implements MissionManager {
 
     }
 
+    @Override
+    @Transactional
+    public Mission saveMission(Mission mission, Integer idAssociation) throws NotFoundException {
+        Assert.notNull(mission, "l'id de l'association est obligatoire");
+        Assert.notNull(mission, "La mission est obligatoire");
+        Association association = associationDAO.findById(idAssociation).orElse(null);
+        if (association == null) throw new NotFoundException("L'association n'existe pas");
+        else {
+            mission.setAssociation(association);
+            return missionDAO.save(mission);
+        }
+    }
 
-    public Map<String, Object> mailDonnees(Integer inscriptionId, String username  ) throws NotFoundException {
+
+
+    @Override
+    @Transactional
+    public List<Mission> getMissionsByIdAsso(Integer idAssociation) throws NotFoundException, FunctionalException{
+        Assert.notNull(idAssociation, "L'id de l'association est obligatoire");
+        Association association = associationDAO.findById(idAssociation).orElse(null);
+        if(association==null) throw new NotFoundException("L'association n'existe pas");
+        else {
+            List<Mission> missions = missionDAO.findAllByAssociation(association);
+            return missions;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteMission(Integer idMission) throws NotFoundException {
+        Assert.notNull(idMission, "l'id de la mission est obligatoire");
+        Mission mission = missionDAO.findById(idMission).orElse(null);
+        if (mission==null) throw new NotFoundException("La mission n'existe pas");
+        else {
+            missionDAO.delete(mission);
+        }
+
+    }
+
+
+    private Map<String, Object> mailDonnees(Integer inscriptionId, String username) throws NotFoundException {
         User user = userDao.findByIdentifiant(username);
         Inscription inscription = inscriptionDAO.findById(inscriptionId).orElseThrow(() ->  new NotFoundException("inscription non trouvée"));
 
@@ -236,6 +255,29 @@ public class MissionManagerImpl implements MissionManager {
         model.put("mailasso",mailasso);
 
         return model;
+    }
+
+    //-----------------------------Methodes de contrôles------------------------------
+
+    //CheckInscription
+    private void checkInscription(Integer idInscription) throws FunctionalException {
+        if(idInscription==null || idInscription<=0) throw new FunctionalException("erreur de donnée l'id est incorrect");
+    }
+
+    //CheckUser
+    private void checkUser(User user) throws NotFoundException{
+        if (user==null) throw new NotFoundException("utilisateur non trouvé");
+    }
+    //Verif du nombre de place restantes
+    private void checkNbPlace(Inscription inscription) throws FunctionalException{
+        if (inscription.getNbplaces()<=0) throw new FunctionalException("il n'y a plus de place disponible");
+    }
+    //Verif que l'utilisateur n'est pas inscrit
+    private void checkUserInscription(Inscription inscription, User user) throws  FunctionalException{
+        for (Benevole benevole:inscription.getBenevoles()
+        ) {
+            if (benevole.getUser().getIdentifiant().equals(user.getIdentifiant())) throw new FunctionalException("L'utilisateur est déjà inscrit à cette mission");
+        }
     }
 
 
