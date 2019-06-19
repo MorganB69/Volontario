@@ -70,4 +70,9 @@ inscriptionBene(benevole: Benevole) {
     return this.http.post(this.baseUrl + 'mission/deleteUser', idInscription, {headers: headers} );
   }
 
+  getAssociation(idAssociation: string) {
+    const params = new HttpParams().set('idAssociation', idAssociation);
+    return this.http.get<Association>(this.baseUrl + 'association/idAssociation', {headers: headers, params: params});
+  }
+
 }

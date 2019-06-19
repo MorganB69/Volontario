@@ -1,3 +1,72 @@
-<p>
-  espace-asso works!
-</p>
+<div *ngIf="notfound" class="alert alert-danger">Association non trouvée</div>
+<div *ngIf="association">
+
+  <div class="row m-2">
+
+    <div class="col-xs-12 col-md-7 col-lg-8" id="center-column">
+
+
+      <h5 class="collapsible-title mt-3" data-toggle="collapse" data-target="#associated-desc" aria-expanded="true"
+          aria-controls="associated-desc">
+        <i class="fas fa-info-circle"></i> Description de l'association <i class="fa fa-arrow-down fa-pull-right"></i>
+      </h5>
+
+      <div class="collapse collapse show mt-3 mb-3" id="associated-desc" aria-expanded="true">
+
+        <div class="card card-body text-dark rounded">
+          <div>
+
+          </div>
+
+
+          <p>{{association.description}}</p><br>
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-xs-12 col-md-5 col-lg-4" id="right-column">
+
+      <h5 class="collapsible-title mt-3" data-toggle="collapse" data-target="#associated-detail" aria-expanded="true"
+          aria-controls="associated-detail">
+        <i class="fas fa-hands-helping"></i> Détails de l'association <i class="fa fa-arrow-down fa-pull-right"></i>
+      </h5>
+
+      <div class="collapse collapse show mt-3 mb-3" id="associated-detail" aria-expanded="true">
+
+        <div class="card card-body text-dark rounded">
+
+          <h5>{{association.nom}}</h5>
+
+          <div class="row">
+
+            <figure class="figure m-3 ">
+              <img *ngIf="association.imagetoshow" class="figure-img img-fluid rounded " id="detailImgMission"
+                   [src]="association.imagetoshow" alt="asso image"/>
+            </figure>
+          </div>
+
+          <ul id="listMission">
+
+
+            <li><b>Adresse de l'association</b><br>
+              <span
+                id="attribut">{{association.adresse.voie}} {{association.adresse.code}} {{association.adresse.commune}}</span>
+            </li>
+
+            <li *ngIf="association.web"><b>Site web</b><br>
+              <span id="attribut">{{association.web}}</span>
+            </li>
+
+
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

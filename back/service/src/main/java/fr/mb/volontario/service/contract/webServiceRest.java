@@ -6,6 +6,7 @@ import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheMission;
 import freemarker.template.TemplateException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.mail.MessagingException;
@@ -154,5 +155,8 @@ public interface webServiceRest {
      * @return
      * @throws NotFoundException
      */
-    List<Mission> getMissionByIdAsso(Integer idAssociation) throws NotFoundException;
+    List<Mission> getMissionByIdAsso(Integer idAssociation) throws NotFoundException, FunctionalException;
+
+    @GetMapping(value = "association/[idAssociation}")
+    Association getAssociation(@PathVariable Integer idAssociation) throws NotFoundException, FunctionalException;
 }

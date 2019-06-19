@@ -162,7 +162,13 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @GetMapping(value = "association/{idAssociation}/missions")
-    public List<Mission> getMissionByIdAsso(@PathVariable Integer idAssociation) throws NotFoundException {
+    public List<Mission> getMissionByIdAsso(@PathVariable Integer idAssociation) throws NotFoundException, FunctionalException {
+        return missionManager.getMissionsByIdAsso(idAssociation);
+    }
+
+    @Override
+    @GetMapping(value = "association/[idAssociation}")
+    public Association getAssociation(@PathVariable Integer idAssociation) throws NotFoundException, FunctionalException{
         return null;
     }
 }
