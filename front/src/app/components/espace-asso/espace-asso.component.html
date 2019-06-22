@@ -48,9 +48,7 @@
             </figure>
           </div>
 
-          <ul id="listMission">
-
-
+          <ul>
             <li><b>Adresse de l'association</b><br>
               <span
                 id="attribut">{{association.adresse.voie}} {{association.adresse.code}} {{association.adresse.commune}}</span>
@@ -60,9 +58,14 @@
               <span id="attribut">{{association.web}}</span>
             </li>
 
-
+            <li><b>Domaines de l'association</b><br>
+              <span id="attribut" *ngFor="let domaine of association.domaines">{{domaine.nom}}<br></span>
+            </li>
           </ul>
-
+          <div class="row justify-content-center m-3">
+            <button class="btn btn-special" [routerLink]="['/editAsso',association.idAssociation]"> Modifier mes informations
+            </button>
+          </div>
         </div>
 
       </div>

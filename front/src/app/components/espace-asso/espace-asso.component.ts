@@ -14,7 +14,7 @@ import {Mission} from '../../model/Mission';
 export class EspaceAssoComponent implements OnInit {
 
   user: User = new User();
-  association: Association = new Association();
+  association: Association;
 
   constructor(private route: ActivatedRoute,
               private missionService: MissionService,

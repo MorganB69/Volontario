@@ -28,6 +28,9 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { EspaceAssoComponent } from './components/espace-asso/espace-asso.component';
 import { NavEspaceAssoComponent } from './components/nav-espace-asso/nav-espace-asso.component';
 import { EspaceMissionComponent } from './components/espace-mission/espace-mission.component';
+import { EditAssoComponent } from './components/edit-asso/edit-asso.component';
+import { EspaceInscriptionComponent } from './components/espace-inscription/espace-inscription.component';
+import { EditMissionComponent } from './components/edit-mission/edit-mission.component';
 
 
 
@@ -55,6 +58,9 @@ export function gettoken () {
     EspaceAssoComponent,
     NavEspaceAssoComponent,
     EspaceMissionComponent,
+    EditAssoComponent,
+    EspaceInscriptionComponent,
+    EditMissionComponent,
   ],
   imports: [
     BrowserModule,

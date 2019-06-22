@@ -1,5 +1,6 @@
 package fr.mb.volontario.service.impl;
 
+import fr.mb.volontario.business.contract.AssociationManager;
 import fr.mb.volontario.business.contract.InscriptionManager;
 import fr.mb.volontario.business.contract.MissionManager;
 import fr.mb.volontario.business.contract.UserManager;
@@ -37,6 +38,8 @@ public class webServiceRestImpl implements webServiceRest {
     InscriptionManager inscriptionManager;
     @Autowired
     UserManager userManager;
+    @Autowired
+    AssociationManager associationManager;
 
 
     @Override
@@ -167,8 +170,14 @@ public class webServiceRestImpl implements webServiceRest {
     }
 
     @Override
-    @GetMapping(value = "association/[idAssociation}")
-    public Association getAssociation(@PathVariable Integer idAssociation) throws NotFoundException, FunctionalException{
-        return null;
+    @GetMapping(value = "association/{idAssociation}")
+    public Association getAssociation(@RequestParam Integer idAssociation) throws NotFoundException, FunctionalException{
+        return associationManager.getAssociation(idAssociation);
+    }
+
+    @Override
+    @PostMapping(value = "association")
+    public Association saveAssociation(@RequestBody Association association) throws NotFoundException, FunctionalException{
+        return associationManager.saveAssociation(association);
     }
 }

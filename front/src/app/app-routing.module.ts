@@ -12,6 +12,9 @@ import {NavInscriComponent} from './components/nav-inscri/nav-inscri.component';
 import {MissionDetailComponent} from './components/mission-detail/mission-detail.component';
 import {NavEspaceAssoComponent} from './components/nav-espace-asso/nav-espace-asso.component';
 import {AuthGuardAsso} from './interceptors/AuthGardAsso';
+import {EditAssoComponent} from './components/edit-asso/edit-asso.component';
+import {EditMissionComponent} from './components/edit-mission/edit-mission.component';
+import {EspaceInscriptionComponent} from './components/espace-inscription/espace-inscription.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -25,7 +28,10 @@ const routes: Routes = [
   {path: 'inscription', component: NavInscriComponent},
   {path: 'espaceAsso', component: NavEspaceAssoComponent, canActivate: [AuthGuardAsso]},
   {path: 'detail/:id', component: MissionDetailComponent},
-  {path: 'detail/:id/:idInscription', component: MissionDetailComponent, canActivate: [AuthGuard]}
+  {path: 'detail/:id/:idInscription', component: MissionDetailComponent, canActivate: [AuthGuard]},
+  {path: 'editAsso/:id', component: EditAssoComponent, canActivate: [AuthGuardAsso]},
+  {path: 'editMission/:id', component: EditMissionComponent, canActivate: [AuthGuardAsso]},
+  {path: 'espaceInscription', component: EspaceInscriptionComponent, canActivate: [AuthGuardAsso]}
 ];
 
 

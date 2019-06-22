@@ -1,0 +1,51 @@
+<div *ngIf="missions">
+  <div class="row m-2 justify-content-center">
+    <div class="col-xs-12 col-md-7 col-lg-8" id="center-column">
+
+
+      <div class="row justify-content-center">
+        <h2>Mes missions</h2>
+      </div>
+      <div class="row justify-content-center">
+        <button type="button" [routerLink]="['/creerMission']" class="btn btn-primary m-2">Créer
+          une mission
+        </button>
+      </div>
+
+      <div class="row justify-content-center">
+        <div *ngFor="let mission of missions" class="col-10 mb-8 m-3 m-1">
+          <div class="card h-100 -dark" id="card-list">
+            <h5 class="card-header">
+              <a [routerLink]="['/detail', mission.idMission]">{{mission.nom}}</a>
+            </h5>
+            <div class="card-body">
+              <div class="row">
+                <ul class="m-1" id="listMission">
+                  <li><b>Domaine :</b> <span id="attribut"> {{mission.domaine.nom}}</span></li>
+                  <li><b>Adresse : </b> <span
+                    id="attribut">{{mission.adresse.voie}} {{mission.adresse.commune}} {{mission.adresse.departement}} </span>
+                  </li>
+                  <li><b>Complément :</b> <span id="attribut"> {{mission.complement}}</span></li>
+                  <li><b>Compétences :</b> <span id="attribut"> {{mission.competence}}</span></li>
+                </ul>
+              </div>
+              <div>
+                <b>Description : </b> {{mission.description}}
+              </div>
+              <div class="row m-3">
+                <button type="button" [routerLink]="['/editionMission', mission.idMission]" class="btn btn-primary m-2">
+                  Editer
+                </button>
+                <button type="button" [routerLink]="['/inscriptionsByMission', mission.idMission]"
+                        class="btn btn-special m-2">Gérer les inscriptions
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

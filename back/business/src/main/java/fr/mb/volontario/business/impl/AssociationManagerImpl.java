@@ -22,4 +22,10 @@ public class AssociationManagerImpl implements AssociationManager {
         if (association==null) throw new NotFoundException("l'association n'existe pas");
         else return association;
     }
+
+    @Override
+    public Association saveAssociation(Association association) {
+        Assert.notNull(association, "L'association est obligaroire");
+        return associationDAO.save(association);
+    }
 }

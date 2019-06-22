@@ -70,9 +70,19 @@ inscriptionBene(benevole: Benevole) {
     return this.http.post(this.baseUrl + 'mission/deleteUser', idInscription, {headers: headers} );
   }
 
+  // Obtention d'une association
   getAssociation(idAssociation: string) {
     const params = new HttpParams().set('idAssociation', idAssociation);
     return this.http.get<Association>(this.baseUrl + 'association/idAssociation', {headers: headers, params: params});
+  }
+  // Sauvegarde d'une association
+  saveAssociation(association: Association) {
+    return this.http.post<Association>(this.baseUrl + 'association', association, {headers: headers});
+  }
+
+  // Obtention des missions par association
+  getMissionsByAssociation(idAssociation: string) {
+    return this.http.get<Array<Mission>>(this.baseUrl + 'association/' + idAssociation + '/missions',{headers: headers} );
   }
 
 }
