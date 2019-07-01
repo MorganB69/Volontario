@@ -3,6 +3,7 @@ import {RestService} from '../rest/rest.service';
 import {Domaine} from '../../model/Domaine';
 import {Recherche} from '../../model/Recherche';
 import {UploadService} from '../upload/upload.service';
+import {Mission} from '../../model/Mission';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,14 @@ export class MissionService {
 
   deleteUserToMission(idInscription: number) {
    return this.restService.deleteUserFromMission(idInscription);
+  }
+
+  saveMission(mission: Mission, idAssociation: string) {
+    return this.restService.saveMission(mission, idAssociation);
+  }
+
+  getInscriptionsByIdMission(idMission: string) {
+    return this.restService.getInscriptionsByMission(idMission);
   }
 
 }

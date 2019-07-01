@@ -30,7 +30,8 @@ import { NavEspaceAssoComponent } from './components/nav-espace-asso/nav-espace-
 import { EspaceMissionComponent } from './components/espace-mission/espace-mission.component';
 import { EditAssoComponent } from './components/edit-asso/edit-asso.component';
 import { EspaceInscriptionComponent } from './components/espace-inscription/espace-inscription.component';
-import { EditMissionComponent } from './components/edit-mission/edit-mission.component';
+import { DetailInscriptionComponent } from './components/detail-inscription/detail-inscription.component';
+
 
 
 
@@ -60,7 +61,7 @@ export function gettoken () {
     EspaceMissionComponent,
     EditAssoComponent,
     EspaceInscriptionComponent,
-    EditMissionComponent,
+    DetailInscriptionComponent,
   ],
   imports: [
     BrowserModule,

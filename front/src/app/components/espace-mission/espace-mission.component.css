@@ -40,3 +40,5 @@
 .card-body{
   background-color: #e8edf1;
 }
+
+/deep/ .cdk-overlay-container { z-index: 9999; }

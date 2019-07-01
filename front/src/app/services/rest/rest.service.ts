@@ -7,6 +7,7 @@ import {Recherche} from '../../model/Recherche';
 import {Mission} from '../../model/Mission';
 import {Association} from '../../model/Association';
 import {Benevole} from '../../model/Benevole';
+import {Inscription} from '../../model/Inscription';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -82,7 +83,17 @@ inscriptionBene(benevole: Benevole) {
 
   // Obtention des missions par association
   getMissionsByAssociation(idAssociation: string) {
-    return this.http.get<Array<Mission>>(this.baseUrl + 'association/' + idAssociation + '/missions',{headers: headers} );
+    return this.http.get<Array<Mission>>(this.baseUrl + 'association/' + idAssociation + '/missions', {headers: headers} );
+  }
+
+  // Sauvegarde d'une mission
+  saveMission(mission: Mission, idAssociation: string) {
+    return this.http.post<Mission>(this.baseUrl + 'association/' + idAssociation + '/mission', mission, {headers: headers});
+  }
+
+  // Obtention des missions par association
+  getInscriptionsByMission(idMission: string) {
+    return this.http.get<Array<Inscription>>(this.baseUrl + 'mission/' + idMission + '/inscriptions', {headers: headers} );
   }
 
 }

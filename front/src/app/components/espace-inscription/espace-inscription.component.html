@@ -1,3 +1,56 @@
-<p>
-  espace-inscription works!
-</p>
+<div *ngIf="mission">
+  <div class="row m-2 justify-content-center">
+    <div class="col-xs-12 col-md-7 col-lg-8" id="center-column">
+
+
+      <div class="row justify-content-center">
+        <h2>Inscriptions pour la mission {{mission.nom}}</h2>
+      </div>
+      <div class="row justify-content-center">
+        <button type="button" data-toggle="modal" data-target="#creerInscription" class="btn btn-primary m-2">Créer
+          une inscription
+        </button>
+      </div>
+      <div class="row justify-content-center m-3">
+        <h4 *ngIf="!inscriptions||!inscriptions.length">Il n'y a aucune inscription pour cette mission</h4>
+      </div>
+
+      <div *ngIf="inscriptions&&inscriptions.length" class="row justify-content-center ">
+        <div *ngFor="let inscription of inscriptions" class="col-10 mb-8 m-3 m-1">
+          <div class="card h-100 -dark" id="card-list">
+            <div class="card-body">
+              <div class="row">
+                <ul>
+                  <li class="m-1">
+                    <b>Date début</b><br>
+                    <span id="attribut">{{inscription.debut|date:'d MMM y à hh:mm'}}</span>
+                  </li>
+                  <li class="m-1">
+                    <b>Date fin prévue</b><br>
+                    <span id="attribut">{{inscription.fin|date:'d MMM y à hh:mm'}}</span>
+                  </li>
+                  <li class="m-1">
+                    <b>Places disponibles : </b><span id="attribut">{{inscription.nbplaces}}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="row m-3">
+                <button type="button" [routerLink]="['/detailInscription', inscription.idInscription]"
+                        class="btn btn-primary m-2">
+                  Détail
+                </button>
+                <button type="button"
+                        class="btn btn-special m-2">Supprimer
+                </button>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

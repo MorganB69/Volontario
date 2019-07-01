@@ -98,4 +98,10 @@ public class InscriptionManagerImpl implements InscriptionManager {
             inscriptionDao.deleteById(id);
         }
     }
+
+    @Override
+    public List<Inscription> getInsctriptionByMission(Integer idMission) {
+        Assert.notNull(idMission, "L'id de la mission est obligatoire");
+        return inscriptionDao.findAllByMissionIdMission(idMission);
+    }
 }

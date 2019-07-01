@@ -155,9 +155,30 @@ public interface webServiceRest {
      */
     List<Mission> getMissionByIdAsso(Integer idAssociation) throws NotFoundException, FunctionalException;
 
+    /**
+     * Obtention des inscriptions par mission
+     * @param idMission
+     * @return
+     */
+    List<Inscription> getInscriptionsByIdMission(Integer idMission);
 
+
+    /**
+     * Obtention des associations
+     * @param idAssociation
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
     Association getAssociation(Integer idAssociation) throws NotFoundException, FunctionalException;
 
 
+    /**
+     * sauvegarde d'une association
+     * @param association
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
     Association saveAssociation( Association association) throws NotFoundException, FunctionalException;
 }

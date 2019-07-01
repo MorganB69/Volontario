@@ -49,4 +49,11 @@ public interface InscriptionManager {
      * @param idsInscription
      */
     void deleteListeInscription(List<Integer>idsInscription);
+
+    /**
+     * Obtention des inscriptions par mission
+     * @param idMission
+     * @return
+     */
+    List<Inscription> getInsctriptionByMission(Integer idMission);
 }
