@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {RestService} from '../rest/rest.service';
 import {Domaine} from '../../model/Domaine';
 import {Recherche} from '../../model/Recherche';
 import {UploadService} from '../upload/upload.service';
 import {Mission} from '../../model/Mission';
+import {Inscription} from '../../model/Inscription';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,12 @@ import {Mission} from '../../model/Mission';
 export class MissionService {
 
 
-
-  constructor(private restService: RestService, private uploadService: UploadService) { }
+  constructor(private restService: RestService, private uploadService: UploadService) {
+  }
 
 
   getDomaines() {
-  return this.restService.getDomaines();
+    return this.restService.getDomaines();
   }
 
   getDetpartements() {
@@ -32,7 +33,7 @@ export class MissionService {
   }
 
   getImage(path: string) {
-  return this.uploadService.getImage(path);
+    return this.uploadService.getImage(path);
   }
 
   getMissionById(id: string) {
@@ -44,7 +45,7 @@ export class MissionService {
   }
 
   deleteUserToMission(idInscription: number) {
-   return this.restService.deleteUserFromMission(idInscription);
+    return this.restService.deleteUserFromMission(idInscription);
   }
 
   saveMission(mission: Mission, idAssociation: string) {
@@ -53,6 +54,14 @@ export class MissionService {
 
   getInscriptionsByIdMission(idMission: string) {
     return this.restService.getInscriptionsByMission(idMission);
+  }
+
+  saveInscription(idMission: string, inscription: Inscription) {
+    return this.restService.saveInscription(idMission, inscription);
+  }
+
+  deleteInscription(idInscription: string) {
+    return this.restService.deleteInscription(idInscription);
   }
 
 }

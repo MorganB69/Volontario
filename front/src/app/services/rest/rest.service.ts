@@ -96,4 +96,14 @@ inscriptionBene(benevole: Benevole) {
     return this.http.get<Array<Inscription>>(this.baseUrl + 'mission/' + idMission + '/inscriptions', {headers: headers} );
   }
 
+  // Sauvegarde d'une inscription
+  saveInscription(idMission: string, inscription: Inscription) {
+    return this.http.post<Inscription>(this.baseUrl + 'mission/' + idMission + '/inscription', inscription, {headers: headers} );
+  }
+
+  // delete d'une inscription
+  deleteInscription(idInscription: string) {
+     return this.http.delete(this.baseUrl + 'inscription/' + idInscription, {headers: headers} );
+  }
+
 }

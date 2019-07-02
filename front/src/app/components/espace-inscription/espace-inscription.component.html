@@ -1,6 +1,6 @@
 <div *ngIf="mission">
   <div class="row m-2 justify-content-center">
-    <div class="col-xs-12 col-md-7 col-lg-8" id="center-column">
+    <div class="col-xs-12 col-md-12 col-lg-12" id="center-column">
 
 
       <div class="row justify-content-center">
@@ -14,43 +14,143 @@
       <div class="row justify-content-center m-3">
         <h4 *ngIf="!inscriptions||!inscriptions.length">Il n'y a aucune inscription pour cette mission</h4>
       </div>
-
-      <div *ngIf="inscriptions&&inscriptions.length" class="row justify-content-center ">
-        <div *ngFor="let inscription of inscriptions" class="col-10 mb-8 m-3 m-1">
-          <div class="card h-100 -dark" id="card-list">
-            <div class="card-body">
-              <div class="row">
-                <ul>
-                  <li class="m-1">
-                    <b>Date début</b><br>
-                    <span id="attribut">{{inscription.debut|date:'d MMM y à hh:mm'}}</span>
-                  </li>
-                  <li class="m-1">
-                    <b>Date fin prévue</b><br>
-                    <span id="attribut">{{inscription.fin|date:'d MMM y à hh:mm'}}</span>
-                  </li>
-                  <li class="m-1">
-                    <b>Places disponibles : </b><span id="attribut">{{inscription.nbplaces}}</span>
-                  </li>
-                </ul>
-              </div>
-              <div class="row m-3">
-                <button type="button" [routerLink]="['/detailInscription', inscription.idInscription]"
-                        class="btn btn-primary m-2">
-                  Détail
-                </button>
-                <button type="button"
-                        class="btn btn-special m-2">Supprimer
-                </button>
-              </div>
-
-
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <table *ngIf="inscriptions.length" class="table col-12 m-3 m-1">
+        <thead>
+        <tr>
+          <th scope="col">Date début</th>
+          <th scope="col">Date fin</th>
+          <th scope="col">Places disponibles</th>
+          <th scope="col">Détail</th>
+          <th scope="col">Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let inscription of inscriptions">
+          <td>{{inscription.debut|date:'d MMM y à hh:mm'}}</td>
+          <td>{{inscription.fin|date:'d MMM y à hh:mm'}}</td>
+          <td>{{inscription.nbplaces}}</td>
+          <td>
+            <span [routerLink]="['/detailInscription', inscription.idInscription]"
+                    class="fa fa-info-circle">
+            </span>
+          </td>
+          <td>
+            <span (click)="delete(inscription.idInscription)"
+                  class="fa fa-trash">
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="creerInscription" tabindex="-1" role="dialog" aria-labelledby="Créer une inscription"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Création d'une inscription</h5>
+        <button #closeModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form m-2" #creerInscriptionForm="ngForm">
+
+          <div class="row">
+            <label class="col-sm-4">Date de début</label>
+            <div class="col-sm-8">
+              <div class="form-group">
+                <div class="input-group date" data-target-input="nearest" NgTempusdominusBootstrap>
+                  <input
+                    class="form-control"
+                    [(ngModel)]="newInscription.debut"
+                    id="debut"
+                    name="debut"
+                    [options]="options"
+                    NgTempusdominusBootstrapInput
+                    type="text"
+                    required
+                  />
+                  <div class="input-group-append" NgTempusdominusBootstrapToggle>
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-4">Date de fin</label>
+            <div class="col-sm-8">
+              <div class="form-group">
+                <div class="input-group date" data-target-input="nearest" NgTempusdominusBootstrap>
+                  <input
+                    class="form-control"
+                    [(ngModel)]="newInscription.fin"
+                    id="fin"
+                    name="fin"
+                    [options]="options"
+                    NgTempusdominusBootstrapInput
+                    type="text"
+                    required
+                  />
+                  <div class="input-group-append" NgTempusdominusBootstrapToggle>
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-4">Nombre de places</label>
+            <div class="col-sm-8">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  [(ngModel)]="newInscription.nbplaces"
+                  id="nbPlaces"
+                  name="nbPlaces"
+                  type="number"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-4">Consignes</label>
+            <div class="col-sm-8">
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  [(ngModel)]="newInscription.consigne"
+                  id="consigne"
+                  name="consigne"
+                  type="text"
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" data-dismiss="modal" [disabled]="creerInscriptionForm.invalid"
+                (click)="saveInscription()">Enregistrer l'inscription
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+
 

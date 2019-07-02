@@ -5,6 +5,7 @@ import {UserService} from '../../services/user/user.service';
 import {Inscription} from '../../model/Inscription';
 import {Mission} from '../../model/Mission';
 
+
 @Component({
   selector: 'app-espace-inscription',
   templateUrl: './espace-inscription.component.html',
@@ -16,6 +17,13 @@ export class EspaceInscriptionComponent implements OnInit {
   mission: Mission;
   inscriptions: Array<Inscription>;
   isEmpty: boolean;
+  newInscription: Inscription = new Inscription();
+  options = {
+    locale: 'fr',
+    icons: {
+      time: 'fa fa-clock'
+    }
+  };
 
   constructor(private route: ActivatedRoute,
               private missionService: MissionService,
@@ -51,4 +59,18 @@ export class EspaceInscriptionComponent implements OnInit {
     );
   }
 
+  saveInscription() {
+    this.missionService.saveInscription(this.missionId, this.newInscription).subscribe(
+      res => {
+        if (res) {
+          this.getInscriptionsByIdMission(this.missionId);
+        }
+      }
+    );
+  }
+
+  delete(idInscription: number) {
+    this.missionService.deleteInscription(idInscription.toString()).subscribe();
+    this.getInscriptionsByIdMission(this.missionId);
+  }
 }

@@ -9,6 +9,7 @@ export class Inscription {
   fin: Date;
   mission: Mission;
   benevoles: Array<Benevole>;
+  consigne: String;
 
 
   constructor() {
