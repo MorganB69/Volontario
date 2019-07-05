@@ -6,6 +6,8 @@ import fr.mb.volontario.model.bean.Association;
 import fr.mb.volontario.model.bean.Benevole;
 import fr.mb.volontario.model.bean.Inscription;
 import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.model.dto.BenevoleDTO;
+import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class InscriptionManagerImpl implements InscriptionManager {
@@ -35,6 +39,7 @@ public class InscriptionManagerImpl implements InscriptionManager {
     @Autowired
     private InscriptionDAO inscriptionDao;
 
+
     /**
      * @param association
      * @return
@@ -43,11 +48,12 @@ public class InscriptionManagerImpl implements InscriptionManager {
     @Override
     @Transactional
     public Association inscriptionAsso(Association association) throws FunctionalException {
-        if (associationDAO.existsBySiret(association.getSiret())) throw new FunctionalException("L'association est déjà enregistrée");
+        if (associationDAO.existsBySiret(association.getSiret()))
+            throw new FunctionalException("L'association est déjà enregistrée");
 
-        else if (userDao.existsByIdentifiant( association.getUsers().iterator().next().getIdentifiant())) throw new FunctionalException("L'identifiant est déjà utilisé");
-        else
-        if(association.getPhoto()==null)association.setPhoto("photodef.jpg");
+        else if (userDao.existsByIdentifiant(association.getUsers().iterator().next().getIdentifiant()))
+            throw new FunctionalException("L'identifiant est déjà utilisé");
+        else if (association.getPhoto() == null) association.setPhoto("photodef.jpg");
         association.getUsers().iterator().next().setMdp((bcryptEncoder.encode(association.getUsers().iterator().next().getMdp())));
         associationDAO.save(association);
 
@@ -57,7 +63,8 @@ public class InscriptionManagerImpl implements InscriptionManager {
     @Override
     @Transactional
     public Benevole inscriptionBene(Benevole benevole) throws FunctionalException {
-        if (userDao.existsByIdentifiant(benevole.getUser().getIdentifiant())) throw new FunctionalException("L'identifiant est déjà utilisé");
+        if (userDao.existsByIdentifiant(benevole.getUser().getIdentifiant()))
+            throw new FunctionalException("L'identifiant est déjà utilisé");
         else {
             benevole.getUser().setMdp((bcryptEncoder.encode(benevole.getUser().getMdp())));
             benevoleDAO.save(benevole);
@@ -71,7 +78,7 @@ public class InscriptionManagerImpl implements InscriptionManager {
         Assert.notNull(inscription, "L'inscription est obligatoire");
         Assert.notNull(idMission, "L'id de la mission est obligatoire");
         Mission mission = missionDao.findById(idMission).orElse(null);
-        if (mission==null) throw new FunctionalException("La mission n'existe pas");
+        if (mission == null) throw new FunctionalException("La mission n'existe pas");
         else {
             inscription.setMission(mission);
             return inscriptionDao.save(inscription);
@@ -82,8 +89,8 @@ public class InscriptionManagerImpl implements InscriptionManager {
     @Transactional
     public void deleteInscription(Integer idInscription) throws NotFoundException {
         Assert.notNull(idInscription, "L'id de l'inscription est obligatoire");
-        Inscription inscription= inscriptionDao.findById(idInscription).orElse(null);
-        if (inscription==null) throw new NotFoundException("L'inscription n'existe pas");
+        Inscription inscription = inscriptionDao.findById(idInscription).orElse(null);
+        if (inscription == null) throw new NotFoundException("L'inscription n'existe pas");
         else {
             inscriptionDao.delete(inscription);
         }
@@ -94,14 +101,46 @@ public class InscriptionManagerImpl implements InscriptionManager {
     @Transactional
     public void deleteListeInscription(List<Integer> idsInscription) {
         Assert.notNull(idsInscription, "La liste est obligatoire");
-        for (Integer id: idsInscription){
+        for (Integer id : idsInscription) {
             inscriptionDao.deleteById(id);
         }
     }
 
     @Override
-    public List<Inscription> getInsctriptionByMission(Integer idMission) {
+    public List<InscriptionDTO> getInsctriptionByMission(Integer idMission) {
         Assert.notNull(idMission, "L'id de la mission est obligatoire");
-        return inscriptionDao.findAllByMissionIdMission(idMission);
+        List<InscriptionDTO> inscriptionDTOS = new ArrayList<>();
+        List<Inscription> inscriptions = inscriptionDao.findAllByMissionIdMission(idMission);
+        for (Inscription inscription : inscriptions) {
+            InscriptionDTO inscriptionDTO = new InscriptionDTO();
+            inscriptionDTO.setInscription(inscription);
+            List<BenevoleDTO> benevoleDTOS = new ArrayList<>();
+            if (!inscription.getBenevoles().isEmpty()) {
+                for (Benevole benevole : inscription.getBenevoles()) {
+                    BenevoleDTO benevoleDTO = new BenevoleDTO();
+                    benevoleDTO.setBenevole(benevole);
+                    benevoleDTO.setIdentifiant(benevole.getUser().getIdentifiant());
+                    benevoleDTO.setMail(benevole.getUser().getMail());
+                    benevoleDTOS.add(benevoleDTO);
+                }
+            }
+            inscriptionDTO.setBenevole(benevoleDTOS);
+            if (inscriptionDTO.getBenevole() != null)
+                inscriptionDTO.setNbInscription(inscriptionDTO.getBenevole().size());
+            else inscriptionDTO.setNbInscription(0);
+            inscriptionDTOS.add(inscriptionDTO);
+        }
+        return inscriptionDTOS;
+    }
+
+    @Override
+    public List<Benevole> getBenevoleByIdInscription(Integer idInscription) throws NotFoundException {
+        Assert.notNull(idInscription, "L'id de l'inscription est obligatoire");
+        Inscription inscription = inscriptionDao.findById(idInscription).orElse(null);
+        if (inscription == null) throw new NotFoundException("Inscription non trouvée");
+        else {
+            List<Benevole> benevoles = new ArrayList<>(inscription.getBenevoles());
+            return benevoles;
+        }
     }
 }

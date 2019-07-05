@@ -1,6 +1,7 @@
 package fr.mb.volontario.service.contract;
 
 import fr.mb.volontario.model.bean.*;
+import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheMission;
@@ -139,7 +140,7 @@ public interface webServiceRest {
      * @param idInscription
      * @throws NotFoundException
      */
-    void deleteInscription(Integer idInscription) throws NotFoundException;
+    Boolean deleteInscription(Integer idInscription) throws NotFoundException;
 
     /**
      * Suppression d'une liste d'inscription
@@ -160,7 +161,7 @@ public interface webServiceRest {
      * @param idMission
      * @return
      */
-    List<Inscription> getInscriptionsByIdMission(Integer idMission);
+    List<InscriptionDTO> getInscriptionsByIdMission(Integer idMission);
 
 
     /**

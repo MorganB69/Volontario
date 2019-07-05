@@ -8,6 +8,7 @@ import {Mission} from '../../model/Mission';
 import {Association} from '../../model/Association';
 import {Benevole} from '../../model/Benevole';
 import {Inscription} from '../../model/Inscription';
+import {InscriptionDTO} from '../../model/dto/InscriptionDTO';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -93,7 +94,7 @@ inscriptionBene(benevole: Benevole) {
 
   // Obtention des missions par association
   getInscriptionsByMission(idMission: string) {
-    return this.http.get<Array<Inscription>>(this.baseUrl + 'mission/' + idMission + '/inscriptions', {headers: headers} );
+    return this.http.get<Array<InscriptionDTO>>(this.baseUrl + 'mission/' + idMission + '/inscriptions', {headers: headers} );
   }
 
   // Sauvegarde d'une inscription
@@ -102,8 +103,9 @@ inscriptionBene(benevole: Benevole) {
   }
 
   // delete d'une inscription
-  deleteInscription(idInscription: string) {
-     return this.http.delete(this.baseUrl + 'inscription/' + idInscription, {headers: headers} );
+  deleteInscription(idInscription: number) {
+     const params = new HttpParams().set('idInscription', idInscription.toString());
+     return this.http.delete<Boolean>(this.baseUrl + 'inscription/', {headers: headers, params: params} );
   }
 
 }

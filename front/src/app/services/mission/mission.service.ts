@@ -60,7 +60,7 @@ export class MissionService {
     return this.restService.saveInscription(idMission, inscription);
   }
 
-  deleteInscription(idInscription: string) {
+  deleteInscription(idInscription: number) {
     return this.restService.deleteInscription(idInscription);
   }
 

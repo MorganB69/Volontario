@@ -4,6 +4,8 @@ import {MissionService} from '../../services/mission/mission.service';
 import {UserService} from '../../services/user/user.service';
 import {Inscription} from '../../model/Inscription';
 import {Mission} from '../../model/Mission';
+import {InscriptionDTO} from '../../model/dto/InscriptionDTO';
+import {Observable, Subject} from 'rxjs';
 
 
 @Component({
@@ -15,8 +17,11 @@ export class EspaceInscriptionComponent implements OnInit {
 
   missionId: string;
   mission: Mission;
-  inscriptions: Array<Inscription>;
-  isEmpty: boolean;
+  inscriptions: Array<InscriptionDTO>;
+  isEmpty = true;
+  isReady: Promise<boolean>;
+  detailInscription: InscriptionDTO;
+  idToDelete: number;
   newInscription: Inscription = new Inscription();
   options = {
     locale: 'fr',
@@ -36,7 +41,6 @@ export class EspaceInscriptionComponent implements OnInit {
     this.missionId = this.route.snapshot.params['id'];
     this.getInscriptionsByIdMission(this.missionId);
     this.getMissionById(this.missionId);
-    console.log(this.inscriptions);
   }
 
   getInscriptionsByIdMission(idMission: string) {
@@ -69,8 +73,24 @@ export class EspaceInscriptionComponent implements OnInit {
     );
   }
 
+  setDelete(idInscription: number) {
+    this.idToDelete = idInscription;
+  }
+
+
   delete(idInscription: number) {
-    this.missionService.deleteInscription(idInscription.toString()).subscribe();
-    this.getInscriptionsByIdMission(this.missionId);
+    this.missionService.deleteInscription(idInscription).subscribe(
+      res => {
+        if (res) {
+          this.getInscriptionsByIdMission(this.missionId);
+        }
+      }
+    );
+  }
+
+  showModal(inscription: InscriptionDTO) {
+    this.isReady = Promise.resolve(false);
+    this.detailInscription = inscription;
+    this.isReady = Promise.resolve(true);
   }
 }

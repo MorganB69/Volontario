@@ -3,6 +3,7 @@ package fr.mb.volontario.business.contract;
 import fr.mb.volontario.model.bean.Association;
 import fr.mb.volontario.model.bean.Benevole;
 import fr.mb.volontario.model.bean.Inscription;
+import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 
@@ -55,5 +56,12 @@ public interface InscriptionManager {
      * @param idMission
      * @return
      */
-    List<Inscription> getInsctriptionByMission(Integer idMission);
+    List<InscriptionDTO> getInsctriptionByMission(Integer idMission);
+
+    /**
+     * Obtention des bénévoles par inscription
+     * @param idInscription
+     * @return
+     */
+    List<Benevole> getBenevoleByIdInscription(Integer idInscription) throws NotFoundException;
 }
