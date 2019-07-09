@@ -22,7 +22,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = request;
-    if (this.token.getToken() != null) {
+    if (request.headers.has('skip')) {
+      const headers = request.headers.delete('skip');
+      authReq = request.clone({headers});
+    } else if (this.token.getToken() != null) {
       authReq = request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + this .token.getToken())});
     }
     return next.handle(authReq)

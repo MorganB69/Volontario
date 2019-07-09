@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Adresse} from '../../model/Adresse';
 import {AdresseApiService} from '../../services/api/adresse-api.service';
@@ -18,12 +18,13 @@ import {ModalErrorComponent} from '../../modal-error/modal-error.component';
 export class InscriptionBenevoleComponent implements OnInit {
 
   searchTerms = new Subject<string>();
-   adressResults: Array<Feature>;
+  adressResults: Array<Feature>;
   featureAdresse: Feature;
   adresse: Adresse = new Adresse();
-   user: User = new User();
-   benevole: Benevole = new Benevole();
-   adresseError = false;
+  user: User = new User();
+  benevole: Benevole = new Benevole();
+  adresseError = false;
+
 
 
 
@@ -32,7 +33,6 @@ export class InscriptionBenevoleComponent implements OnInit {
               private router: Router,
               private modal: NgbModal) {
   }
-
 
 
   ngOnInit(): void {
@@ -50,8 +50,6 @@ export class InscriptionBenevoleComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((term: string) => this.adresseService.adresseSearch(term)),
     ).subscribe((res) => this.adressResults = res.features);
-
-
   }
 
   onSubmit() {
@@ -69,7 +67,8 @@ export class InscriptionBenevoleComponent implements OnInit {
       this.router.navigate(['login']);
     }
   }
-  onSelectionChanged(feature: Feature) {
+
+  onSelectionChanged(feature: Feature) {
     this.featureAdresse = feature;
   }
 

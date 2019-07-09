@@ -4,7 +4,7 @@ import {Mission} from './Mission';
 import {User} from './User';
 
 export class Association {
-  id: number;
+  idAssociation: number;
   nom: string;
   web: string;
   siret: string;

@@ -57,8 +57,22 @@ public interface MissionManager {
      */
     Mission getMissionById(Integer id) throws NotFoundException, FunctionalException;
 
+    /**
+     * Ajout d'un volontaire à une mission
+     * @param username
+     * @param inscriptionId
+     * @throws FunctionalException
+     * @throws NotFoundException
+     */
     void addUserToMission(String username, Integer inscriptionId) throws FunctionalException, NotFoundException;
 
+    /**
+     * Désinscription d'un volontaire à une mission
+     * @param username
+     * @param idInscription
+     * @throws FunctionalException
+     * @throws NotFoundException
+     */
     void deleteUserFromMission(String username, Integer idInscription) throws FunctionalException, NotFoundException;
 
 
@@ -99,4 +113,31 @@ public interface MissionManager {
      * @throws TemplateException
      */
     void mailDesinscriAsso(Integer inscriptionId, String username) throws NotFoundException, MessagingException, IOException, TemplateException;
+
+    /**
+     * Enregistrement d'une mission
+     * @param mission
+     * @param idAssociation
+     * @return
+     * @throws FunctionalException
+     * @throws NotFoundException
+     */
+    Mission saveMission(Mission mission, Integer idAssociation) throws FunctionalException, NotFoundException;
+
+    /**
+     * Obtention des missions pour une association
+     * @param idAssociation
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    List<Mission> getMissionsByIdAsso(Integer idAssociation) throws NotFoundException, FunctionalException;
+
+    /**
+     * Suppression d'une mission
+     * @param idMission
+     * @throws NotFoundException
+     */
+    void deleteMission(Integer idMission) throws NotFoundException;
+
 }

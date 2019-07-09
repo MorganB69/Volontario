@@ -77,7 +77,6 @@ public class User implements Serializable {
     }
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_association", referencedColumnName = "id_association")
-    @JsonManagedReference(value = "asso-user")
     public Association getAssociation() {
         return association;
     }

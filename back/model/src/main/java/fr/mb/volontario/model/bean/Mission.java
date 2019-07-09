@@ -107,7 +107,6 @@ public class Mission implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_association", referencedColumnName = "id_association", nullable = false)
-    @JsonManagedReference(value = "asso-mission")
     public Association getAssociation() {
         return association;
     }

@@ -1,0 +1,139 @@
+<div *ngIf="missions">
+  <div class="row m-2 justify-content-center">
+    <div class="col-xs-12 col-md-7 col-lg-8" id="center-column">
+
+
+      <div class="row justify-content-center">
+        <h2>Mes missions</h2>
+      </div>
+      <div class="row justify-content-center">
+        <button type="button" data-toggle="modal" data-target="#creerMission" class="btn btn-primary m-2">Créer
+          une mission
+        </button>
+      </div>
+
+      <div class="row justify-content-center">
+        <div *ngFor="let mission of missions" class="col-10 mb-8 m-3 m-1">
+          <div class="card h-100 -dark" id="card-list">
+            <h5 class="card-header">
+              <a [routerLink]="['/detail', mission.idMission]">{{mission.nom}}</a>
+            </h5>
+            <div class="card-body">
+              <div class="row">
+                <ul class="m-1" id="listMission">
+                  <li><b>Domaine :</b> <span id="attribut"> {{mission.domaine.nom}}</span></li>
+                  <li><b>Adresse : </b> <span
+                    id="attribut">{{mission.adresse.voie}} {{mission.adresse.commune}} {{mission.adresse.departement}} </span>
+                  </li>
+                  <li *ngIf="mission.complement"><b>Complément :</b> <span id="attribut"> {{mission.complement}}</span></li>
+                  <li *ngIf="mission.competence"><b>Compétences :</b> <span id="attribut"> {{mission.competence}}</span></li>
+                </ul>
+              </div>
+              <div class="row m-2">
+                <b>Description : </b> {{mission.description}}
+              </div>
+              <div class="row m-3 justify-content-center">
+                <button type="button" data-toggle="modal" data-target="#creerMission" (click)="edit(mission)" class="btn btn-primary m-2">
+                  Editer
+                </button>
+                <button type="button" [routerLink]="['/espaceInscription', mission.idMission]"
+                        class="btn btn-special m-2">Inscriptions
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+  <div class="modal fade" id="creerMission" tabindex="-1" role="dialog" aria-labelledby="Créer une mission"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Création d'une mission</h5>
+          <button #closeModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form m-2" #creerMissionForm="ngForm">
+
+
+            <div class="form-group">
+              <label for="nom">Nom de la mission</label>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="newmission.nom" name="username" required>
+            </div>
+            <div class="form-group">
+              <label>Adresse</label>
+              <input
+                type="text"
+                class="form-control"
+                matInput placeholder="saisir l'adresse"
+                #searchInput id="searchInput"
+                aria-label="Adresse"
+                [matAutocomplete]="auto"
+                (input)="searchAdresse(searchInput.value)"
+                minlength="3"
+                required
+              >
+              <div *ngIf="newmission.adresse">
+                Adresse actuelle : {{newmission.adresse.voie}} {{newmission.adresse.commune}} {{newmission.adresse.departement}}
+              </div>
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let feature of adressResults" [value]="feature.properties.label"
+                            (onSelectionChange)="onSelectionChanged(feature)">
+                  {{feature.properties.label}}
+                </mat-option>
+
+              </mat-autocomplete>
+              <div class="row m-2" *ngIf="adresseError && !isEdit"
+                   class="alert alert-danger">
+                <div *ngIf="adresseError">
+                  Choisissez une adresse après avoir saisie votre adresse
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="domaine">Domaine associatif</label>
+              <select [(ngModel)]="newmission.domaine" name="domaine" class="form-control" id="domaine" required>
+                <option *ngFor="let domaine of domaines" [(ngValue)]="domaine">{{domaine.nom}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea type="text" class="form-control" id="description" [(ngModel)]="newmission.description"
+                        name="description" required>
+            </textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="complement">Complément</label>
+              <textarea type="text" class="form-control" id="complement" [(ngModel)]="newmission.complement"
+                        name="complement">
+            </textarea>
+            </div>
+            <div class="form-group">
+              <label for="competence">Compétences nécessaires</label>
+              <textarea type="text" class="form-control" id="competence" [(ngModel)]="newmission.competence"
+                        name="competences">
+            </textarea>
+            </div>
+
+
+            <div class="modal-footer">
+              <button class="btn btn-primary" type="submit"  data-dismiss="modal" [disabled]="creerMissionForm.invalid" (click)="saveMission()">Enregistrer la mission
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+</div>

@@ -1,12 +1,12 @@
 package fr.mb.volontario.service.contract;
 
 import fr.mb.volontario.model.bean.*;
+import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 import fr.mb.volontario.model.recherche.RechercheMission;
 import freemarker.template.TemplateException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -90,8 +90,96 @@ public interface webServiceRest {
      */
     Boolean deleteUserFromMission(@RequestBody Integer idInscription) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException;
 
+    /**
+     * Obtention de l'utilisateur
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
     User getUser() throws NotFoundException, FunctionalException;
 
 
+    /**
+     * Envoi d'un mail de consigne à l'utilisateur
+     * @param idInscription
+     * @param username
+     * @throws NotFoundException
+     * @throws FunctionalException
+     * @throws MessagingException
+     * @throws IOException
+     * @throws TemplateException
+     */
     void mailConsigne(Integer idInscription, String username) throws NotFoundException, FunctionalException, MessagingException, IOException, TemplateException;
+
+    /**
+     *Sauvegarde d'une mission
+     * @param mission
+     * @param idAssociation
+     * @return
+     */
+    Mission saveMission(Mission mission, Integer idAssociation) throws NotFoundException, FunctionalException;
+
+    /**
+     * Sauvegarde d'une inscription
+     * @param inscription
+     * @param idMission
+     * @return
+     * @throws NotFoundException
+     */
+    Inscription saveInscription(Inscription inscription, Integer idMission) throws NotFoundException, FunctionalException;
+
+    /**
+     * Suppression d'une mission
+     * @param idMission
+     * @throws NotFoundException
+     */
+    void deleteMission(Integer idMission) throws NotFoundException;
+
+    /**
+     * Suppression d'une inscription
+     * @param idInscription
+     * @throws NotFoundException
+     */
+    Boolean deleteInscription(Integer idInscription) throws NotFoundException;
+
+    /**
+     * Suppression d'une liste d'inscription
+     * @param idsInscriptions
+     */
+    void deleteListeInscriptions(List<Integer>idsInscriptions);
+
+    /**
+     * Obtention des missions par association
+     * @param idAssociation
+     * @return
+     * @throws NotFoundException
+     */
+    List<Mission> getMissionByIdAsso(Integer idAssociation) throws NotFoundException, FunctionalException;
+
+    /**
+     * Obtention des inscriptions par mission
+     * @param idMission
+     * @return
+     */
+    List<InscriptionDTO> getInscriptionsByIdMission(Integer idMission);
+
+
+    /**
+     * Obtention des associations
+     * @param idAssociation
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    Association getAssociation(Integer idAssociation) throws NotFoundException, FunctionalException;
+
+
+    /**
+     * sauvegarde d'une association
+     * @param association
+     * @return
+     * @throws NotFoundException
+     * @throws FunctionalException
+     */
+    Association saveAssociation( Association association) throws NotFoundException, FunctionalException;
 }
