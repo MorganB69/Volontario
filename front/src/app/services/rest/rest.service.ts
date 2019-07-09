@@ -7,6 +7,8 @@ import {Recherche} from '../../model/Recherche';
 import {Mission} from '../../model/Mission';
 import {Association} from '../../model/Association';
 import {Benevole} from '../../model/Benevole';
+import {Inscription} from '../../model/Inscription';
+import {InscriptionDTO} from '../../model/dto/InscriptionDTO';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -68,6 +70,42 @@ inscriptionBene(benevole: Benevole) {
   // Suppression d'un utilisateur à une mission
   deleteUserFromMission (idInscription: number) {
     return this.http.post(this.baseUrl + 'mission/deleteUser', idInscription, {headers: headers} );
+  }
+
+  // Obtention d'une association
+  getAssociation(idAssociation: string) {
+    const params = new HttpParams().set('idAssociation', idAssociation);
+    return this.http.get<Association>(this.baseUrl + 'association/idAssociation', {headers: headers, params: params});
+  }
+  // Sauvegarde d'une association
+  saveAssociation(association: Association) {
+    return this.http.post<Association>(this.baseUrl + 'association', association, {headers: headers});
+  }
+
+  // Obtention des missions par association
+  getMissionsByAssociation(idAssociation: string) {
+    return this.http.get<Array<Mission>>(this.baseUrl + 'association/' + idAssociation + '/missions', {headers: headers} );
+  }
+
+  // Sauvegarde d'une mission
+  saveMission(mission: Mission, idAssociation: string) {
+    return this.http.post<Mission>(this.baseUrl + 'association/' + idAssociation + '/mission', mission, {headers: headers});
+  }
+
+  // Obtention des missions par association
+  getInscriptionsByMission(idMission: string) {
+    return this.http.get<Array<InscriptionDTO>>(this.baseUrl + 'mission/' + idMission + '/inscriptions', {headers: headers} );
+  }
+
+  // Sauvegarde d'une inscription
+  saveInscription(idMission: string, inscription: Inscription) {
+    return this.http.post<Inscription>(this.baseUrl + 'mission/' + idMission + '/inscription', inscription, {headers: headers} );
+  }
+
+  // delete d'une inscription
+  deleteInscription(idInscription: number) {
+     const params = new HttpParams().set('idInscription', idInscription.toString());
+     return this.http.delete<Boolean>(this.baseUrl + 'inscription/', {headers: headers, params: params} );
   }
 
 }

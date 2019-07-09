@@ -20,12 +20,20 @@ import {HttpErrorInterceptor, RollbarService} from './interceptors/HttpErrorInte
 import { ModalErrorComponent } from './modal-error/modal-error.component';
 import * as Rollbar from 'rollbar';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgTempusdominusBootstrapModule} from 'ngx-tempusdominus-bootstrap';
 import {environment} from '../environments/environment';
 import {JwtModule} from '@auth0/angular-jwt';
 import { LogoutComponent } from './components/logout/logout.component';
 import { NavInscriComponent } from './components/nav-inscri/nav-inscri.component';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
-import { EspaceAssoComponent } from './espace-asso/espace-asso.component';
+import { EspaceAssoComponent } from './components/espace-asso/espace-asso.component';
+import { NavEspaceAssoComponent } from './components/nav-espace-asso/nav-espace-asso.component';
+import { EspaceMissionComponent } from './components/espace-mission/espace-mission.component';
+import { EditAssoComponent } from './components/edit-asso/edit-asso.component';
+import { EspaceInscriptionComponent } from './components/espace-inscription/espace-inscription.component';
+import { DetailInscriptionComponent } from './components/detail-inscription/detail-inscription.component';
+
+
 
 
 
@@ -51,6 +59,11 @@ export function gettoken () {
     LogoutComponent,
     NavInscriComponent,
     EspaceAssoComponent,
+    NavEspaceAssoComponent,
+    EspaceMissionComponent,
+    EditAssoComponent,
+    EspaceInscriptionComponent,
+    DetailInscriptionComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +77,7 @@ export function gettoken () {
     MatInputModule,
     NgbModule,
     AngularFontAwesomeModule,
+    NgTempusdominusBootstrapModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: gettoken ,

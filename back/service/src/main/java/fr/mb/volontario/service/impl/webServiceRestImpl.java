@@ -1,9 +1,11 @@
 package fr.mb.volontario.service.impl;
 
+import fr.mb.volontario.business.contract.AssociationManager;
 import fr.mb.volontario.business.contract.InscriptionManager;
 import fr.mb.volontario.business.contract.MissionManager;
 import fr.mb.volontario.business.contract.UserManager;
 import fr.mb.volontario.model.bean.*;
+import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
 
@@ -15,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +40,8 @@ public class webServiceRestImpl implements webServiceRest {
     InscriptionManager inscriptionManager;
     @Autowired
     UserManager userManager;
+    @Autowired
+    AssociationManager associationManager;
 
 
     @Override
@@ -127,5 +133,60 @@ public class webServiceRestImpl implements webServiceRest {
 
         missionManager.mailConsigne(idInscription,username);
 
+    }
+
+    @Override
+    @PostMapping(value = "association/{idAssociation}/mission")
+    public Mission saveMission(@RequestBody Mission mission, @PathVariable Integer idAssociation) throws NotFoundException, FunctionalException {
+        return missionManager.saveMission(mission,idAssociation);
+    }
+
+    @Override
+    @PostMapping(value = "mission/{idMission}/inscription")
+    public Inscription saveInscription(@RequestBody Inscription inscription, @PathVariable Integer idMission) throws FunctionalException {
+        return inscriptionManager.saveInscription(inscription,idMission);
+    }
+
+    @Override
+    @DeleteMapping(value = "/mission/{idMission}")
+    public void deleteMission(@PathVariable Integer idMission) throws NotFoundException {
+        missionManager.deleteMission(idMission);
+    }
+
+    @Override
+    @DeleteMapping(value = "/inscription")
+    public Boolean deleteInscription(@RequestParam Integer idInscription) throws NotFoundException {
+        inscriptionManager.deleteInscription(idInscription);
+        return true;
+    }
+
+    @Override
+    @PostMapping(value = "/deleteInscriptions")
+    public void deleteListeInscriptions(@RequestBody List<Integer> idsInscriptions) {
+        inscriptionManager.deleteListeInscription(idsInscriptions);
+    }
+
+    @Override
+    @GetMapping(value = "association/{idAssociation}/missions")
+    public List<Mission> getMissionByIdAsso(@PathVariable Integer idAssociation) throws NotFoundException, FunctionalException {
+        return missionManager.getMissionsByIdAsso(idAssociation);
+    }
+
+    @Override
+    @GetMapping(value = "mission/{idMission}/inscriptions")
+    public List<InscriptionDTO> getInscriptionsByIdMission(@PathVariable Integer idMission) {
+        return inscriptionManager.getInsctriptionByMission(idMission);
+    }
+
+    @Override
+    @GetMapping(value = "association/{idAssociation}")
+    public Association getAssociation(@RequestParam Integer idAssociation) throws NotFoundException, FunctionalException{
+        return associationManager.getAssociation(idAssociation);
+    }
+
+    @Override
+    @PostMapping(value = "association")
+    public Association saveAssociation(@RequestBody Association association) throws NotFoundException, FunctionalException{
+        return associationManager.saveAssociation(association);
     }
 }

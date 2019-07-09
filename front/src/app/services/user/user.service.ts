@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Token} from '../../model/Token';
 import {Router} from '@angular/router';
@@ -20,6 +20,7 @@ export class UserService {
 
   public user: User;
   public redirectUrl: string;
+  public errorAsso: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
 
   constructor(private http: HttpClient, private  router: Router, private tokenStorage: TokenStorage, public jwtHelper: JwtHelperService) {
@@ -33,11 +34,15 @@ export class UserService {
 
   }
 
+  getErrorAsso(): Observable<boolean> {
+    console.log('error' + this.errorAsso.value);
+    return this.errorAsso.asObservable();
+  }
+
   redirect(): void {
     console.log('redirect');
     console.log(this.redirectUrl);
     if (this.redirectUrl) {
-      console.log(this.redirectUrl);
       this.router.navigate([this.redirectUrl]);
       this.redirectUrl = null;
     } else {
@@ -46,8 +51,7 @@ export class UserService {
   }
 
   redirectWithUrl(url: string): void {
-    console.log('redirect');
-    console.log(url);
+
 
       this.router.navigate([url]);
 
@@ -60,6 +64,7 @@ export class UserService {
 
   logout(): void {
     this.tokenStorage.signOut();
+    this.errorAsso.next(true);
   }
 
   public getUser(): Observable<User> {
@@ -67,4 +72,5 @@ export class UserService {
       return this.http.get<User>(this.baseUrl + 'user/getUser', httpOptions);
     }
   }
+
 }

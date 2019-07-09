@@ -1,6 +1,7 @@
 package fr.mb.volontario.model.bean;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -129,7 +130,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association")
-    @JsonBackReference(value="asso-mission")
+    @JsonIgnore
     public Set<Mission> getMissions() {
         return missions;
     }
@@ -151,7 +152,7 @@ public class Association implements Serializable {
     }
 
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
-    @JsonBackReference(value="asso-user")
+    @JsonIgnore
     public Set<User> getUsers() {
         return users;
     }

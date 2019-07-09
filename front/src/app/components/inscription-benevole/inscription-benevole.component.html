@@ -10,13 +10,13 @@
       <label>Identifiant</label>
 
       <input
-      class="form-control"
-      matInput placeholder="Identifiant de connexion"
-      [(ngModel)]="user.identifiant"
-      name="identifiant"
-      aria-label="Identifiant"
-      required
-    >
+        class="form-control"
+        matInput placeholder="Identifiant de connexion"
+        [(ngModel)]="user.identifiant"
+        name="identifiant"
+        aria-label="Identifiant"
+        required
+      >
       <label>Mot de passe</label>
 
       <input
@@ -75,7 +75,8 @@
         required
       >
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let feature of adressResults"  [(value)]="feature.properties.label" (onSelectionChange)="onSelectionChanged(feature)">
+        <mat-option *ngFor="let feature of adressResults" [(value)]="feature.properties.label"
+                    (onSelectionChange)="onSelectionChanged(feature)">
           {{feature.properties.label}}
         </mat-option>
 
@@ -83,7 +84,7 @@
       <div class="row m-2" *ngIf="adresseError"
            class="alert alert-danger">
         <div *ngIf="adresseError">
-         Choisissez une adresse après avoir saisie votre adresse
+          Choisissez une adresse après avoir saisie votre adresse
         </div>
       </div>
 
@@ -97,7 +98,7 @@
         </div>
 
 
-  </div>
+      </div>
     </form>
 
   </div>
