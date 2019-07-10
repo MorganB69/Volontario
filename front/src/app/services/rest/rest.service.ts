@@ -9,6 +9,8 @@ import {Association} from '../../model/Association';
 import {Benevole} from '../../model/Benevole';
 import {Inscription} from '../../model/Inscription';
 import {InscriptionDTO} from '../../model/dto/InscriptionDTO';
+import {InscriptAssoDTO} from '../../model/dto/InscriptAssoDTO';
+import {InscriptBeneDTO} from '../../model/dto/InscriptBeneDTO';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -46,13 +48,13 @@ recherche(recherche: Recherche) {
 }
 
 // Appel WS : Inscription d'une association
-inscriptionAsso(association: Association) {
+inscriptionAsso(association: InscriptAssoDTO) {
     console.log(association);
     return this.http.post<Association>(this.baseUrl + 'association/inscription', association, {headers: headers});
 }
 
 // Appel WS : Inscription bénévole
-inscriptionBene(benevole: Benevole) {
+inscriptionBene(benevole: InscriptBeneDTO) {
     console.log(benevole);
     return this.http.post<Benevole>(this.baseUrl + 'benevole/inscription', benevole, {headers: headers});
   }

@@ -15,6 +15,7 @@ import {User} from '../../model/User';
 import {ModalErrorComponent} from '../../modal-error/modal-error.component';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {InscriptAssoDTO} from '../../model/dto/InscriptAssoDTO';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class InscriptionComponent implements OnInit {
   adresse: Adresse = new Adresse();
   user: User = new User();
   @Input()
-   association: Association = new Association();
+   association: InscriptAssoDTO = new InscriptAssoDTO();
   @Input()
    denomination: string;
   searchBoxAdress: string;
@@ -80,7 +81,7 @@ export class InscriptionComponent implements OnInit {
     .subscribe((res) => {
       if (res.records.length !== 0) {
         this.siretValid = true,
-        this.association.nom = res.records[0].fields.l1_normalisee,
+        this.association.association.nom = res.records[0].fields.l1_normalisee,
           this.searchBoxAdress = (res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree),
           this.adresseService.adresseSearch(res.records[0].fields.l4_declaree + ' ' + res.records[0].fields.l6_declaree).subscribe(
             (resu) => this.featureAdresse = resu.features[0]
@@ -90,8 +91,8 @@ export class InscriptionComponent implements OnInit {
 
 
   reset() {
-    this.association.siret = null;
-    this.association.nom = null;
+    this.association.association.siret = null;
+    this.association.association.nom = null;
     this.searchBoxAdress = null;
     this.featureAdresse = null;
     this.siretValid = false;
@@ -119,13 +120,12 @@ export class InscriptionComponent implements OnInit {
     if (this.selectedFiles) {
       this.currentFileUpload = this.selectedFiles.item(0);
       this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe();
-      this.association.photo = this.selectedFiles.item(0).name;
+      this.association.association.photo = this.selectedFiles.item(0).name;
       this.selectedFiles = undefined;
     }
     this.adresse.jsonToAdresse(this.featureAdresse);
-    this.association.adresse = this.adresse;
-    this.user.role = 'ASSO';
-    this.association.users.push(this.user);
+    this.association.association.adresse = this.adresse;
+    this.association.role = 'ASSO';
     this.restService.inscriptionAsso(this.association).subscribe();
     const modalRef = this.modal.open(ModalErrorComponent);
     modalRef.componentInstance.body = 'Vous allez être redirigé vers la page de Login';

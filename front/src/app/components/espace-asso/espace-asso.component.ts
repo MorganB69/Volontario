@@ -29,8 +29,11 @@ export class EspaceAssoComponent implements OnInit {
     this.authService.getUser().subscribe(res => {
         if (res) {
           this.user = res;
+          console.log(this.user);
           this.association = this.user.association;
-          this.getImage(this.association);
+          if (this.association) {
+            this.getImage(this.association);
+          }
           console.log(this.association);
         }
       }

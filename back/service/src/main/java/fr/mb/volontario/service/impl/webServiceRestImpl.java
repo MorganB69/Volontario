@@ -5,6 +5,8 @@ import fr.mb.volontario.business.contract.InscriptionManager;
 import fr.mb.volontario.business.contract.MissionManager;
 import fr.mb.volontario.business.contract.UserManager;
 import fr.mb.volontario.model.bean.*;
+import fr.mb.volontario.model.dto.InscriptAssoDTO;
+import fr.mb.volontario.model.dto.InscriptBeneDTO;
 import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
@@ -74,18 +76,16 @@ public class webServiceRestImpl implements webServiceRest {
 
     @Override
     @PostMapping(value = "/association/inscription")
-    public Association inscriptionAssociation(@RequestBody Association association) throws FunctionalException {
+    public Association inscriptionAssociation(@RequestBody InscriptAssoDTO association) throws FunctionalException {
        logger.info(association.toString());
-        association = inscriptionManager.inscriptionAsso(association);
-        return association;
+       return inscriptionManager.inscriptionAsso(association);
     }
 
     @Override
     @PostMapping(value = "/benevole/inscription")
-    public Benevole inscriptionBenevole(@RequestBody Benevole benevole) throws FunctionalException {
+    public Benevole inscriptionBenevole(@RequestBody InscriptBeneDTO benevole) throws FunctionalException {
         logger.info(benevole.toString());
-        benevole = inscriptionManager.inscriptionBene(benevole);
-        return benevole;
+        return inscriptionManager.inscriptionBene(benevole);
     }
 
     @Override

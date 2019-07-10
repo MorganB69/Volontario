@@ -9,6 +9,7 @@ import {RestService} from '../../services/rest/rest.service';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalErrorComponent} from '../../modal-error/modal-error.component';
+import {InscriptBeneDTO} from '../../model/dto/InscriptBeneDTO';
 
 @Component({
   selector: 'app-inscription-benevole',
@@ -22,7 +23,7 @@ export class InscriptionBenevoleComponent implements OnInit {
   featureAdresse: Feature;
   adresse: Adresse = new Adresse();
   user: User = new User();
-  benevole: Benevole = new Benevole();
+  benevole: InscriptBeneDTO = new InscriptBeneDTO();
   adresseError = false;
 
 
@@ -57,9 +58,8 @@ export class InscriptionBenevoleComponent implements OnInit {
       this.adresseError = true;
     } else {
       this.adresse.jsonToAdresse(this.featureAdresse);
-      this.benevole.adresse = this.adresse;
-      this.user.role = 'BENE';
-      this.benevole.user = this.user;
+      this.benevole.benevole.adresse = this.adresse;
+      this.benevole.role = 'BENE';
       this.restService.inscriptionBene(this.benevole).subscribe();
       const modalRef = this.modal.open(ModalErrorComponent);
       modalRef.componentInstance.body = 'Vous allez être redirigé vers la page de Login';

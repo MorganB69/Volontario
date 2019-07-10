@@ -3,6 +3,8 @@ package fr.mb.volontario.business.contract;
 import fr.mb.volontario.model.bean.Association;
 import fr.mb.volontario.model.bean.Benevole;
 import fr.mb.volontario.model.bean.Inscription;
+import fr.mb.volontario.model.dto.InscriptAssoDTO;
+import fr.mb.volontario.model.dto.InscriptBeneDTO;
 import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
@@ -20,7 +22,7 @@ public interface InscriptionManager {
      * @return
      * @throws FunctionalException
      */
-    Association inscriptionAsso(Association association) throws FunctionalException;
+    Association inscriptionAsso(InscriptAssoDTO association) throws FunctionalException;
 
     /**
      * Inscription d'un bénévole à une mission
@@ -28,7 +30,7 @@ public interface InscriptionManager {
      * @return
      * @throws FunctionalException
      */
-    Benevole inscriptionBene(Benevole benevole) throws FunctionalException;
+    Benevole inscriptionBene(InscriptBeneDTO benevole) throws FunctionalException;
 
     /**
      * Création d'une inscription

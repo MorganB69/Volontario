@@ -1,6 +1,8 @@
 package fr.mb.volontario.service.contract;
 
 import fr.mb.volontario.model.bean.*;
+import fr.mb.volontario.model.dto.InscriptAssoDTO;
+import fr.mb.volontario.model.dto.InscriptBeneDTO;
 import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
@@ -53,7 +55,7 @@ public interface webServiceRest {
      * @return l'association
      * @throws FunctionalException
      */
-    Association inscriptionAssociation(Association association) throws FunctionalException;
+    Association inscriptionAssociation(InscriptAssoDTO association) throws FunctionalException;
 
     /**
      * Inscription d'un bénévole
@@ -61,7 +63,7 @@ public interface webServiceRest {
      * @return benevole
      * @throws FunctionalException
      */
-    Benevole inscriptionBenevole(Benevole benevole) throws FunctionalException;
+    Benevole inscriptionBenevole(InscriptBeneDTO benevole) throws FunctionalException;
 
 
     /**

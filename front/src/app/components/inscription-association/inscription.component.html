@@ -13,7 +13,7 @@
         <input
                class="form-control"
                matInput placeholder="Saisir le numéro siret"
-               [(ngModel)]="association.siret"
+               [(ngModel)]="association.association.siret"
                aria-label="Siret"
                name="Siret"
                required
@@ -30,10 +30,10 @@
 
 
         <div class="row justify-content-center">
-        <button class="btn btn-special"[disabled]="formSiret.invalid" type="button" (click)="refresh(association.siret)">Rechercher</button></div>
+        <button class="btn btn-special"[disabled]="formSiret.invalid" type="button" (click)="refresh(association.association.siret)">Rechercher</button></div>
           </form>
           <div class="row m-3">
-          Dénomination : {{association.nom}}
+          Dénomination : {{association.association.nom}}
           </div>
           <div class="row m-3">
           Adresse : {{searchBoxAdress}}
@@ -50,7 +50,7 @@
       <input
         class="form-control"
         matInput placeholder="Identifiant de connexion"
-        [(ngModel)]="user.identifiant"
+        [(ngModel)]="association.identifiant"
         name="identifiant"
         aria-label="Identifiant"
         required
@@ -61,7 +61,7 @@
       class="form-control"
       matInput placeholder="Mot de passe de connexion"
       type="password"
-      [(ngModel)]="user.mdp"
+      [(ngModel)]="association.mdp"
       name="mdp"
       aria-label="Mdp"
       required
@@ -71,7 +71,7 @@
         class="form-control"
         matInput placeholder="E-mail"
         type="email"
-        [(ngModel)]="user.mail"
+        [(ngModel)]="association.mail"
         name="mail"
         aria-label="mail"
         required
@@ -89,14 +89,14 @@
       <input
         class="form-control"
         matInput placeholder="Adresse web si existante"
-        [(ngModel)]="association.web"
+        [(ngModel)]="association.association.web"
         name="web"
         aria-label="Web"
       >
 
       <div class="form-group">
         <label class="row m-2" for="domaine">Domaine associatif</label>
-        <select multiple [(ngModel)]="association.domaines" name="domaine" class="row form-control"  id="domaine" required>
+        <select multiple [(ngModel)]="association.association.domaines" name="domaine" class="row form-control"  id="domaine" required>
 
           <option *ngFor="let domaine of domaines" [(ngValue)]="domaine">{{domaine.nom}}</option>
         </select>
@@ -109,7 +109,7 @@
                   rows="8"
                   id="description"
                   matInput placeholder="Décrivez votre association, ses activités, son historique etc."
-                  [(ngModel)]="association.description"
+                  [(ngModel)]="association.association.description"
                   name="description"
                   aria-label="Description"
                   required></textarea>

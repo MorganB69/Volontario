@@ -86,7 +86,6 @@ public class User implements Serializable {
     }
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_benevole")
-    @JsonManagedReference(value = "bene-user")
     public Benevole getBenevole() {
         return benevole;
     }

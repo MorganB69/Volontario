@@ -12,7 +12,7 @@
       <input
         class="form-control"
         matInput placeholder="Identifiant de connexion"
-        [(ngModel)]="user.identifiant"
+        [(ngModel)]="benevole.identifiant"
         name="identifiant"
         aria-label="Identifiant"
         required
@@ -23,7 +23,7 @@
         class="form-control"
         matInput placeholder="Mot de passe de connexion"
         type="password"
-        [(ngModel)]="user.mdp"
+        [(ngModel)]="benevole.mdp"
         name="mdp"
         aria-label="Mdp"
         required
@@ -33,7 +33,7 @@
         class="form-control"
         matInput placeholder="E-mail"
         type="email"
-        [(ngModel)]="user.mail"
+        [(ngModel)]="benevole.mail"
         name="mail"
         aria-label="mail"
         required
@@ -47,7 +47,7 @@
       <input
         class="form-control"
         matInput placeholder="Prénom"
-        [(ngModel)]="benevole.prenom"
+        [(ngModel)]="benevole.benevole.prenom"
         name="prenom"
         aria-label="Prénom"
         required
@@ -57,7 +57,7 @@
       <input
         class="form-control"
         matInput placeholder="Prénom"
-        [(ngModel)]="benevole.nom"
+        [(ngModel)]="benevole.benevole.nom"
         name="nom"
         aria-label="Nom"
         required

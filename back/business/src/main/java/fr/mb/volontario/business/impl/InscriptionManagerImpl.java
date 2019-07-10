@@ -2,11 +2,10 @@ package fr.mb.volontario.business.impl;
 
 import fr.mb.volontario.business.contract.InscriptionManager;
 import fr.mb.volontario.dao.contract.*;
-import fr.mb.volontario.model.bean.Association;
-import fr.mb.volontario.model.bean.Benevole;
-import fr.mb.volontario.model.bean.Inscription;
-import fr.mb.volontario.model.bean.Mission;
+import fr.mb.volontario.model.bean.*;
 import fr.mb.volontario.model.dto.BenevoleDTO;
+import fr.mb.volontario.model.dto.InscriptAssoDTO;
+import fr.mb.volontario.model.dto.InscriptBeneDTO;
 import fr.mb.volontario.model.dto.InscriptionDTO;
 import fr.mb.volontario.model.exception.FunctionalException;
 import fr.mb.volontario.model.exception.NotFoundException;
@@ -47,29 +46,42 @@ public class InscriptionManagerImpl implements InscriptionManager {
      */
     @Override
     @Transactional
-    public Association inscriptionAsso(Association association) throws FunctionalException {
-        if (associationDAO.existsBySiret(association.getSiret()))
+    public Association inscriptionAsso(InscriptAssoDTO association) throws FunctionalException {
+        if (associationDAO.existsBySiret(association.getAssociation().getSiret()))
             throw new FunctionalException("L'association est déjà enregistrée");
 
-        else if (userDao.existsByIdentifiant(association.getUsers().iterator().next().getIdentifiant()))
+        else if (userDao.existsByIdentifiant(association.getIdentifiant()))
             throw new FunctionalException("L'identifiant est déjà utilisé");
-        else if (association.getPhoto() == null) association.setPhoto("photodef.jpg");
-        association.getUsers().iterator().next().setMdp((bcryptEncoder.encode(association.getUsers().iterator().next().getMdp())));
-        associationDAO.save(association);
-
-        return association;
+        else if (association.getAssociation().getPhoto() == null) association.getAssociation().setPhoto("photodef.jpg");
+        Association asso = new Association();
+        asso = association.getAssociation();
+        User user = new User();
+        user.setIdentifiant(association.getIdentifiant());
+        user.setMdp(bcryptEncoder.encode(association.getMdp()));
+        user.setRole(association.getRole());
+        user.setMail(association.getMail());
+        user.setAssociation(asso);
+        asso.getUsers().add(user);
+        return  associationDAO.save(asso);
     }
 
     @Override
     @Transactional
-    public Benevole inscriptionBene(Benevole benevole) throws FunctionalException {
-        if (userDao.existsByIdentifiant(benevole.getUser().getIdentifiant()))
+    public Benevole inscriptionBene(InscriptBeneDTO benevole) throws FunctionalException {
+        Benevole bene;
+        if (userDao.existsByIdentifiant(benevole.getIdentifiant()))
             throw new FunctionalException("L'identifiant est déjà utilisé");
         else {
-            benevole.getUser().setMdp((bcryptEncoder.encode(benevole.getUser().getMdp())));
-            benevoleDAO.save(benevole);
+            bene = benevole.getBenevole();
+            User user = new User();
+            user.setIdentifiant(benevole.getIdentifiant());
+            user.setMdp(bcryptEncoder.encode(benevole.getMdp()));
+            user.setRole(benevole.getRole());
+            user.setMail(benevole.getMail());
+            user.setBenevole(bene);
+            bene.setUser(user);
+            return benevoleDAO.save(bene);
         }
-        return benevole;
     }
 
     @Override
