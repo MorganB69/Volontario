@@ -3,7 +3,7 @@ package fr.mb.volontario.model.dto;
 import fr.mb.volontario.model.bean.Benevole;
 
 public class InscriptBeneDTO {
-    Benevole benevole;
+    Benevole benevole = new Benevole();
     String identifiant;
     String mdp;
     String mail;

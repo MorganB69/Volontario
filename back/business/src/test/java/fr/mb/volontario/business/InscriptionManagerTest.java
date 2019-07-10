@@ -49,6 +49,7 @@ public class InscriptionManagerTest {
         adresse.setDepartement("test");
         adresse.setCommune("test");
         adresse.setVoie("rue test");
+        asso.getAssociation().setAdresse(adresse);
 
         Association assoTest = inscriptionManager.inscriptionAsso(asso);
         Assert.assertEquals("testNom", assoTest.getNom());
@@ -73,7 +74,7 @@ public class InscriptionManagerTest {
         adresse.setDepartement("test");
         adresse.setCommune("test");
         adresse.setVoie("rue test");
-
+        bene.getBenevole().setAdresse(adresse);
 
         Benevole beneTest = inscriptionManager.inscriptionBene(bene);
         Assert.assertEquals("testNom", beneTest.getNom());

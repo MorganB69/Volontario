@@ -3,7 +3,7 @@ package fr.mb.volontario.model.dto;
 import fr.mb.volontario.model.bean.Association;
 
 public class InscriptAssoDTO {
-    Association association;
+    Association association = new Association();
     String identifiant;
     String mdp;
     String mail;
