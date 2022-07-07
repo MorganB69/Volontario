@@ -28,7 +28,7 @@
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngx-tempusdominus-bootstrap": "^1.0.1",
     "rollbar": "^2.5.2",
     "rxjs": "~6.3.3",
